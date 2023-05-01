@@ -38,4 +38,3 @@ def formatCheck(text):
         return False
 
 
-def emailAlreadyExist()
