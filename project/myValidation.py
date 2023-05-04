@@ -1,9 +1,9 @@
-########################################################################################################
+########################################################################################################################
 #  Name: Kurt
 #  purpose of module: create functions for all validation checks I need
-#  bugs or notes: added isStringCHeck and isNumericCheck
+#  bugs or notes: added isStringCHeck and isNumericCheck, next time use regex for data format and phone number
 #  date:  04/05/23
-########################################################################################################
+########################################################################################################################
 
 def isStringCheck(text):  # checks if the text is a string
     is_string = isinstance(text, str)

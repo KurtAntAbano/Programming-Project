@@ -1,8 +1,8 @@
 to do list for validation:
 - length check DONE
-- is string check
-- is numeric check
-- date check
+- is string check  DONE
+- is numeric check  DONE
+- date check  DONE
 - email validation
 - post code validation
 - checking if postcode exists (use API)
