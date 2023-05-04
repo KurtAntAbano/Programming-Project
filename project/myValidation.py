@@ -1,3 +1,13 @@
+########################################################################################################
+#  Name: Kurt
+#  purpose of module:
+#  bugs or notes:
+#  date:
+########################################################################################################
+
+
+
+
 def isValidLength(text, length, s):
     x = isinstance(text, str)
     if x:
@@ -28,6 +38,7 @@ def rangeCheck(text, lm, ul):
     else:
         return False
 
+
 def formatCheck(text):
     if len(text) == 10:
         if text[2] == "/" and text[5] == "/":
@@ -36,6 +47,3 @@ def formatCheck(text):
             return False
     else:
         return False
-
-
-def emailAlreadyExist()

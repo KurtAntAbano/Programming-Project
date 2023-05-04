@@ -1,0 +1,30 @@
+to do list for validation:
+- length check DONE
+- is string check
+- is numeric check
+- date check
+- email validation
+- post code validation
+- checking if postcode exists (use API)
+
+use good variable names, this is especially needed in tkinter as you are using loads of widgets
+e.g:
+txt_customer (text)
+lbl_customer (label)
+btn_customer (button)
+lst_customer (list)
+
+
+use comments on the top of files and next to functions, saying what the main purpose is
+####################################################################################
+# Name:
+# purpose of module:
+# bugs or note:
+# date:
+#####################################################################################
+
+use error trapping
+use try and except especially when testing functions, this is to avoid the program crashing
+
+
+
