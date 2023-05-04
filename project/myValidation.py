@@ -53,6 +53,7 @@ def dateFormatCheck(text):  # checks if a string is in the correct date format
     else:
         return False
     #  incorporate the date validation file into this function to check whether the dat can actually exist
+    #  create a function called, 'isValidDate()'
 
 
 if __name__ == "__main__":
