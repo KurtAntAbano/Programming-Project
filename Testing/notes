@@ -27,4 +27,9 @@ use error trapping
 use try and except especially when testing functions, this is to avoid the program crashing
 
 
+naming is very important
+example if you name a file tkinter and u try to import it, the program wont work
+DONT mix up variables
+
+
 
