@@ -1,0 +1,18 @@
+for logins we want to be able to control who and how many people can create accounts.
+
+solution 1:
+1 account for everyone, password is preset and cannot change and everyone know it
+
+solution 2:
+- multi-users
+- each with their own passwords and username
+- two access rights: Admins and users
+
+admins: create accounts (sent by email), change passwords, delete accounts, etc...
+
+user: change passwords, + other options related to the program
+
+
+in order to implement solution 2:
+u need three windows one for username+password, admin menu, user menu
+use attempts and validation
