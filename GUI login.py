@@ -142,7 +142,7 @@ def login_verify(w, username, password):
     content = f.read()
     if login_details in content: # checks of the login details are in the text file, 'user_data'
         messagebox.showinfo(title="Success", message="*Login successful")
-        username.delete
+
     else:
         messagebox.showinfo(title="ERROR", message="*Username or password does not match!")
         w.destroy()
