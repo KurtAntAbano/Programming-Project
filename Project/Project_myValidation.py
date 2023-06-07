@@ -4,6 +4,11 @@
 #  bugs or notes: added isStringCHeck and isNumericCheck, next time use regex for data format and phone number
 #  date:  04/05/23
 ########################################################################################################################
+from validate_email_address import validate_email
+
+
+
+
 
 def isStringCheck(text):  # checks if the text is a string
     is_string = isinstance(text, str)
