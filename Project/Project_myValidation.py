@@ -4,9 +4,24 @@
 #  bugs or notes: added isStringCHeck and isNumericCheck, next time use regex for data format and phone number
 #  date:  04/05/23
 ########################################################################################################################
-from validate_email_address import validate_email
+# def is_valid_email(email):
+#     from validate_email_address import validate_email
+#     isValid = validate_email(email)
+#     if isValid:
+#         isExists = validate_email(email, verify=True)
+#         if isExists:
+#             return True
+#         else:
+#             return False
 
+def is_valid_email(email):
+    from validate_email import validate_email
 
+    isExists = validate_email(email, verify=True)
+    if isExists:
+        return True
+    else:
+        return False
 
 
 
@@ -26,12 +41,25 @@ def isNumericCheck(text):  # checks if the text is an integer
         return False
 
 
-def isValidLength(text, length):  # function checks whether the string is the appropriate length
-    if isStringCheck(text):
+def isValidLength(text, length, state):  # function checks whether the string is the appropriate length
+    if state == 1:
         if len(text) == length:
             return True
         else:
             return False
+
+    elif state == 2:
+        if len(text) >= length:
+            return True
+        else:
+            return False
+
+    elif state == 3:
+        if len(text) >= length:
+            return True
+        else:
+            return False
+
 
 
 def presenceCheck(text):  # function checks if the text is empty

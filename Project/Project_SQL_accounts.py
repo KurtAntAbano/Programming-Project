@@ -94,10 +94,9 @@ if __name__=="__main__":
     myDB = login() # creating an object
     # uncomment to test when appropriate .......
 
-    # myDB.createTable()
-    # myDB.insertData("abid2", "Abid_password")
-    # myDB.createDictionary()
-    # myDB.showAllRecords()
+    myDB.createTable()
+    myDB.insertData("kurtabano@gmail.com", "Kurt_password")
+    myDB.showAllRecords()
     # print(myDB.searchUser("abid41", "Abid_password"))
     # print(myDB.deleteRecord("abid2"))
     # myDB.updatePassword("abid", "newPassword")
