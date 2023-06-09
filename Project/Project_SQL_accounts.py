@@ -97,7 +97,7 @@ if __name__=="__main__":
     myDB.createTable()
     myDB.insertData("kurtabano@gmail.com", "Kurt_password")
     myDB.showAllRecords()
-    # print(myDB.searchUser("abid41", "Abid_password"))
+    print(myDB.searchUser("kurtabano@gmail.com", "Kurt_password"))
     # print(myDB.deleteRecord("abid2"))
     # myDB.updatePassword("abid", "newPassword")
     # print("--------------------------------")

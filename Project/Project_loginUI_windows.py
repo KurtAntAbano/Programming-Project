@@ -6,8 +6,13 @@
 #  USE KWARGS AND ARGS
 #  date:  12/05/23
 ########################################################################################################################
-
+from Project_loginUI import login_verify
 from tkinter import *
+# from Project_SQL_accounts import login
+
+
+
+
 #from tkinter import messagebox
 
 
@@ -35,7 +40,7 @@ def accountWindow():
     password_entry = Entry(loginWindow, width=30)
     password_entry.grid(row=3, column=1, padx=10, pady=10, sticky="E")
 
-    loginbutton = Button(loginWindow, text="login", width=12) #,command = lambda: login_verify(win2, username_entry,  password_entry))
+    loginbutton = Button(loginWindow, text="login", width=12, command=lambda: login_verify(loginWindow, username_entry,password_entry))
     loginbutton.grid(row=4, column=1, padx=10, pady=10)
 
     backButton = Button(loginWindow, text="Exit",command=lambda: quit())
