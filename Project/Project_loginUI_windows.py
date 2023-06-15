@@ -8,14 +8,11 @@
 ########################################################################################################################
 from Project_loginUI import login_verify
 from tkinter import *
-# from Project_SQL_accounts import login
-
-
+# from Project_myValidation import is_valid_email
+from Project_SQL_accounts import login
 
 
 #from tkinter import messagebox
-
-
 
 
 
@@ -40,7 +37,9 @@ def accountWindow():
     password_entry = Entry(loginWindow, width=30)
     password_entry.grid(row=3, column=1, padx=10, pady=10, sticky="E")
 
-    loginbutton = Button(loginWindow, text="login", width=12, command=lambda: login_verify(loginWindow, username_entry,password_entry))
+    loginbutton = Button(loginWindow, text="login", width=12, command=lambda: login_verify(loginWindow,
+                                                                                           accountDB, username_entry,
+                                                                                           password_entry))
     loginbutton.grid(row=4, column=1, padx=10, pady=10)
 
     backButton = Button(loginWindow, text="Exit",command=lambda: quit())
@@ -57,5 +56,11 @@ def userMenu():
 
 
 
+
 if __name__ == "__main__":
+    accountDB = login()# creating an object
+    # uncomment to test when appropriate .......
+
+    accountDB.createTable()
+    accountDB.insertData("kurtabano@gmail.com", "Kurt_password")
     accountWindow()
