@@ -61,6 +61,7 @@ if __name__ == "__main__":
     accountDB = login()# creating an object
     # uncomment to test when appropriate .......
 
+
     accountDB.createTable()
     accountDB.insertData("kurtabano@gmail.com", "Kurt_password")
     accountWindow()
