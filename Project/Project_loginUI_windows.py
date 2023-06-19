@@ -25,9 +25,9 @@ def open_menu(w, database, email_entry, password_entry, flag):
     w.destroy()
 
 
-    if login_verify(database, email, password) == True:
+    if login_verify(database, email, password):
         if flag == "user":
-            userMenu()
+            userMenu(email)
         else:
             adminMenu()
     else:
@@ -116,12 +116,17 @@ def adminMenu():
 
 
 
-def userMenu():
+def userMenu(email_entry):
+    username = email_entry
     userMenu = Tk()
     userMenu.geometry("400x200")
 
     user_label = Label(userMenu, text = "USER MENU")
     user_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
+
+    changebutton = Button(userMenu, text="change password", width=12, command=lambda: changePasswordwindow(userMenu,
+                                                                                                           username))
+    changebutton.grid(row=4, column=1, padx=10, pady=10)
 
     backButton = Button(userMenu, text="Back", command=lambda: back(userMenu))# passes the current window
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
@@ -146,6 +151,27 @@ def deleteWindow(w):
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
 
 
+def changePasswordwindow(w, username):
+    w.destroy()
+    changeMenu = Tk()
+    changeMenu.geometry("400x250")
+
+    password_label = Label(changeMenu, text = "Password")
+    password_label.grid(row=3, column=0, padx=10, pady=10, sticky="W")
+
+    password_relabel = Label(changeMenu, text = "Re-enter Password")
+    password_relabel.grid(row=4, column=0, padx=10, pady=10, sticky="W")
+
+    password_entry = Entry(changeMenu, width=30)
+    password_entry.grid(row=3, column=1, padx=10, pady=10, sticky="E")
+
+    password_reentry = Entry(changeMenu, width=30)
+    password_reentry.grid(row=4, column=1, padx=10, pady=10, sticky="E")
+
+    # submitbutton = Button(changeMenu, text="create account", width=12, command = lambda:
+
+    backButton = Button(changeMenu, text="Back", command=lambda: back(changeMenu))# passes the current window
+    backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
 
 
 

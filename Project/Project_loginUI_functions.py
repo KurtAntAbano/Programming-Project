@@ -39,3 +39,5 @@ def deleteUser(database, username_entry):
         messagebox.showinfo(title="ERROR", message="*User does not exist")
     else:
         messagebox.showinfo(title="SUCCESS", message="*User deleted")
+
+def changePassword(database):
