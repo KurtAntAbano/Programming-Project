@@ -40,4 +40,11 @@ def deleteUser(database, username_entry):
     else:
         messagebox.showinfo(title="SUCCESS", message="*User deleted")
 
-def changePassword(database):
+def changePassword(database,username, newPassword):
+    password = newPassword.get()
+
+
+    if database.updatePassword(username, password) == False:
+        messagebox.showinfo(title="ERROR", message="*User does not exist")
+    else:
+        messagebox.showinfo(title="SUCCESS", message="*Password changed")

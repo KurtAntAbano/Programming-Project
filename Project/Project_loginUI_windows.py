@@ -6,7 +6,7 @@
 #  USE KWARGS AND ARGS
 #  date:  12/05/23
 ########################################################################################################################
-from Project_loginUI_functions import login_verify, deleteUser
+from Project_loginUI_functions import login_verify, deleteUser, changePassword
 from tkinter import *
 from Project_SQL_accounts import login
 from tkinter import ttk
@@ -156,19 +156,17 @@ def changePasswordwindow(w, username):
     changeMenu = Tk()
     changeMenu.geometry("400x250")
 
-    password_label = Label(changeMenu, text = "Password")
-    password_label.grid(row=3, column=0, padx=10, pady=10, sticky="W")
+    newPassword_label = Label(changeMenu, text = "Password")
+    newPassword_label.grid(row=3, column=0, padx=10, pady=10, sticky="W")
 
-    password_relabel = Label(changeMenu, text = "Re-enter Password")
-    password_relabel.grid(row=4, column=0, padx=10, pady=10, sticky="W")
+    newPassword_entry = Entry(changeMenu, width=30)
+    newPassword_entry.grid(row=3, column=1, padx=10, pady=10, sticky="E")
 
-    password_entry = Entry(changeMenu, width=30)
-    password_entry.grid(row=3, column=1, padx=10, pady=10, sticky="E")
 
-    password_reentry = Entry(changeMenu, width=30)
-    password_reentry.grid(row=4, column=1, padx=10, pady=10, sticky="E")
-
-    # submitbutton = Button(changeMenu, text="create account", width=12, command = lambda:
+    submitbutton = Button(changeMenu, text="submit new password", width=18, command = lambda: changePassword(accountDB,
+                                                                                                        username,
+                                                                                                        newPassword_entry))
+    submitbutton.grid(row=5, column=1, padx=10, pady=10)
 
     backButton = Button(changeMenu, text="Back", command=lambda: back(changeMenu))# passes the current window
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
