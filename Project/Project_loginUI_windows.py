@@ -6,7 +6,7 @@
 #  USE KWARGS AND ARGS
 #  date:  12/05/23
 ########################################################################################################################
-from Project_loginUI import login_verify
+from Project_loginUI_functions import login_verify, deleteUser
 from tkinter import *
 from Project_SQL_accounts import login
 from tkinter import ttk
@@ -108,8 +108,13 @@ def adminMenu():
     admin_label = Label(adminMenu, text = "ADMIN MENU")
     admin_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
+    deletebutton = Button(adminMenu, text="delete user", width=12, command=lambda: deleteWindow(adminMenu))
+    deletebutton.grid(row=4, column=1, padx=10, pady=10)
+
     backButton = Button(adminMenu, text="Back", command=lambda: back(adminMenu))# passes the current window
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
+
+
 
 def userMenu():
     userMenu = Tk()
@@ -120,6 +125,28 @@ def userMenu():
 
     backButton = Button(userMenu, text="Back", command=lambda: back(userMenu))# passes the current window
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
+
+
+def deleteWindow(w):
+    w.destroy()
+    deleteMenu = Tk()
+    deleteMenu.geometry("400x100")
+
+    username_label = Label(deleteMenu, text="Username")
+    username_label.grid(row=2, column=0, padx=10, pady=10, sticky="W")
+
+    userToDelete = Entry(deleteMenu, width=30)
+    userToDelete.grid(row=2, column=1, padx=10, pady=10, sticky="E")
+
+    deleteButton = Button(deleteMenu, text="Delete", width=12, command=lambda: deleteUser(accountDB,
+                                                                                        userToDelete))
+    deleteButton.grid(row=4, column=1, padx=10, pady=10)
+
+    backButton = Button(deleteMenu, text="Back", command=lambda: back(deleteMenu))# passes the current window
+    backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
+
+
+
 
 
 

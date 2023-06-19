@@ -32,7 +32,10 @@ def login_verify(database, email, password):
         messagebox.showinfo(title="ERROR", message="*Please make sure all fields are completed ")
         return False
 
+def deleteUser(database, username_entry):
+    username = username_entry.get()
 
-
-
-
+    if database.deleteRecord(username) == False:
+        messagebox.showinfo(title="ERROR", message="*User does not exist")
+    else:
+        messagebox.showinfo(title="SUCCESS", message="*User deleted")
