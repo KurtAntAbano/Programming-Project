@@ -40,7 +40,7 @@ def login_verify(w, database, email_entry, password_entry, flag):
             messagebox.showinfo(title="ERROR", message="*Username or password does not match!")
             return False
     else:
-        messagebox.showinfo(title="ERROR", message= "*Please make sure all fields are completed ")
+        messagebox.showinfo(title="ERROR", message="*Please make sure all fields are completed ")
         return False
 
 

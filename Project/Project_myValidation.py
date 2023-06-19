@@ -4,15 +4,7 @@
 #  bugs or notes: added isStringCHeck and isNumericCheck, next time use regex for data format and phone number
 #  date:  04/05/23
 ########################################################################################################################
-# def is_valid_email(email):
-#     from validate_email_address import validate_email
-#     isValid = validate_email(email)
-#     if isValid:
-#         isExists = validate_email(email, verify=True)
-#         if isExists:
-#             return True
-#         else:
-#             return False
+
 
 def is_valid_email(email):
     from validate_email import validate_email
