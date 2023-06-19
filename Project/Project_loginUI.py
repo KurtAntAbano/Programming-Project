@@ -3,20 +3,7 @@ from tkinter import messagebox
 # from Project_loginUI_windows import adminMenu, userMenu
 
 
-
-
-
-
-
-
-
-
-def login_verify(w, database, email_entry, password_entry, flag):
-
-    email = email_entry.get()
-    password = password_entry.get()
-    w.destroy()
-
+def login_verify(database, email, password):
     # if presenceCheck(email) and presenceCheck(password):
     #     if is_valid_email(email):
     #         if database.searchUser(email, password):
@@ -31,6 +18,8 @@ def login_verify(w, database, email_entry, password_entry, flag):
     # else:
     #     messagebox.showinfo(title="ERROR", message= "*Please make sure all fields are completed ")
     #     return False
+
+
 
     if presenceCheck(email) and presenceCheck(password):
         if database.searchUser(email, password):

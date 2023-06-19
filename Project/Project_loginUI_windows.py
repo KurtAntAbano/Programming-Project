@@ -19,11 +19,19 @@ def back(wx):
 
 
 def open_menu(w, database, email_entry, password_entry, flag):
-    if login_verify(w, database, email_entry, password_entry, flag):
+
+    email = email_entry.get()
+    password = password_entry.get()
+    w.destroy()
+
+
+    if login_verify(database, email, password) == True:
         if flag == "user":
             userMenu()
         else:
             adminMenu()
+    else:
+        login_notebook()
 
 def login_notebook():
     win = Tk()
@@ -47,15 +55,15 @@ def login_notebook():
     password_label = Label(userLoginWin, text="Password")
     password_label.grid(row=3, column=0, padx=10, pady=10, sticky="W")
 
-    username_entry = Entry(userLoginWin, width=30)
-    username_entry.grid(row=2, column=1, padx=10, pady=10, sticky="E")
+    username_entry1 = Entry(userLoginWin, width=30)
+    username_entry1.grid(row=2, column=1, padx=10, pady=10, sticky="E")
 
-    password_entry = Entry(userLoginWin, width=30)
-    password_entry.grid(row=3, column=1, padx=10, pady=10, sticky="E")
+    password_entry1 = Entry(userLoginWin, width=30)
+    password_entry1.grid(row=3, column=1, padx=10, pady=10, sticky="E")
 
     loginbutton = Button(userLoginWin, text="login", width=12, command=lambda: open_menu(win,
-                                                                                           accountDB, username_entry,
-                                                                                           password_entry, "user"))
+                                                                                           accountDB, username_entry1,
+                                                                                           password_entry1, "user"))
     loginbutton.grid(row=4, column=1, padx=10, pady=10)
 
     backButton = Button(userLoginWin, text="Exit",command=lambda: quit())
@@ -73,15 +81,15 @@ def login_notebook():
     password_label = Label(adminLoginWin, text="Password")
     password_label.grid(row=3, column=0, padx=10, pady=10, sticky="W")
 
-    username_entry = Entry(adminLoginWin, width=30)
-    username_entry.grid(row=2, column=1, padx=10, pady=10, sticky="E")
+    username_entry2 = Entry(adminLoginWin, width=30)
+    username_entry2.grid(row=2, column=1, padx=10, pady=10, sticky="E")
 
-    password_entry = Entry(adminLoginWin, width=30)
-    password_entry.grid(row=3, column=1, padx=10, pady=10, sticky="E")
+    password_entry2 = Entry(adminLoginWin, width=30)
+    password_entry2.grid(row=3, column=1, padx=10, pady=10, sticky="E")
 
     loginbutton = Button(adminLoginWin, text="login", width=12, command=lambda: open_menu(win,
-                                                                                           accountDB, username_entry,
-                                                                                           password_entry, "admin"))
+                                                                                           accountDB, username_entry2,
+                                                                                           password_entry2, "admin"))
     loginbutton.grid(row=4, column=1, padx=10, pady=10)
 
     backButton = Button(adminLoginWin, text="Exit", command=lambda: quit())
@@ -107,7 +115,7 @@ def userMenu():
     userMenu = Tk()
     userMenu.geometry("400x200")
 
-    user_label = Label(userMenu, text = "ADMIN MENU")
+    user_label = Label(userMenu, text = "USER MENU")
     user_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
     backButton = Button(userMenu, text="Back", command=lambda: back(userMenu))# passes the current window
