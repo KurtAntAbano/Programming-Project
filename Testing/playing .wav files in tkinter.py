@@ -10,12 +10,12 @@ root = Tk() # create tkinter window
 
 play = lambda: PlaySound('c note.wav', SND_FILENAME)
 
-button = Button(root, text = 'c note', command = play)
+button = Button(root, text='c note', command=play)
 button.pack()
 
 
 
-#---------------------------KEY PRESS TEST------------------------------------------
+#  ---------------------------KEY PRESS TEST------------------------------------------
 def playNote(event):
     PlaySound('c note.wav', SND_FILENAME)
 
