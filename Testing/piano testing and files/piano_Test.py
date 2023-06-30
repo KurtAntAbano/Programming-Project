@@ -12,9 +12,6 @@ in the second I build the GUI for the piano-keyboard.
 
 @author : Dead"""
 
-pygame.init()
-
-
 def note_C0():
 	num1.set("C_0")
 	sound = pygame.mixer.Sound("wav-piano-sound-master_wav_c1.wav")
