@@ -132,6 +132,7 @@ def userMenu(email_entry):
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
 
 
+
 def deleteWindow(w):
     w.destroy()
     deleteMenu = Tk()
@@ -149,6 +150,7 @@ def deleteWindow(w):
 
     backButton = Button(deleteMenu, text="Back", command=lambda: back(deleteMenu))# passes the current window
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
+
 
 
 def changePasswordwindow(w, username):
