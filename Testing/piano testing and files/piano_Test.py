@@ -1,6 +1,7 @@
 from tkinter import *  # for python > 3.4
+import tkinter as tk
 import pygame
-
+from practice import *
 """ --__Midi0ke__--
 
 First try for Midi0ke virtual piano for the midi-output.
@@ -13,15 +14,21 @@ in the second I build the GUI for the piano-keyboard.
 @author : Dead"""
 
 
-def note_C0():
-    num1.set("C_0")
-    note = r'C:\Users\ka041\Programming-Project\Testing\piano testing and files\wav-piano-sound-master_wav_c1.wav'
-    sound = pygame.mixer.Sound(note)
-    sound.play()
-    # create object
-    # pass parameters
-    # play method to play sound
+def note_C0(soundObj):
+    # num1.set("C_0")
+    # note = r'C:\Users\ka041\Programming-Project\Testing\piano testing and files\wav-piano-sound-master_wav_c1.wav'
+    # sound = pygame.mixer.Sound(note)
+    # sound.play()
+    # # create object
+    # # pass parameters
+    # # play method to play sound
 
+    if soundObj.state.get() == "Piano":
+        noteToplay = r'C:\Users\ka041\Programming-Project\Testing\piano testing and files\wav-piano-sound-master_wav_c1.wav'
+    else:
+        noteToplay = r'C:\Users\ka041\Programming-Project\Testing\piano testing and files\56111__guitarmaster__c-note.wav'
+    noteObject = note("C_0", noteToplay)
+    noteObject.notePlay()
 
 def note_CC0():
     num1.set("C#_0")
@@ -92,13 +99,14 @@ def note_B0():
 class MyFirstGUI:
     def __init__(self, master):
         self.master = master
+        self.state = "Piano"
         master.title("Midi0ke__piano_GUI")
 
         self.Label = Label(master, text="MIDIOKE")
         self.Label.grid(row=0, columnspan=11)
 
         # Buttons for keyboard
-        self.C_0_button = Button(master, bg="white", text="C_0", command=note_C0, height=10, width=3)
+        self.C_0_button = Button(master, bg="white", text="C_0", command= lambda: note_C0(myPiano), height=10, width=3)
 
         self.C_0_button.grid(row=5, column=0)
 
@@ -135,9 +143,26 @@ class MyFirstGUI:
         self.B_0_button = Button(master, bg="white", text="B_0", command=note_B0, height=10, width=3)
         self.B_0_button.grid(row=5, column=6)
 
+  # -----------------------------------------------------------------------------------------------------
+
+
+        def update_btn_text():
+            if self.state.get() == "Piano":
+                self.state.set("Guitar")
+            else:
+                self.state.set("Piano")
+
+        self.state = tk.StringVar()
+        self.state_btn = tk.Button(root, textvariable=self.state, command=update_btn_text)
+        self.state.set("Piano")
+        self.state_btn.grid(row=5, column=7)
+
+        self.Label = Label(master, text="change\n state")
+        self.Label.grid(row=6, column=7)
+
 
 root = Tk()
-my_gui = MyFirstGUI(root)
+myPiano = MyFirstGUI(root)
 num1 = StringVar()
 pygame.mixer.init()
 
