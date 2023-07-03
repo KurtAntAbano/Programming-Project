@@ -15,20 +15,13 @@ in the second I build the GUI for the piano-keyboard.
 
 
 def note_C0(soundObj):
-    # num1.set("C_0")
-    # note = r'C:\Users\ka041\Programming-Project\Testing\piano testing and files\wav-piano-sound-master_wav_c1.wav'
-    # sound = pygame.mixer.Sound(note)
-    # sound.play()
-    # # create object
-    # # pass parameters
-    # # play method to play sound
-
     if soundObj.state.get() == "Piano":
         noteToplay = r'C:\Users\ka041\Programming-Project\Testing\piano testing and files\wav-piano-sound-master_wav_c1.wav'
     else:
         noteToplay = r'C:\Users\ka041\Programming-Project\Testing\piano testing and files\56111__guitarmaster__c-note.wav'
     noteObject = note("C_0", noteToplay, soundObj.volume)
     noteObject.notePlay()
+    root.bind("<c>", noteObject.notePlay())
 
 def note_CC0():
     num1.set("C#_0")
@@ -108,8 +101,8 @@ class MyFirstGUI:
 
         # Buttons for keyboard
         self.C_0_button = Button(master, bg="white", text="C_0", command= lambda: note_C0(myPiano), height=10, width=3)
-
         self.C_0_button.grid(row=5, column=0)
+        self.master.bind('<c>', lambda event: note_C0(myPiano))
 
         self.CC_0_button = Button(master, bg="black", fg="white", text="C#_0", command=note_CC0, height=10, width=2)
         self.CC_0_button.grid(row=1, columnspan=2)
