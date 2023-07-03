@@ -1,7 +1,7 @@
 from tkinter import *  # for python > 3.4
 import tkinter as tk
 import pygame
-from practice import *
+from NoteClass import *
 """ --__Midi0ke__--
 
 First try for Midi0ke virtual piano for the midi-output.
@@ -27,7 +27,7 @@ def note_C0(soundObj):
         noteToplay = r'C:\Users\ka041\Programming-Project\Testing\piano testing and files\wav-piano-sound-master_wav_c1.wav'
     else:
         noteToplay = r'C:\Users\ka041\Programming-Project\Testing\piano testing and files\56111__guitarmaster__c-note.wav'
-    noteObject = note("C_0", noteToplay)
+    noteObject = note("C_0", noteToplay, soundObj.volume)
     noteObject.notePlay()
 
 def note_CC0():
@@ -100,6 +100,7 @@ class MyFirstGUI:
     def __init__(self, master):
         self.master = master
         self.state = "Piano"
+        self.volume = 90
         master.title("Midi0ke__piano_GUI")
 
         self.Label = Label(master, text="MIDIOKE")
@@ -144,6 +145,19 @@ class MyFirstGUI:
         self.B_0_button.grid(row=5, column=6)
 
   # -----------------------------------------------------------------------------------------------------
+
+        self.sliderLabel = tk.Label(master, bg='white', fg='black', width=20, text='empty')
+        self.sliderLabel.grid(row=6, column=8)
+
+        def print_selection(v):
+            self.volume = v
+            self.sliderLabel.config(text='you have selected ' + v)
+
+        self.volumeSlider = tk.Scale(master, label='VOLUME', from_=0, to=10, orient=tk.HORIZONTAL, length=200,
+                     tickinterval=1, resolution=1, command=print_selection)
+        self.volumeSlider.grid(row=5, column=8)
+        self.volumeSlider.set(5)
+
 
 
         def update_btn_text():

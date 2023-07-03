@@ -5,9 +5,10 @@ import pygame
 
 
 class note:
-    def __init__(self, num, soundFile):
+    def __init__(self, num, soundFile, vol):
         self.number = num
         self.sound = soundFile
+        self.volume = vol
         # CONVERT STRING INTO FILENAME
 
     def notePlay(self):
@@ -15,10 +16,9 @@ class note:
         playSound = pygame.mixer.Sound(noteSound)
         playSound.play()
 
+        playSound.set_volume(int(self.volume)/10)
 
-if __name__ == "__main__":
-    pygame.mixer.init()
-    noteToplay = r'C:\Users\ka041\Programming-Project\Testing\piano testing and files\wav-piano-sound-master_wav_c1.wav'
-    myObject = note("C_0", noteToplay)
-    myObject.notePlay()
+
+
+
 
