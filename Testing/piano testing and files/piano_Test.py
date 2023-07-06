@@ -16,9 +16,9 @@ in the second I build the GUI for the piano-keyboard.
 
 def note_C0(soundObj):
     if soundObj.state.get() == "Piano":
-        noteToplay = r'C:\Users\ka041\Programming-Project\Testing\piano testing and files\wav-piano-sound-master_wav_c1.wav'
+        noteToplay = r'wav-piano-sound-master_wav_c1.wav'
     else:
-        noteToplay = r'C:\Users\ka041\Programming-Project\Testing\piano testing and files\56111__guitarmaster__c-note.wav'
+        noteToplay = r'56111__guitarmaster__c-note.wav'
     noteObject = note("C_0", noteToplay, soundObj.volume)
     noteObject.notePlay()
     root.bind("<c>", noteObject.notePlay())
