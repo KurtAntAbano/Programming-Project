@@ -2,6 +2,7 @@ from tkinter import *  # for python > 3.4
 import tkinter as tk
 import pygame
 from NoteClass import *
+
 """ --__Midi0ke__--
 
 First try for Midi0ke virtual piano for the midi-output.
@@ -22,6 +23,7 @@ def note_C0(soundObj):
     noteObject = note("C_0", noteToplay, soundObj.volume)
     noteObject.notePlay()
     root.bind("<c>", noteObject.notePlay())
+
 
 def note_CC0():
     num1.set("C#_0")
@@ -89,18 +91,41 @@ def note_B0():
     sound.play()
 
 
-class MyFirstGUI:
+class MyPianoGUI:
     def __init__(self, master):
         self.master = master
         self.state = "Piano"
         self.volume = 90
-        master.title("Midi0ke__piano_GUI")
+        self.backgroundColour = "#F0F0F0"
+        self.labelColour = '#856ff8'
 
-        self.Label = Label(master, text="MIDIOKE")
+        master.title("Midi0ke__piano_GUI")
+        master['background'] = self.backgroundColour
+
+        # create a menubar
+        menubar = Menu(root)
+        root.config(menu=menubar)
+
+        # create a menu
+        file_menu = Menu(menubar, tearoff=False)
+
+        # add a menu item to the menu
+        file_menu.add_command(label='Exit', command=root.destroy)
+
+        # add the File menu to the menubar
+        menubar.add_cascade(label="File", menu=file_menu)
+
+        settings_menu = Menu(menubar, tearoff=False)
+        menubar.add_cascade(label="Settings", menu=settings_menu)
+
+        settings_menu.add_command(label='Colour themes')
+        settings_menu.add_command(label='Adjust piano size')
+
+        self.Label = Label(master, text="MIDIOKE", fg=self.labelColour)
         self.Label.grid(row=0, columnspan=11)
 
         # Buttons for keyboard
-        self.C_0_button = Button(master, bg="white", text="C_0", command= lambda: note_C0(myPiano), height=10, width=3)
+        self.C_0_button = Button(master, bg="white", text="C_0", command=lambda: note_C0(myPiano), height=10, width=3)
         self.C_0_button.grid(row=5, column=0)
         self.master.bind('<c>', lambda event: note_C0(myPiano))
 
@@ -137,21 +162,19 @@ class MyFirstGUI:
         self.B_0_button = Button(master, bg="white", text="B_0", command=note_B0, height=10, width=3)
         self.B_0_button.grid(row=5, column=6)
 
-  # -----------------------------------------------------------------------------------------------------
-
-        self.sliderLabel = tk.Label(master, bg='white', fg='black', width=20, text='empty')
-        self.sliderLabel.grid(row=6, column=8)
+        # -----------------------------------------------------------------------------------------------------
 
         def print_selection(v):
             self.volume = v
             self.sliderLabel.config(text='you have selected ' + v)
 
         self.volumeSlider = tk.Scale(master, label='VOLUME', from_=0, to=10, orient=tk.HORIZONTAL, length=200,
-                     tickinterval=1, resolution=1, command=print_selection)
+                                     tickinterval=1, resolution=1, command=print_selection)
         self.volumeSlider.grid(row=5, column=8)
         self.volumeSlider.set(5)
 
-
+        self.sliderLabel = tk.Label(master, bg='white', fg='black', width=20, text='empty')
+        self.sliderLabel.grid(row=6, column=8)
 
         def update_btn_text():
             if self.state.get() == "Piano":
@@ -169,7 +192,7 @@ class MyFirstGUI:
 
 
 root = Tk()
-myPiano = MyFirstGUI(root)
+myPiano = MyPianoGUI(root)
 num1 = StringVar()
 pygame.mixer.init()
 
