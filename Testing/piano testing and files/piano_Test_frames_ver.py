@@ -22,7 +22,7 @@ def note_C0(soundObj):
         noteToplay = r'56111__guitarmaster__c-note.wav'
     noteObject = note("C_0", noteToplay, soundObj.volume)
     noteObject.notePlay()
-    root.bind("<c>", noteObject.notePlay())
+    mainWindow.bind("<c>", noteObject.notePlay())
 
 
 def note_CC0():
@@ -103,14 +103,14 @@ class MyPianoGUI:
         master['background'] = self.backgroundColour
 
         # create a menubar
-        menubar = Menu(root)
-        root.config(menu=menubar)
+        menubar = Menu(master)
+        master.config(menu=menubar)
 
         # create a menu
         file_menu = Menu(menubar, tearoff=False)
 
         # add a menu item to the menu
-        file_menu.add_command(label='Exit', command=root.destroy)
+        file_menu.add_command(label='Exit', command=master.destroy)
 
         # add the File menu to the menubar
         menubar.add_cascade(label="File", menu=file_menu)
@@ -125,9 +125,9 @@ class MyPianoGUI:
         self.Label.grid(row=0, columnspan=11)
 
         # Buttons for keyboard
-        self.C_0_button = Button(master, bg="white", text="C_0", command=lambda: note_C0(myPiano), height=10, width=3)
+        self.C_0_button = Button(master, bg="white", text="C_0", command=lambda: note_C0(pianoFrame), height=10, width=3)
         self.C_0_button.grid(row=5, column=0)
-        self.master.bind('<c>', lambda event: note_C0(myPiano))
+        self.master.bind('<c>', lambda event: note_C0(pianoFrame))
 
         self.CC_0_button = Button(master, bg="black", fg="white", text="C#_0", command=note_CC0, height=10, width=2)
         self.CC_0_button.grid(row=1, columnspan=2)
@@ -183,7 +183,7 @@ class MyPianoGUI:
                 self.state.set("Piano")
 
         self.state = tk.StringVar()
-        self.state_btn = tk.Button(root, textvariable=self.state, command=update_btn_text)
+        self.state_btn = tk.Button(master, textvariable=self.state, command=update_btn_text)
         self.state.set("Piano")
         self.state_btn.grid(row=5, column=7)
 
@@ -191,10 +191,17 @@ class MyPianoGUI:
         self.Label.grid(row=6, column=7)
 
 
+class main_window(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        # configure the root window
+        self.title('Main Window')
+        self.geometry('500x500')
 
-root = Tk()
-myPiano = MyPianoGUI(root)
+
+mainWindow = main_window()
+pianoFrame = MyPianoGUI(mainWindow)
 num1 = StringVar()
 pygame.mixer.init()
 
-root.mainloop()
+mainWindow.mainloop()
