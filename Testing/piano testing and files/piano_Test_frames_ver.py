@@ -99,6 +99,14 @@ class MyPianoGUI:
         self.backgroundColour = "#F0F0F0"
         self.labelColour = '#856ff8'
 
+        self.pianoFrame = Frame(self.master)
+        self.pianoFrame.pack(side='bottom', fill="both", expand=True, pady=5, padx=5, ipadx=10, ipady=10)
+
+        self.controlFrame = Frame(self.master)
+        self.controlFrame.pack(side="top", fill="both", expand=True, padx=5, pady=5, ipadx=10, ipady=10)
+
+        #https://www.pythonguis.com/faq/pack-place-and-grid-in-tkinter/
+
         master.title("Midi0ke__piano_GUI")
         master['background'] = self.backgroundColour
 
@@ -121,45 +129,45 @@ class MyPianoGUI:
         settings_menu.add_command(label='Colour themes')
         settings_menu.add_command(label='Adjust piano size')
 
-        self.Label = Label(master, text="MIDIOKE", fg=self.labelColour)
+        self.Label = Label(self.pianoFrame, text="MIDIOKE", fg=self.labelColour)
         self.Label.grid(row=0, columnspan=11)
 
         # Buttons for keyboard
-        self.C_0_button = Button(master, bg="white", text="C_0", command=lambda: note_C0(pianoFrame), height=10, width=3)
+        self.C_0_button = Button(self.pianoFrame, bg="white", text="C_0", command=lambda: note_C0(pianoFrame), height=10, width=6)
         self.C_0_button.grid(row=5, column=0)
         self.master.bind('<c>', lambda event: note_C0(pianoFrame))
 
-        self.CC_0_button = Button(master, bg="black", fg="white", text="C#_0", command=note_CC0, height=10, width=2)
+        self.CC_0_button = Button(self.pianoFrame, bg="black", fg="white", text="C#_0", command=note_CC0, height=10, width=4)
         self.CC_0_button.grid(row=1, columnspan=2)
 
-        self.DD_0_button = Button(master, bg="black", fg="white", text="D#_0", command=note_DD0, height=10, width=2)
+        self.DD_0_button = Button(self.pianoFrame, bg="black", fg="white", text="D#_0", command=note_DD0, height=10, width=4)
         self.DD_0_button.grid(row=1, columnspan=4)
 
-        self.D_0_button = Button(master, bg="white", text="D_0", command=note_D0, height=10, width=3)
+        self.D_0_button = Button(self.pianoFrame, bg="white", text="D_0", command=note_D0, height=10, width=6)
         self.D_0_button.grid(row=5, column=1)
 
-        self.E_0_button = Button(master, bg="white", text="E_0", command=note_E0, height=10, width=3)
+        self.E_0_button = Button(self.pianoFrame, bg="white", text="E_0", command=note_E0, height=10, width=6)
         self.E_0_button.grid(row=5, column=2)
 
-        self.F_0_button = Button(master, bg="white", text="F_0", command=note_F0, height=10, width=3)
+        self.F_0_button = Button(self.pianoFrame, bg="white", text="F_0", command=note_F0, height=10, width=6)
         self.F_0_button.grid(row=5, column=3)
 
-        self.FF_0_button = Button(master, bg="black", fg="white", text="F#_0", command=note_FF0, height=10, width=2)
+        self.FF_0_button = Button(self.pianoFrame, bg="black", fg="white", text="F#_0", command=note_FF0, height=10, width=4)
         self.FF_0_button.grid(row=1, column=3, columnspan=2)
 
-        self.G_0_button = Button(master, bg="white", text="G_0", command=note_G0, height=10, width=3)
+        self.G_0_button = Button(self.pianoFrame, bg="white", text="G_0", command=note_G0, height=10, width=4)
         self.G_0_button.grid(row=5, column=4)
 
-        self.GG_0_button = Button(master, bg="black", fg="white", text="G#_0", command=note_GG0, height=10, width=2)
+        self.GG_0_button = Button(self.pianoFrame, bg="black", fg="white", text="G#_0", command=note_GG0, height=10, width=4)
         self.GG_0_button.grid(row=1, column=4, columnspan=2)
 
-        self.A_0_button = Button(master, bg="white", text="A_0", command=note_A0, height=10, width=3)
+        self.A_0_button = Button(self.pianoFrame, bg="white", text="A_0", command=note_A0, height=10, width=6)
         self.A_0_button.grid(row=5, column=5)
 
-        self.AA_0_button = Button(master, bg="black", fg="white", text="A#_0", command=note_AA0, height=10, width=2)
+        self.AA_0_button = Button(self.pianoFrame, bg="black", fg="white", text="A#_0", command=note_AA0, height=10, width=4)
         self.AA_0_button.grid(row=1, column=5, columnspan=2)
 
-        self.B_0_button = Button(master, bg="white", text="B_0", command=note_B0, height=10, width=3)
+        self.B_0_button = Button(self.pianoFrame, bg="white", text="B_0", command=note_B0, height=10, width=6)
         self.B_0_button.grid(row=5, column=6)
 
         # -----------------------------------------------------------------------------------------------------
@@ -168,12 +176,12 @@ class MyPianoGUI:
             self.volume = v
             self.sliderLabel.config(text='you have selected ' + v)
 
-        self.volumeSlider = tk.Scale(master, label='VOLUME', from_=0, to=10, orient=tk.HORIZONTAL, length=200,
+        self.volumeSlider = tk.Scale(self.controlFrame, label='VOLUME', from_=0, to=10, orient=tk.HORIZONTAL, length=200,
                                      tickinterval=1, resolution=1, command=print_selection)
         self.volumeSlider.grid(row=5, column=8)
         self.volumeSlider.set(5)
 
-        self.sliderLabel = tk.Label(master, bg='white', fg='black', width=20, text='empty')
+        self.sliderLabel = tk.Label(self.controlFrame, bg='white', fg='black', width=20, text='empty')
         self.sliderLabel.grid(row=6, column=8)
 
         def update_btn_text():
@@ -183,11 +191,11 @@ class MyPianoGUI:
                 self.state.set("Piano")
 
         self.state = tk.StringVar()
-        self.state_btn = tk.Button(master, textvariable=self.state, command=update_btn_text)
+        self.state_btn = tk.Button(self.controlFrame, textvariable=self.state, command=update_btn_text)
         self.state.set("Piano")
         self.state_btn.grid(row=5, column=7)
 
-        self.Label = Label(master, text="change\n state")
+        self.Label = Label(self.controlFrame, text="change\n state")
         self.Label.grid(row=6, column=7)
 
 
@@ -196,7 +204,7 @@ class main_window(tk.Tk):
         super().__init__()
         # configure the root window
         self.title('Main Window')
-        self.geometry('500x500')
+        self.geometry('400x500')
 
 
 mainWindow = main_window()
