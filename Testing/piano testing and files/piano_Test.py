@@ -1,6 +1,7 @@
 from tkinter import *  # for python > 3.4
 import tkinter as tk
 from playNoteFunctions import *
+from themeChanger import *
 
 """ --__Midi0ke__--
 
@@ -35,23 +36,24 @@ class MyPianoGUI:
         master['background'] = self.backgroundColour
 
         # create a menubar
-        menubar = Menu(master)
-        master.config(menu=menubar)
+        self.menubar = Menu(master)
+        self.master.config(menu=self.menubar)
 
         # create a menu
-        file_menu = Menu(menubar, tearoff=False)
+        self.file_menu = Menu(self.menubar, tearoff=False)
 
         # add a menu item to the menu
-        file_menu.add_command(label='Exit', command=master.destroy)
+        self.file_menu.add_command(label='Exit', command=master.destroy)
 
         # add the File menu to the menubar
-        menubar.add_cascade(label="File", menu=file_menu)
+        self.menubar.add_cascade(label="File", menu=self.file_menu)
 
-        settings_menu = Menu(menubar, tearoff=False)
-        menubar.add_cascade(label="Settings", menu=settings_menu)
+        self.settings_menu = Menu(self.menubar, tearoff=False)
+        self.menubar.add_cascade(label="Settings", menu=self.settings_menu)
 
-        settings_menu.add_command(label='Colour themes')
-        settings_menu.add_command(label='Adjust piano size')
+        self.settings_menu.add_command(label='Colour themes', command=lambda:themeChangeWindow(pianoFrame))
+        self.settings_menu.add_command(label='Adjust piano size')
+
 
         self.Label = Label(self.pianoFrame, text="MIDIOKE", fg=self.labelColour)
         self.Label.grid(row=0, columnspan=11)
