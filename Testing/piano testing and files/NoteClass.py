@@ -1,9 +1,6 @@
 import pygame
 
 
-# Database of wav files
-
-
 class note:
     def __init__(self, num, soundFile, vol):
         self.number = num
