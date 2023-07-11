@@ -125,6 +125,17 @@ class MyPianoGUI:
         self.Label.grid(row=6, column=7)
 
 
+        def themeChanger(value):
+            darkList = ['#5A5A5A', '#FFA500']
+            highConTheme = ['#000000', '#028A0F']
+
+            if value == "1":
+                self.backgroundColour = darkList[0]
+                self.labelColour = darkList[1]
+
+
+
+
 class main_window(tk.Tk):
     def __init__(self):
         super().__init__()

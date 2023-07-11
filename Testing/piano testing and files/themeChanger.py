@@ -1,4 +1,8 @@
 from tkinter import *
+from piano_Test import *
+
+
+
 
 
 def themeChangeWindow(object):
@@ -7,13 +11,13 @@ def themeChangeWindow(object):
     win_theme.geometry("350x100")
 
 
-    dark_btn = Button(win_theme, text="dark", width=12, command=lambda:darkTheme(object))
+    dark_btn = Button(win_theme, text="dark", width=12, command = lambda:object.themeChanger("1"))
     dark_btn.grid(row=1, column=1, padx=10, pady=10)
 
     default_btn = Button(win_theme, text="default", width=12)
     default_btn.grid(row=1, column=2, padx=10, pady=10)
 
-    high_contrast_btn = Button(win_theme, text="high_contrast", width=12, command=lambda:highConTheme(object))
+    high_contrast_btn = Button(win_theme, text="high_contrast", width=12)
     high_contrast_btn.grid(row=1, column=3, padx=10, pady=10)
 
 
@@ -23,17 +27,13 @@ def themeChangeWindow(object):
 
     mainloop()
 
-    #'#028A0F' green
+darkList = ['#5A5A5A', '#FFA500']
+highConTheme = ['#000000', '#028A0F']
 
-def highConTheme(object):
-    object.backgroundColour = '#5A5A5A'
-    object.labelColour = '#FFA500'
 
-def darkTheme(object):
-    print(object.backgroundColour)
-    # object.backgroundColour.set('#000000')
-    # object.labelColour.set('#028A0F')
 
+
+# USE LISTS, each theme can be a list, bg can be assigned to list[0], fg can be list[1] etc...
 
 
 
