@@ -143,21 +143,30 @@ class MyPianoGUI:
 
     def themeChanger(self, value):
         darkList = ['#5A5A5A', '#FFA500', '#656565']
-        highConTheme = ['#000000', '#028A0F']
+        highConTheme = ['#000000', '#028A0F', '#202020']
+        defaultList = ['#d8d8d8', '#856ff8', '#F0F0F0']
 
         if value == "1":
             self.backgroundColour = darkList[0]
             self.labelColour = darkList[1]
             self.frameColour = darkList[2]
 
+            self.updateWindow()
 
-            #self.master.configure(bg=self.backgroundColour)
-            #frames can be a different shade!!
-
-            print(self.backgroundColour)
-            print(self.labelColour)
+        elif value == "2":
+            self.backgroundColour = defaultList[0]
+            self.labelColour = defaultList[1]
+            self.frameColour = defaultList[2]
 
             self.updateWindow()
+
+        elif value == "3":
+            self.backgroundColour = highConTheme[0]
+            self.labelColour = highConTheme[1]
+            self.frameColour = highConTheme[2]
+
+            self.updateWindow()
+
 
 
 
@@ -170,10 +179,10 @@ def themeChangeWindow(object):
     dark_btn = Button(win_theme, text="dark", width=12, command = lambda:object.themeChanger("1"))
     dark_btn.grid(row=1, column=1, padx=10, pady=10)
 
-    default_btn = Button(win_theme, text="default", width=12)
+    default_btn = Button(win_theme, text="default", width=12,command = lambda:object.themeChanger("2"))
     default_btn.grid(row=1, column=2, padx=10, pady=10)
 
-    high_contrast_btn = Button(win_theme, text="high_contrast", width=12)
+    high_contrast_btn = Button(win_theme, text="high_contrast", width=12,command = lambda:object.themeChanger("3"))
     high_contrast_btn.grid(row=1, column=3, padx=10, pady=10)
 
 
