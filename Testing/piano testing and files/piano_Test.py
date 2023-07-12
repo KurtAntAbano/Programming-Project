@@ -1,7 +1,7 @@
 from tkinter import *  # for python > 3.4
 import tkinter as tk
 from playNoteFunctions import *
-from themeChanger import *
+
 
 """ --__Midi0ke__--
 
@@ -21,14 +21,17 @@ class MyPianoGUI:
         self.master = master
         self.state = "Piano"
         self.volume = 90
-        self.backgroundColour = "#F0F0F0"
+        self.backgroundColour = '#d8d8d8'#'#5A5A5A'
         self.labelColour = '#856ff8'
+        self.frameColour = '#F0F0F0'
 
         self.pianoFrame = Frame(self.master)
         self.pianoFrame.pack(side='bottom', fill="both", expand=True, pady=5, padx=5, ipadx=10, ipady=10)
+        self.pianoFrame.configure(bg=self.frameColour)
 
         self.controlFrame = Frame(self.master)
         self.controlFrame.pack(side="top", fill="both", expand=True, padx=5, pady=5, ipadx=10, ipady=10)
+        self.controlFrame.configure(bg=self.frameColour)
 
         #https://www.pythonguis.com/faq/pack-place-and-grid-in-tkinter/
 
@@ -55,8 +58,8 @@ class MyPianoGUI:
         self.settings_menu.add_command(label='Adjust piano size')
 
 
-        self.Label = Label(self.pianoFrame, text="MIDIOKE", fg=self.labelColour)
-        self.Label.grid(row=0, columnspan=11)
+        self.mainLabel = Label(self.pianoFrame, text="MIDIOKE", fg=self.labelColour)
+        self.mainLabel.grid(row=0, columnspan=11)
 
         # Buttons for keyboard
         self.C_0_button = Button(self.pianoFrame, bg="white", text="C_0", command=lambda: note_C0(pianoFrame), height=10, width=6)
@@ -100,11 +103,12 @@ class MyPianoGUI:
 
         def print_selection(v):
             self.volume = v
-            self.sliderLabel.config(text='you have selected ' + v)
+            self.sliderLabel.config(text='you have selected ' + v, fg=self.labelColour)
 
         self.volumeSlider = tk.Scale(self.controlFrame, label='VOLUME', from_=0, to=10, orient=tk.HORIZONTAL, length=200,
                                      tickinterval=1, resolution=1, command=print_selection)
         self.volumeSlider.grid(row=5, column=8)
+        self.volumeSlider.configure(fg=self.labelColour)
         self.volumeSlider.set(5)
 
         self.sliderLabel = tk.Label(self.controlFrame, bg='white', fg='black', width=20, text='empty')
@@ -117,23 +121,71 @@ class MyPianoGUI:
                 self.state.set("Piano")
 
         self.state = tk.StringVar()
-        self.state_btn = tk.Button(self.controlFrame, textvariable=self.state, command=update_btn_text)
+        self.state_btn = tk.Button(self.controlFrame, textvariable=self.state, command=update_btn_text, fg=self.labelColour)
         self.state.set("Piano")
         self.state_btn.grid(row=5, column=7)
 
-        self.Label = Label(self.controlFrame, text="change\n state")
+        self.Label = Label(self.controlFrame, text="change\n state", fg=self.labelColour)
         self.Label.grid(row=6, column=7)
 
 
-        def themeChanger(value):
-            darkList = ['#5A5A5A', '#FFA500']
-            highConTheme = ['#000000', '#028A0F']
+    def updateWindow(self):
+        self.master.configure(bg=self.backgroundColour)
+        self.pianoFrame.configure(bg=self.frameColour)
+        self.controlFrame.configure(bg=self.frameColour)
 
-            if value == "1":
-                self.backgroundColour = darkList[0]
-                self.labelColour = darkList[1]
+        self.sliderLabel.config(fg=self.labelColour, bg=self.frameColour)
+        self.volumeSlider.configure(fg=self.labelColour, bg=self.frameColour)
+        self.Label.configure(fg=self.labelColour, bg=self.frameColour)
+        self.mainLabel.configure(fg=self.labelColour, bg=self.frameColour)
+        self.state_btn.configure(fg=self.labelColour, bg=self.frameColour)
 
 
+    def themeChanger(self, value):
+        darkList = ['#5A5A5A', '#FFA500', '#656565']
+        highConTheme = ['#000000', '#028A0F']
+
+        if value == "1":
+            self.backgroundColour = darkList[0]
+            self.labelColour = darkList[1]
+            self.frameColour = darkList[2]
+
+
+            #self.master.configure(bg=self.backgroundColour)
+            #frames can be a different shade!!
+
+            print(self.backgroundColour)
+            print(self.labelColour)
+
+            self.updateWindow()
+
+
+
+def themeChangeWindow(object):
+    win_theme = Tk()
+    win_theme.title("Welcome")
+    win_theme.geometry("350x100")
+
+
+    dark_btn = Button(win_theme, text="dark", width=12, command = lambda:object.themeChanger("1"))
+    dark_btn.grid(row=1, column=1, padx=10, pady=10)
+
+    default_btn = Button(win_theme, text="default", width=12)
+    default_btn.grid(row=1, column=2, padx=10, pady=10)
+
+    high_contrast_btn = Button(win_theme, text="high_contrast", width=12)
+    high_contrast_btn.grid(row=1, column=3, padx=10, pady=10)
+
+
+
+    exitButton = Button(win_theme, text="back", width=12, command=lambda: win_theme.destroy())
+    exitButton.grid(row=2, column=2, pady=5)
+
+    mainloop()
+
+#
+# darkList = ['#5A5A5A', '#FFA500']
+# highConTheme = ['#000000', '#028A0F']
 
 
 class main_window(tk.Tk):
