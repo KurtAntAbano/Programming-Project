@@ -143,7 +143,7 @@ class MyPianoGUI:
 
     def themeChanger(self, value):
         darkList = ['#5A5A5A', '#FFA500', '#656565']
-        highConTheme = ['#000000', '#028A0F', '#202020']
+        highConTheme = ['#000000', '#39FF14', '#202020']
         defaultList = ['#d8d8d8', '#856ff8', '#F0F0F0']
 
         if value == "1":
