@@ -33,7 +33,7 @@ class MyPianoGUI:
         self.pianoFrame.configure(bg=self.frameColour)
 
         self.controlFrame = Frame(self.master)
-        self.controlFrame.pack(side="top", fill="both", expand=True, padx=5, pady=5, ipadx=10, ipady=10)
+        self.controlFrame.pack(side="top", fill="both", expand=False, padx=5, pady=5, ipadx=10, ipady=10)
         self.controlFrame.configure(bg=self.frameColour)
 
         #https://www.pythonguis.com/faq/pack-place-and-grid-in-tkinter/
@@ -66,42 +66,51 @@ class MyPianoGUI:
 
         # Buttons for keyboard
         self.C_0_button = Button(self.pianoFrame, bg="white", text="C_0", command=lambda: note_C0(pianoFrame), height=10, width=6)
-        self.C_0_button.grid(row=5, column=0)
+        self.C_0_button.grid(row=3, column=0)
         self.master.bind('<c>', lambda event: note_C0(pianoFrame))
+
+
+        self.D_0_button = Button(self.pianoFrame, bg="white", text="D_0", command=note_D0, height=10, width=6)
+        self.D_0_button.grid(row=3, column=1)
+
+        self.E_0_button = Button(self.pianoFrame, bg="white", text="E_0", command=note_E0, height=10, width=6)
+        self.E_0_button.grid(row=3, column=2)
+
+        self.F_0_button = Button(self.pianoFrame, bg="white", text="F_0", command=note_F0, height=10, width=6)
+        self.F_0_button.grid(row=3, column=3)
+
+        self.G_0_button = Button(self.pianoFrame, bg="white", text="G_0", command=note_G0, height=10, width=4)
+        self.G_0_button.grid(row=3, column=4)
+
+        self.A_0_button = Button(self.pianoFrame, bg="white", text="A_0", command=note_A0, height=10, width=6)
+        self.A_0_button.grid(row=3, column=5)
+
+        self.B_0_button = Button(self.pianoFrame, bg="white", text="B_0", command=note_B0, height=10, width=6)
+        self.B_0_button.grid(row=3, column=6)
+
+        self.placeHolder = Label(self.pianoFrame, height=10, width=6)
+        self.placeHolder.grid(row=1, column=6)
 
         self.CC_0_button = Button(self.pianoFrame, bg="black", fg="white", text="C#_0", command=note_CC0, height=10, width=4)
         #self.CC_0_button.grid(row=1, columnspan=2)
-        self.CC_0_button.place(relx=.1, rely=.2)
+        self.CC_0_button.place(x=35, y=80)
 
         self.DD_0_button = Button(self.pianoFrame, bg="black", fg="white", text="D#_0", command=note_DD0, height=10, width=4)
-        self.DD_0_button.grid(row=1, columnspan=4)
-
-        self.D_0_button = Button(self.pianoFrame, bg="white", text="D_0", command=note_D0, height=10, width=6)
-        self.D_0_button.grid(row=5, column=1)
-
-        self.E_0_button = Button(self.pianoFrame, bg="white", text="E_0", command=note_E0, height=10, width=6)
-        self.E_0_button.grid(row=5, column=2)
-
-        self.F_0_button = Button(self.pianoFrame, bg="white", text="F_0", command=note_F0, height=10, width=6)
-        self.F_0_button.grid(row=5, column=3)
-
-        self.FF_0_button = Button(self.pianoFrame, bg="black", fg="white", text="F#_0", command=note_FF0, height=10, width=4)
-        self.FF_0_button.grid(row=1, column=3, columnspan=2)
-
-        self.G_0_button = Button(self.pianoFrame, bg="white", text="G_0", command=note_G0, height=10, width=4)
-        self.G_0_button.grid(row=5, column=4)
-
-        self.GG_0_button = Button(self.pianoFrame, bg="black", fg="white", text="G#_0", command=note_GG0, height=10, width=4)
-        self.GG_0_button.grid(row=1, column=4, columnspan=2)
-
-        self.A_0_button = Button(self.pianoFrame, bg="white", text="A_0", command=note_A0, height=10, width=6)
-        self.A_0_button.grid(row=5, column=5)
+        #self.DD_0_button.grid(row=1, columnspan=4)
+        self.DD_0_button.place(x=85, y=80)
 
         self.AA_0_button = Button(self.pianoFrame, bg="black", fg="white", text="A#_0", command=note_AA0, height=10, width=4)
-        self.AA_0_button.grid(row=1, column=5, columnspan=2)
+        #self.AA_0_button.grid(row=1, column=5, columnspan=2)
+        self.AA_0_button.place(x=290, y=80)
 
-        self.B_0_button = Button(self.pianoFrame, bg="white", text="B_0", command=note_B0, height=10, width=6)
-        self.B_0_button.grid(row=5, column=6)
+        self.GG_0_button = Button(self.pianoFrame, bg="black", fg="white", text="G#_0", command=note_GG0, height=10, width=4)
+        #self.GG_0_button.grid(row=1, column=4, columnspan=2)
+        self.GG_0_button.place(x=240, y=80)
+
+        self.FF_0_button = Button(self.pianoFrame, bg="black", fg="white", text="F#_0", command=note_FF0, height=10, width=4)
+        #self.FF_0_button.grid(row=1, column=3, columnspan=2)
+        self.FF_0_button.place(x=190, y=80)
+
 
         # -----------------------------------------------------------------------------------------------------
 
