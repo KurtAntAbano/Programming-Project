@@ -25,6 +25,8 @@ class MyPianoGUI:
         self.labelColour = '#856ff8'
         self.frameColour = '#F0F0F0'
 
+        self.master.resizable(0, 0)
+
         self.pianoFrame = Frame(self.master)
 
         self.pianoFrame.pack(side='bottom', fill="both", expand=True, pady=5, padx=5, ipadx=10, ipady=10)
