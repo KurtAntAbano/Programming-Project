@@ -26,6 +26,7 @@ class MyPianoGUI:
         self.frameColour = '#F0F0F0'
 
         self.pianoFrame = Frame(self.master)
+
         self.pianoFrame.pack(side='bottom', fill="both", expand=True, pady=5, padx=5, ipadx=10, ipady=10)
         self.pianoFrame.configure(bg=self.frameColour)
 
@@ -67,7 +68,8 @@ class MyPianoGUI:
         self.master.bind('<c>', lambda event: note_C0(pianoFrame))
 
         self.CC_0_button = Button(self.pianoFrame, bg="black", fg="white", text="C#_0", command=note_CC0, height=10, width=4)
-        self.CC_0_button.grid(row=1, columnspan=2)
+        #self.CC_0_button.grid(row=1, columnspan=2)
+        self.CC_0_button.place(relx=.1, rely=.2)
 
         self.DD_0_button = Button(self.pianoFrame, bg="black", fg="white", text="D#_0", command=note_DD0, height=10, width=4)
         self.DD_0_button.grid(row=1, columnspan=4)
