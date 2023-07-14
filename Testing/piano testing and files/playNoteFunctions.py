@@ -3,11 +3,13 @@ from NoteClass import *
 
 
 def note_C0(soundObj):
-    if soundObj.state.get() == "Piano":
-        noteToplay = r'wavs/Piano/octave1/wav-piano-sound-master_wav_c1.wav'
-    else:
-        noteToplay = r'wavs/Guitar/octave1/56111__guitarmaster__c-note.wav'
-    noteObject = note("C_0", noteToplay, soundObj.volume)
+    # if soundObj.state.get() == "Piano":
+    #     noteToplay = r'wavs/Piano/octave1/PianoC1.wav'
+    # else:
+    #     noteToplay = r'wavs/Guitar/octave1/GuitarC1.wav'
+    state = soundObj.state.get()
+
+    noteObject = note("C1", state, soundObj.volume)
     noteObject.notePlay()
 
 
