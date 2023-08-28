@@ -88,7 +88,7 @@ class MyPianoGUI:
         self.B_0_button = Button(self.pianoFrame, bg="white", text="B_0", command=note_B0, height=10, width=6)
         self.B_0_button.grid(row=3, column=6)
 
-        self.placeHolder = Label(self.pianoFrame, height=7, width=6, bg=self.frameColour)
+        self.placeHolder = Label(self.pianoFrame, height=7, width=6)
         self.placeHolder.grid(row=1, column=6)
 
         self.CC_0_button = Button(self.pianoFrame, bg="black", fg="white", text="C#_0", command=note_CC0, height=10, width=3)
@@ -152,7 +152,6 @@ class MyPianoGUI:
         self.Label.configure(fg=self.labelColour, bg=self.frameColour)
         self.mainLabel.configure(fg=self.labelColour, bg=self.frameColour)
         self.state_btn.configure(fg=self.labelColour, bg=self.frameColour)
-        self.placeHolder.configure(bg=self.frameColour)
 
 
     def themeChanger(self, value):
