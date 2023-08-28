@@ -24,13 +24,17 @@ class MyPianoGUI:
         self.backgroundColour = '#d8d8d8'#'#5A5A5A'
         self.labelColour = '#856ff8'
         self.frameColour = '#F0F0F0'
+        self.octave = 0
 
         self.master.resizable(0, 0)
 
         self.pianoFrame = Frame(self.master)
-
         self.pianoFrame.pack(side='bottom', fill="both", expand=True, pady=5, padx=5, ipadx=10, ipady=10)
         self.pianoFrame.configure(bg=self.frameColour)
+
+        self.testframe = Frame(self.master)
+        self.testframe.pack(side='right', fill="both", expand=True, pady=5, padx=5, ipadx=10, ipady=10)
+
 
         self.controlFrame = Frame(self.master)
         self.controlFrame.pack(side="top", fill="both", expand=False, padx=5, pady=5, ipadx=10, ipady=10)
@@ -117,6 +121,7 @@ class MyPianoGUI:
         def print_selection(v):
             self.volume = v
             self.sliderLabel.config(text='you have selected ' + v, fg=self.labelColour)
+            print(self.volume)
 
         self.volumeSlider = tk.Scale(self.controlFrame, label='VOLUME', from_=0, to=10, orient=tk.HORIZONTAL, length=200,
                                      tickinterval=1, resolution=1, command=print_selection)
@@ -126,6 +131,20 @@ class MyPianoGUI:
 
         self.sliderLabel = tk.Label(self.controlFrame, bg='white', fg='black', width=20, text='empty')
         self.sliderLabel.grid(row=6, column=8)
+
+    #--------------------------------------------------------------------------------------
+
+        def octprint(o):
+            self.octave= o
+            print(self.octave)
+
+        self.octaveSlider = tk.Scale(self.testframe, label='OCTAVE', from_=-1, to=1, orient=tk.HORIZONTAL, length=100,
+                                     tickinterval=1, resolution=1, command=octprint)
+        self.octaveSlider.grid(row=1, column=2)
+        self.octaveSlider.configure(fg=self.labelColour)
+        self.octaveSlider.set(0)
+
+
 
         def update_btn_text():
             if self.state.get() == "Piano":
@@ -184,10 +203,11 @@ class MyPianoGUI:
 
 
 
+
 def themeChangeWindow(object):
     win_theme = Tk()
     win_theme.title("Welcome")
-    win_theme.geometry("350x100")
+    win_theme.geometry("350x500")
 
 
     dark_btn = Button(win_theme, text="dark", width=12, command = lambda:object.themeChanger("1"))
@@ -216,7 +236,7 @@ class main_window(tk.Tk):
         super().__init__()
         # configure the root window
         self.title('Main Window')
-        self.geometry('400x500')
+        self.geometry('450x500')
 
 
 mainWindow = main_window()
