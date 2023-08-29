@@ -5,21 +5,22 @@ from NoteClass import *
 def note_C0(soundObj):
     state = soundObj.state.get()
 
-    noteObject = note("C", state, soundObj.volume)
+
+    noteObject = note("C", state, soundObj.volume, soundObj.octave)
     noteObject.notePlay()
 
 
 def note_CC0(soundObj):
     state = soundObj.state.get()
 
-    noteObject = note("C#", state, soundObj.volume)
+    noteObject = note("C#", state, soundObj.volume,soundObj.octave)
     noteObject.notePlay()
 
 
 def note_D0(soundObj):
     state = soundObj.state.get()
 
-    noteObject = note("D", state, soundObj.volume)
+    noteObject = note("D", state, soundObj.volume,soundObj.octave)
     noteObject.notePlay()
 
 
@@ -27,7 +28,7 @@ def note_D0(soundObj):
 def note_DD0(soundObj):
     state = soundObj.state.get()
 
-    noteObject = note("D#", state, soundObj.volume)
+    noteObject = note("D#", state, soundObj.volume,soundObj.octave)
     noteObject.notePlay()
 
 
@@ -35,7 +36,7 @@ def note_DD0(soundObj):
 def note_E0(soundObj):
     state = soundObj.state.get()
 
-    noteObject = note("E", state, soundObj.volume)
+    noteObject = note("E", state, soundObj.volume,soundObj.octave)
     noteObject.notePlay()
 
 
@@ -43,20 +44,20 @@ def note_E0(soundObj):
 def note_F0(soundObj):
     state = soundObj.state.get()
 
-    noteObject = note("F", state, soundObj.volume)
+    noteObject = note("F", state, soundObj.volume,soundObj.octave)
     noteObject.notePlay()
 
 
 def note_FF0(soundObj):
     state = soundObj.state.get()
 
-    noteObject = note("F#", state, soundObj.volume)
+    noteObject = note("F#", state, soundObj.volume,soundObj.octave)
     noteObject.notePlay()
 
 def note_G0(soundObj):
     state = soundObj.state.get()
 
-    noteObject = note("G", state, soundObj.volume)
+    noteObject = note("G", state, soundObj.volume,soundObj.octave)
     noteObject.notePlay()
 
 
@@ -64,25 +65,25 @@ def note_G0(soundObj):
 def note_GG0(soundObj):
     state = soundObj.state.get()
 
-    noteObject = note("G#", state, soundObj.volume)
+    noteObject = note("G#", state, soundObj.volume,soundObj.octave)
     noteObject.notePlay()
 
 
 def note_A0(soundObj):
     state = soundObj.state.get()
 
-    noteObject = note("A", state, soundObj.volume)
+    noteObject = note("A", state, soundObj.volume,soundObj.octave)
     noteObject.notePlay()
 
 
 def note_AA0(soundObj):
     state = soundObj.state.get()
 
-    noteObject = note("A#", state, soundObj.volume)
+    noteObject = note("A#", state, soundObj.volume,soundObj.octave)
     noteObject.notePlay()
 
 def note_B0(soundObj):
     state = soundObj.state.get()
 
-    noteObject = note("B", state, soundObj.volume)
+    noteObject = note("B", state, soundObj.volume,soundObj.octave)
     noteObject.notePlay()
