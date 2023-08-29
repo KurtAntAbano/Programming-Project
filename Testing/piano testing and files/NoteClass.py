@@ -10,10 +10,16 @@ class note:
 
     def notePlay(self):
         #noteSound = self.sound
-        playSound = pygame.mixer.Sound(f'wavs\\{self.state}\\octave{self.octave}\\{self.state}{self.number}.wav')
-        playSound.play()
+        self.playSound = pygame.mixer.Sound(f'wavs\\{self.state}\\octave{self.octave}\\{self.state}{self.number}.wav')
+        self.playSound.play()
 
-        playSound.set_volume(int(self.volume)/10)
+        self.playSound.set_volume(int(self.volume)/10)
+
+    def noteStop(self):
+        self.playSound.stop()
+        print("key has been released")
+
+
 
 
 

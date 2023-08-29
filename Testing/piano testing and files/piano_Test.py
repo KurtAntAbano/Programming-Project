@@ -72,6 +72,8 @@ class MyPianoGUI:
         self.C_0_button = Button(self.pianoFrame, bg="white", text="C_0", command=lambda: note_C0(pianoFrame), height=10, width=6)
         self.C_0_button.grid(row=3, column=0)
         self.master.bind('<a>', lambda event: note_C0(pianoFrame))
+        self.master.bind('<KeyRelease>', lambda event: note_C0(pianoFrame))
+
 
 
         self.D_0_button = Button(self.pianoFrame, bg="white", text="D_0", command=lambda:note_D0(pianoFrame), height=10, width=6)
@@ -148,12 +150,28 @@ class MyPianoGUI:
         def octprint(o):
             self.octave= o
             print(self.octave)
+        #
+        # def octaveincrease():
+        #     if self.octave == -1:
+        #         self.octaveSlider.set(0)
+        #     elif self.octave == 0:
+        #         self.octaveSlider.set(1)
+        #
+        # def octavedecrease():
+        #     if self.octave == 1:
+        #         self.octaveSlider.set(0)
+        #     elif self.octave == 0:
+        #         self.octaveSlider.set(-1)
 
         self.octaveSlider = tk.Scale(self.octaveframe, label='OCTAVE', from_=-1, to=1, orient=tk.HORIZONTAL, length=100,
                                      tickinterval=1, resolution=1, command=octprint)
         self.octaveSlider.grid(row=1, column=2)
         self.octaveSlider.configure(fg=self.labelColour)
         self.octaveSlider.set(0)
+        # self.master.bind('<.>', lambda event:octaveincrease())
+        # self.master.bind('<,>', lambda event:octavedecrease())
+
+
 
 
 
