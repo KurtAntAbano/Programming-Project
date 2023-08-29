@@ -10,12 +10,9 @@ def note_C0(soundObj):
     noteObject.notePlay()
     # time.sleep(0.5)
     # print("stop")
-    # noteObject.noteStop()
+    #noteObject.noteStop()
 
 
-# def note_C0stop():
-#     pygame.mixer.music.stop()
-#     print("stop")
 
 def note_CC0(soundObj):
     state = soundObj.state.get()

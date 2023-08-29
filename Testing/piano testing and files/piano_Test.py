@@ -72,8 +72,6 @@ class MyPianoGUI:
         self.C_0_button = Button(self.pianoFrame, bg="white", text="C_0", command=lambda: note_C0(pianoFrame), height=10, width=6)
         self.C_0_button.grid(row=3, column=0)
         self.master.bind('<a>', lambda event: note_C0(pianoFrame))
-        self.master.bind('<KeyRelease>', lambda event: note_C0(pianoFrame))
-
 
 
         self.D_0_button = Button(self.pianoFrame, bg="white", text="D_0", command=lambda:note_D0(pianoFrame), height=10, width=6)
