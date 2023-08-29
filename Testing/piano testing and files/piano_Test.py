@@ -32,8 +32,8 @@ class MyPianoGUI:
         self.pianoFrame.pack(side='bottom', fill="both", expand=True, pady=5, padx=5, ipadx=10, ipady=10)
         self.pianoFrame.configure(bg=self.frameColour)
 
-        self.testframe = Frame(self.master)
-        self.testframe.pack(side='right', fill="both", expand=True, pady=5, padx=5, ipadx=10, ipady=10)
+        self.octaveframe = Frame(self.master)
+        self.octaveframe.pack(side='right', fill="both", expand=True, pady=5, padx=5, ipadx=10, ipady=10)
 
 
         self.controlFrame = Frame(self.master)
@@ -149,7 +149,7 @@ class MyPianoGUI:
             self.octave= o
             print(self.octave)
 
-        self.octaveSlider = tk.Scale(self.testframe, label='OCTAVE', from_=-1, to=1, orient=tk.HORIZONTAL, length=100,
+        self.octaveSlider = tk.Scale(self.octaveframe, label='OCTAVE', from_=-1, to=1, orient=tk.HORIZONTAL, length=100,
                                      tickinterval=1, resolution=1, command=octprint)
         self.octaveSlider.grid(row=1, column=2)
         self.octaveSlider.configure(fg=self.labelColour)
@@ -183,6 +183,9 @@ class MyPianoGUI:
         self.mainLabel.configure(fg=self.labelColour, bg=self.frameColour)
         self.state_btn.configure(fg=self.labelColour, bg=self.frameColour)
         self.placeHolder.configure(bg=self.frameColour)
+
+        self.octaveSlider.configure(fg=self.labelColour, bg=self.frameColour)
+        self.octaveframe.configure(bg=self.frameColour)
 
 
     def themeChanger(self, value):
