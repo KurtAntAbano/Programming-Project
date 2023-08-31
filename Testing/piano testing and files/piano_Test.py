@@ -1,6 +1,7 @@
 from tkinter import *  # for python > 3.4
 import tkinter as tk
 from playNoteFunctions import *
+import pygame
 
 
 """ --__Midi0ke__--
@@ -27,7 +28,7 @@ class MyPianoGUI:
         self.frameColour = '#F0F0F0'
         self.octave = 0
         self.recording = False
-        self.input_list = [[]]
+        self.input_list = []
         self.previous_time = 0
 
         self.master.resizable(0, 0)
@@ -72,17 +73,18 @@ class MyPianoGUI:
         self.mainLabel = Label(self.pianoFrame, text="MIDIOKE", fg=self.labelColour)
         self.mainLabel.grid(row=0, columnspan=11)
 
-        # def colourChange(btn):
-        #     btn.configure(bg="green")
-        #     time.sleep(2)
-        #     btn.configure(bg="blue")
+        def colourChange(btn):
+            btn.configure(bg="green")
+            time.sleep(2)
+            print("hi")
+            #btn.configure(bg="white")
 
         def record(keytoadd):
             if self.recording == True:
                 self.end_time = time.time()
-                self.input_list[0].append(keytoadd)
                 time_elapsed = self.end_time - self.previous_time
-                self.input_list[0].append(time_elapsed)
+                self.input_list.append(time_elapsed)
+                self.input_list.append(keytoadd)
 
                 self.previous_time = self.end_time
 
@@ -92,62 +94,62 @@ class MyPianoGUI:
 
 
         # Buttons for keyboard
-        self.C_0_button = Button(self.pianoFrame, bg="white", text="C_0", command=lambda:[note_C0(pianoFrame),record("a")], height=10, width=6)
+        self.C_0_button = Button(self.pianoFrame, bg="white", text="C_0", command=lambda:[note_C0(pianoFrame),record("C")], height=10, width=6)
         self.C_0_button.grid(row=3, column=0)
-        self.master.bind('<a>', lambda event: [note_C0(pianoFrame), record("a")])
+        self.master.bind('<a>', lambda event: [note_C0(pianoFrame), record("C")])
 
 
-        self.D_0_button = Button(self.pianoFrame, bg="white", text="D_0", command=lambda:[note_D0(pianoFrame),record("s")], height=10, width=6)
+        self.D_0_button = Button(self.pianoFrame, bg="white", text="D_0", command=lambda:[note_D0(pianoFrame),record("D")], height=10, width=6)
         self.D_0_button.grid(row=3, column=1)
-        self.master.bind('<s>', lambda event:[ note_D0(pianoFrame),record("s")])
+        self.master.bind('<s>', lambda event:[ note_D0(pianoFrame),record("D")])
 
-        self.E_0_button = Button(self.pianoFrame, bg="white", text="E_0", command=lambda:[note_E0(pianoFrame),record("d")], height=10, width=6)
+        self.E_0_button = Button(self.pianoFrame, bg="white", text="E_0", command=lambda:[note_E0(pianoFrame),record("E")], height=10, width=6)
         self.E_0_button.grid(row=3, column=2)
-        self.master.bind('<d>', lambda event: [note_E0(pianoFrame),record("d")])
+        self.master.bind('<d>', lambda event: [note_E0(pianoFrame),record("E")])
 
-        self.F_0_button = Button(self.pianoFrame, bg="white", text="F_0", command=lambda:[note_F0(pianoFrame),record("f")], height=10, width=6)
+        self.F_0_button = Button(self.pianoFrame, bg="white", text="F_0", command=lambda:[note_F0(pianoFrame),record("F")], height=10, width=6)
         self.F_0_button.grid(row=3, column=3)
-        self.master.bind('<f>', lambda event: [note_F0(pianoFrame),record("f")])
+        self.master.bind('<f>', lambda event: [note_F0(pianoFrame),record("F")])
 
-        self.G_0_button = Button(self.pianoFrame, bg="white", text="G_0", command=lambda:[note_G0(pianoFrame),record("g")], height=10, width=4)
+        self.G_0_button = Button(self.pianoFrame, bg="white", text="G_0", command=lambda:[note_G0(pianoFrame),record("G")], height=10, width=4)
         self.G_0_button.grid(row=3, column=4)
-        self.master.bind('<g>', lambda event: [note_G0(pianoFrame),record("g")])
+        self.master.bind('<g>', lambda event: [note_G0(pianoFrame),record("G")])
 
-        self.A_0_button = Button(self.pianoFrame, bg="white", text="A_0", command=lambda:[note_A0(pianoFrame),record("h")], height=10, width=6)
+        self.A_0_button = Button(self.pianoFrame, bg="white", text="A_0", command=lambda:[note_A0(pianoFrame),record("A")], height=10, width=6)
         self.A_0_button.grid(row=3, column=5)
-        self.master.bind('<h>', lambda event: [note_A0(pianoFrame),record("h")])
+        self.master.bind('<h>', lambda event: [note_A0(pianoFrame),record("A")])
 
-        self.B_0_button = Button(self.pianoFrame, bg="white", text="B_0", command=lambda:[note_B0(pianoFrame),record("j")], height=10, width=6)
+        self.B_0_button = Button(self.pianoFrame, bg="white", text="B_0", command=lambda:[note_B0(pianoFrame),record("B")], height=10, width=6)
         self.B_0_button.grid(row=3, column=6)
-        self.master.bind('<j>', lambda event: [note_B0(pianoFrame),record("j")])
+        self.master.bind('<j>', lambda event: [note_B0(pianoFrame),record("B")])
 
         self.placeHolder = Label(self.pianoFrame, height=7, width=6, bg=self.frameColour)
         self.placeHolder.grid(row=1, column=6)
 
-        self.CC_0_button = Button(self.pianoFrame, bg="black", fg="white", text="C#_0", command=lambda:[note_CC0(pianoFrame),record("w")], height=10, width=3)
+        self.CC_0_button = Button(self.pianoFrame, bg="black", fg="white", text="C#_0", command=lambda:[note_CC0(pianoFrame),record("C#")], height=10, width=3)
         #self.CC_0_button.grid(row=1, columnspan=2)
         self.CC_0_button.place(x=35, y=40)
-        self.master.bind('<w>', lambda event: [note_CC0(pianoFrame),record("w")])
+        self.master.bind('<w>', lambda event: [note_CC0(pianoFrame),record("C#")])
 
-        self.DD_0_button = Button(self.pianoFrame, bg="black", fg="white", text="D#_0", command=lambda:[note_DD0(pianoFrame),record("e")], height=10, width=3)
+        self.DD_0_button = Button(self.pianoFrame, bg="black", fg="white", text="D#_0", command=lambda:[note_DD0(pianoFrame),record("D#")], height=10, width=3)
         #self.DD_0_button.grid(row=1, columnspan=4)
         self.DD_0_button.place(x=85, y=40)
-        self.master.bind('<e>', lambda event: [note_DD0(pianoFrame),record("e")])
+        self.master.bind('<e>', lambda event: [note_DD0(pianoFrame),record("D#")])
 
-        self.AA_0_button = Button(self.pianoFrame, bg="black", fg="white", text="A#_0", command=lambda:[note_AA0(pianoFrame),record("u")], height=10, width=3)
+        self.AA_0_button = Button(self.pianoFrame, bg="black", fg="white", text="A#_0", command=lambda:[note_AA0(pianoFrame),record("A#")], height=10, width=3)
         #self.AA_0_button.grid(row=1, column=5, columnspan=2)
         self.AA_0_button.place(x=290, y=40)
-        self.master.bind('<u>', lambda event: [note_AA0(pianoFrame),record("u")])
+        self.master.bind('<u>', lambda event: [note_AA0(pianoFrame),record("A#")])
 
-        self.GG_0_button = Button(self.pianoFrame, bg="black", fg="white", text="G#_0", command=lambda:[note_GG0(pianoFrame),record("y")], height=10, width=3)
+        self.GG_0_button = Button(self.pianoFrame, bg="black", fg="white", text="G#_0", command=lambda:[note_GG0(pianoFrame),record("G#")], height=10, width=3)
         #self.GG_0_button.grid(row=1, column=4, columnspan=2)
         self.GG_0_button.place(x=240, y=40)
-        self.master.bind('<y>', lambda event: [note_GG0(pianoFrame),record("y")])
+        self.master.bind('<y>', lambda event: [note_GG0(pianoFrame),record("G#")])
 
-        self.FF_0_button = Button(self.pianoFrame, bg="black", fg="white", text="F#_0", command=lambda:[note_FF0(pianoFrame),record("t")], height=10, width=3)
+        self.FF_0_button = Button(self.pianoFrame, bg="black", fg="white", text="F#_0", command=lambda:[note_FF0(pianoFrame),record("F#")], height=10, width=3)
         #self.FF_0_button.grid(row=1, column=3, columnspan=2)
         self.FF_0_button.place(x=190, y=40)
-        self.master.bind('<t>', lambda event: [note_FF0(pianoFrame),record("t")])
+        self.master.bind('<t>', lambda event: [note_FF0(pianoFrame),record("F#")])
 
 
         # -----------------------------------------------------------------------------------------------------
@@ -201,12 +203,25 @@ class MyPianoGUI:
                 self.record_btn.configure(bg="white")
                 print("recording finished")
                 print(self.input_list)
-                self.input_list = [[]]
                 self.previous_time = 0
+
+
+        def playback():
+            print(self.input_list)
+            for i in range(1, len(self.input_list)):
+                if i % 2 != 0:
+                    note = pygame.mixer.Sound(f'wavs/Piano/octave0/Piano{self.input_list[i]}.wav')
+                    note.play()
+                else:
+                    time.sleep(self.input_list[i])
+
 
 
         self.record_btn = tk.Button(self.octaveframe, text="R", command=lambda:changeRecBtn())
         self.record_btn.grid(row=6, column=7)
+
+        self.playback_btn = tk.Button(self.octaveframe, text="P", command=lambda:playback())
+        self.playback_btn.grid(row=5, column=7)
 
 
 
