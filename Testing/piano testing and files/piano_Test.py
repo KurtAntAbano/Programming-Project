@@ -207,10 +207,11 @@ class MyPianoGUI:
 
 
         def playback():
+            state = self.state.get()
             print(self.input_list)
             for i in range(1, len(self.input_list)):
                 if i % 2 != 0:
-                    note = pygame.mixer.Sound(f'wavs/Piano/octave0/Piano{self.input_list[i]}.wav')
+                    note = pygame.mixer.Sound(f'wavs\\{state}\\octave{self.octave}\\{state}{self.input_list[i]}.wav')
                     note.play()
                 else:
                     time.sleep(self.input_list[i])
