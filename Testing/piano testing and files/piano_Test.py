@@ -87,7 +87,9 @@ class MyPianoGUI:
                 self.end_time = time.time()
                 time_elapsed = self.end_time - self.previous_time
                 self.input_list.append(time_elapsed)
-                self.input_list.append(keytoadd)
+                self.input_list.append(f'{keytoadd}{self.octave}')
+
+
 
                 self.previous_time = self.end_time
 
@@ -214,8 +216,9 @@ class MyPianoGUI:
             state = self.state.get()
             print(self.input_list)
             for i in range(1, len(self.input_list)):
+                note = self.input_list[i]
                 if i % 2 != 0:
-                    note = pygame.mixer.Sound(f'wavs\\{state}\\octave{self.octave}\\{state}{self.input_list[i]}.wav')
+                    note = pygame.mixer.Sound(f'wavs\\{state}\\octave{note[1:]}\\{state}{note[0]}.wav')
                     note.play()
                 else:
                     time.sleep(self.input_list[i])
