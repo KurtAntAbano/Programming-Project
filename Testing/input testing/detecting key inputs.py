@@ -6,7 +6,7 @@ def on_press(key):
     try:
         print('alphanumeric key {0} pressed'.format(
             key.char))
-        sound = pygame.mixer.Sound("../c note.wav")
+        sound = pygame.mixer.Sound("../misc/c note.wav")
         sound.play()
         return sound
     except AttributeError:

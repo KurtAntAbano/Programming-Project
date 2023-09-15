@@ -5,7 +5,7 @@ import pygame
 pygame.mixer.init()
 
 while True:
-    sound = pygame.mixer.Sound("../c note.wav")
+    sound = pygame.mixer.Sound("../misc/c note.wav")
     if keyboard.is_pressed(key) and not keypress:
         sound.play()
         keypress = True        
