@@ -80,6 +80,8 @@ class MyPianoGUI:
             time.sleep(2)
             print("hi")
             # btn.configure(bg="white")
+            # unused function to change the colour of the button when pressed
+            # unused as the colour changing function adds latency to the audio
 
         def record(keytoadd):  # this functions checks whether we are in recording mode
             if self.recording == True:
@@ -298,11 +300,13 @@ class MyPianoGUI:
         def octaveincrease():  # functions to decrease and increase octave for key binds
             if self.octave != 2:
                 self.octave += 1
+                print_octave(str(self.octave))
             print(self.octave)
 
         def octavedecrease():
             if self.octave != -2:
                 self.octave -= 1
+                print_octave(str(self.octave))
             print(self.octave)
 
         # initiate octave slider
