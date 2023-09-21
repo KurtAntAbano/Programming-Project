@@ -323,7 +323,7 @@ class MyPianoGUI:
         self.octavesliderLabel = tk.Label(self.octaveframe, bg='white', fg=self.labelColour, width=20, text='octave:0')
         self.octavesliderLabel.grid(row=2, column=2)
 
-        #  changes colour of the recording button
+        #  changes colour of the recording buttonn
         def changeRecBtn():
             if self.recording == False:
                 self.recording = True
