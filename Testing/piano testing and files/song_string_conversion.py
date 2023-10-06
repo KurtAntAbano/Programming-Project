@@ -8,18 +8,17 @@ def stringtolist(songString):
         if i % 2 == 0:
             songList[i] = float(songList[i])
 
-    print(songList)
-
+    return songList
 
 def listtostring(songList):
     songString = ','.join(str(x) for x in songList)
-    print(songString)
 
+    return songString
 
 if __name__ == "__main__":
     print(song1)
-    stringtolist(song1)
+    print(stringtolist(song1))
     print()
     print()
     print(song2)
-    listtostring(song2)
+    print(listtostring(song2))

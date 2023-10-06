@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import *  # for python > 3.4
 # 15/09/23
 from playNoteFunctionsV3 import *
-
+from song_string_conversion import *
 """ --__Midi0ke__--
 
 First try for Midi0ke virtual piano for the midi-output.
@@ -90,9 +90,8 @@ class MyPianoGUI:
                 self.input_string.append(time_elapsed)
                 self.input_string.append(f'{keytoadd}{self.octave}')
 
-
-
                 self.previous_time = self.end_time
+
         #  function takes the key being pressed as a parameter and adds it to a list alongside the time of the
         #  previous input
 
