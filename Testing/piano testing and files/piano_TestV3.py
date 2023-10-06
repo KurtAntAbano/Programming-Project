@@ -27,7 +27,7 @@ class MyPianoGUI:
         self.octave = 0
         self.secondoctave = 1
         self.recording = False
-        self.input_list = []
+        self.input_string = []
         self.previous_time = 0
         self.noteShow = ''
         self.noteShow = tk.StringVar()
@@ -87,8 +87,10 @@ class MyPianoGUI:
             if self.recording == True:
                 self.end_time = time.time()
                 time_elapsed = self.end_time - self.previous_time
-                self.input_list.append(time_elapsed)
-                self.input_list.append(f'{keytoadd}{self.octave}')
+                self.input_string.append(time_elapsed)
+                self.input_string.append(f'{keytoadd}{self.octave}')
+
+
 
                 self.previous_time = self.end_time
         #  function takes the key being pressed as a parameter and adds it to a list alongside the time of the
@@ -332,20 +334,20 @@ class MyPianoGUI:
                 self.recording = False
                 self.record_btn.configure(bg="white")
                 print("recording finished")
-                print(self.input_list)
+                print(self.input_string)
                 self.previous_time = 0
 
         # uses loops to play back the recording list
         def playback():
             state = self.state.get()
-            print(self.input_list)
-            for i in range(1, len(self.input_list)):
-                note = self.input_list[i]
+            print(self.input_string)
+            for i in range(1, len(self.input_string)):
+                note = self.input_string[i]
                 if i % 2 != 0:
                     note = pygame.mixer.Sound(f'wavsV3\\{state}\\octave{note[1:]}\\{state}{note[0]}.wav')
                     note.play()
                 else:
-                    time.sleep(self.input_list[i])
+                    time.sleep(self.input_string[i])
 
         self.record_btn = tk.Button(self.recordFrame, text="⏺", height=3, width=4, command=lambda: changeRecBtn())
         self.record_btn.grid(row=1, column=1)
