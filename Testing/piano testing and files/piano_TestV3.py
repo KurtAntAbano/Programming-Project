@@ -362,13 +362,21 @@ class MyPianoGUI:
             self.noteLabel.configure(textvariable=self.noteShow)
 
         self.state = tk.StringVar()
-        self.state_btn = tk.Button(self.controlFrame, textvariable=self.state, command=update_btn_text,
-                                   fg=self.labelColour)
         self.state.set("Piano")
-        self.state_btn.grid(row=5, column=7)
+
+        self.state_left_btn = tk.Button(self.controlFrame, text="<", command=update_btn_text,
+                                   fg=self.labelColour)
+        self.state_left_btn.grid(row=6, column=11)
+
+        self.state_right_btn = tk.Button(self.controlFrame, text=">", command=update_btn_text,
+                                   fg=self.labelColour)
+        self.state_right_btn.grid(row=6, column=12)
 
         self.Label = Label(self.controlFrame, text="change\n state", fg=self.labelColour)
-        self.Label.grid(row=6, column=7)
+        self.Label.grid(row=6, column=10)
+
+        self.state_Label = Label(self.controlFrame, textvariable=self.state, fg=self.labelColour,)
+        self.state_Label.grid(row=5, column=10)
 
     # uses configure to change all attributes
 
