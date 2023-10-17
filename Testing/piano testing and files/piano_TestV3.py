@@ -351,11 +351,31 @@ class MyPianoGUI:
         self.noteLabel = tk.Label(self.recordFrame, bg='white', fg='black', width=26, textvariable=self.noteShow)
         self.noteLabel.grid(row=1, column=5)
 
-        def update_btn_text():  # changes text on a button
-            if self.state.get() == "Piano":
-                self.state.set("Guitar")
+        self.instrument_list = ["Piano", "Guitar", "Harp", "Flute"]
+        print(len(self.instrument_list))
+        self.instrument_count = 0
+
+        def update_btn_text(sign):  # changes text on a button
+            if sign == ">":
+                self.instrument_count += 1
+                if self.instrument_count > len(self.instrument_list)-1:
+                    self.instrument_count = 0
+
             else:
-                self.state.set("Piano")
+                self.instrument_count -= 1
+                if self.instrument_count < 0:
+                    self.instrument_count = 3
+
+            self.state.set(self.instrument_list[self.instrument_count])
+
+
+
+
+
+            # if self.state.get() == "Piano":
+            #     self.state.set("Guitar")
+            # else:
+            #     self.state.set("Piano")
 
         def update_note_text(note):
             self.noteShow.set(note)
@@ -364,19 +384,19 @@ class MyPianoGUI:
         self.state = tk.StringVar()
         self.state.set("Piano")
 
-        self.state_left_btn = tk.Button(self.controlFrame, text="<", command=update_btn_text,
+        self.state_left_btn = tk.Button(self.controlFrame, text="<", command=lambda: update_btn_text("<"),
                                    fg=self.labelColour)
         self.state_left_btn.grid(row=6, column=11)
 
-        self.state_right_btn = tk.Button(self.controlFrame, text=">", command=update_btn_text,
+        self.state_right_btn = tk.Button(self.controlFrame, text=">", command=lambda:update_btn_text(">"),
                                    fg=self.labelColour)
         self.state_right_btn.grid(row=6, column=12)
 
         self.Label = Label(self.controlFrame, text="change\n state", fg=self.labelColour)
         self.Label.grid(row=6, column=10)
 
-        self.state_Label = Label(self.controlFrame, textvariable=self.state, fg=self.labelColour,)
-        self.state_Label.grid(row=5, column=10)
+        self.state_Label = Label(self.controlFrame, textvariable=self.state,  bg='white', fg=self.labelColour,)
+        self.state_Label.place(x=230, y=40)
 
     # uses configure to change all attributes
 
@@ -455,7 +475,7 @@ class main_window(tk.Tk):
         super().__init__()
         # configure the root window
         self.title('Main Window')
-        self.geometry('750x600')  # 450 x 600
+        self.geometry('900x600')  # 450 x 600 , 900 used to be 750
 
 
 mainWindow = main_window()
