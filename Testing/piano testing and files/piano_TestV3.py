@@ -195,102 +195,129 @@ class MyPianoGUI:
 
         # -----------------------------------------------------------------------------------------------------
         #
-        self.C_0_button = Button(self.pianoFrame, bg="white", text="C_1", command=lambda:[note_C0(pianoFrame,2),record("C"),update_note_text(f'C{self.octave}')], height=10, width=6)
-        self.C_0_button.grid(row=3, column=7)
+        self.C_0_button2 = Button(self.pianoFrame, bg="white", text="C_1", command=lambda:[note_C0(pianoFrame,2),record("C"),update_note_text(f'C{self.octave}')], height=10, width=6)
+        self.C_0_button2.grid(row=3, column=7)
         self.master.bind('<w>', lambda event: [note_C0(pianoFrame,2), record("C"),update_note_text(f'C{self.octave}')])
 
-        self.D_0_button = Button(self.pianoFrame, bg="white", text="D_1",
+        self.D_0_button2 = Button(self.pianoFrame, bg="white", text="D_1",
                                  command=lambda: [note_D0(pianoFrame,2), record("D"),
                                                   update_note_text(f'D{self.octave}')], height=10, width=6)
-        self.D_0_button.grid(row=3, column=8)
+        self.D_0_button2.grid(row=3, column=8)
         self.master.bind('<e>', lambda event: [note_D0(pianoFrame,2), record("D"), update_note_text(f'D{self.octave}')])
 
-        self.E_0_button = Button(self.pianoFrame, bg="white", text="E_1",
+        self.E_0_button2 = Button(self.pianoFrame, bg="white", text="E_1",
                                  command=lambda: [note_E0(pianoFrame,2), record("E"),
                                                   update_note_text(f'E{self.octave}')], height=10, width=6)
-        self.E_0_button.grid(row=3, column=9)
+        self.E_0_button2.grid(row=3, column=9)
         self.master.bind('<r>', lambda event: [note_E0(pianoFrame,2), record("E"), update_note_text(f'E{self.octave}')])
 
-        self.F_0_button = Button(self.pianoFrame, bg="white", text="F_1",
+        self.F_0_button2 = Button(self.pianoFrame, bg="white", text="F_1",
                                  command=lambda: [note_F0(pianoFrame,2), record("F"),
                                                   update_note_text(f'F{self.octave}')], height=10, width=6)
-        self.F_0_button.grid(row=3, column=10)
+        self.F_0_button2.grid(row=3, column=10)
         self.master.bind('<t>', lambda event: [note_F0(pianoFrame,2), record("F"), update_note_text(f'F{self.octave}')])
 
-        self.G_0_button = Button(self.pianoFrame, bg="white", text="G_1",
+        self.G_0_button2 = Button(self.pianoFrame, bg="white", text="G_1",
                                  command=lambda: [note_G0(pianoFrame,2), record("G"),
                                                   update_note_text(f'G{self.octave}')], height=10, width=4)
-        self.G_0_button.grid(row=3, column=11)
+        self.G_0_button2.grid(row=3, column=11)
         self.master.bind('<y>', lambda event: [note_G0(pianoFrame,2), record("G"), update_note_text(f'G{self.octave}')])
 
-        self.A_0_button = Button(self.pianoFrame, bg="white", text="A_1",
+        self.A_0_button2 = Button(self.pianoFrame, bg="white", text="A_1",
                                  command=lambda: [note_A0(pianoFrame,2), record("A"),
                                                   update_note_text(f'A{self.octave}')], height=10, width=6)
-        self.A_0_button.grid(row=3, column=12)
+        self.A_0_button2.grid(row=3, column=12)
         self.master.bind('<u>', lambda event: [note_A0(pianoFrame,2), record("A"), update_note_text(f'A{self.octave}')])
 
-        self.B_0_button = Button(self.pianoFrame, bg="white", text="B_1",
+        self.B_0_button2 = Button(self.pianoFrame, bg="white", text="B_1",
                                  command=lambda: [note_B0(pianoFrame,2), record("B"),
                                                   update_note_text(f'B{self.octave}')], height=10, width=6)
-        self.B_0_button.grid(row=3, column=13)
+        self.B_0_button2.grid(row=3, column=13)
         self.master.bind('<i>', lambda event: [note_B0(pianoFrame,2), record("B"), update_note_text(f'B{self.octave}')])
 
         self.placeHolder2 = Label(self.pianoFrame, height=7, width=6, bg=self.frameColour)
         self.placeHolder2.grid(row=1, column=14)
 
-        self.CC_0_button = Button(self.pianoFrame, bg="black", fg="white", text="C#_1",
+        self.CC_0_button2 = Button(self.pianoFrame, bg="black", fg="white", text="C#_1",
                                   command=lambda: [note_CC0(pianoFrame,2), record("C#"),
                                                    update_note_text(f'C#{self.octave}')], height=10, width=3)
         # self.CC_0_button.grid(row=1, columnspan=2)
-        self.CC_0_button.place(x=385, y=40)
+        self.CC_0_button2.place(x=385, y=40)
         self.master.bind('<Key-3>',
                          lambda event: [note_CC0(pianoFrame,2), record("C#"), update_note_text(f'C#{self.octave}')])
 
-        self.DD_0_button = Button(self.pianoFrame, bg="black", fg="white", text="D#_1",
+        self.DD_0_button2 = Button(self.pianoFrame, bg="black", fg="white", text="D#_1",
                                   command=lambda: [note_DD0(pianoFrame,2), record("D#"),
                                                    update_note_text(f'D#{self.octave}')], height=10, width=3)
         # self.DD_0_button.grid(row=1, columnspan=4)
-        self.DD_0_button.place(x=435, y=40)
+        self.DD_0_button2.place(x=435, y=40)
         self.master.bind('<Key-4>',
                           lambda event: [note_DD0(pianoFrame,2), record("D#"), update_note_text(f'D#{self.octave}')])
 
-        self.AA_0_button = Button(self.pianoFrame, bg="black", fg="white", text="A#_1",
+        self.AA_0_button2 = Button(self.pianoFrame, bg="black", fg="white", text="A#_1",
                                   command=lambda: [note_AA0(pianoFrame,2), record("A#"),
                                                    update_note_text(f'A#{self.octave}')], height=10, width=3)
         # self.AA_0_button.grid(row=1, column=5, columnspan=2)
-        self.AA_0_button.place(x=640, y=40)
+        self.AA_0_button2.place(x=640, y=40)
         self.master.bind('<8>',
                           lambda event: [note_AA0(pianoFrame,2), record("A#"), update_note_text(f'A#{self.octave}')])
 
-        self.GG_0_button = Button(self.pianoFrame, bg="black", fg="white", text="G#_1",
+        self.GG_0_button2 = Button(self.pianoFrame, bg="black", fg="white", text="G#_1",
                                   command=lambda: [note_GG0(pianoFrame,2), record("G#"),
                                                    update_note_text(f'G#{self.octave}')], height=10, width=3)
         # self.GG_0_button.grid(row=1, column=4, columnspan=2)
-        self.GG_0_button.place(x=590, y=40)
+        self.GG_0_button2.place(x=590, y=40)
         self.master.bind('<7>',
                           lambda event: [note_GG0(pianoFrame,2), record("G#"), update_note_text(f'G#{self.octave}')])
 
-        self.FF_0_button = Button(self.pianoFrame, bg="black", fg="white", text="F#_1",
+        self.FF_0_button2 = Button(self.pianoFrame, bg="black", fg="white", text="F#_1",
                                   command=lambda: [note_FF0(pianoFrame,2), record("F#"),
                                                    update_note_text(f'F#{self.octave}')], height=10, width=3)
         # self.FF_0_button.grid(row=1, column=3, columnspan=2)
-        self.FF_0_button.place(x=540, y=40)
+        self.FF_0_button2.place(x=540, y=40)
         self.master.bind('<6>',
                           lambda event: [note_FF0(pianoFrame,2), record("F#"), update_note_text(f'F#{self.octave}')])
 
         # -----------------------------------------------------------------------------------------------------
 
+        self.lowerKeynotes = [self.C_0_button, self.D_0_button, self.E_0_button, self.F_0_button, self.G_0_button,
+                              self.A_0_button,
+                              self.B_0_button, self.C_0_button2, self.D_0_button2, self.E_0_button2, self.F_0_button2,
+                              self.G_0_button2, self.A_0_button2,
+                              self.B_0_button2]
+
+        self.upperKeynotes = [self.CC_0_button, self.DD_0_button, self.AA_0_button, self.GG_0_button, self.FF_0_button,
+                              self.CC_0_button2, self.DD_0_button2, self.AA_0_button2, self.GG_0_button2,
+                              self.FF_0_button2]
         def note_colour_change():
-            self.lowerKeynotes = [self.C_0_button, self.D_0_button, self.E_0_button, self.F_0_button, self.G_0_button, self.A_0_button,
-                             self.B_0_button]
+            if self.noteColour1 == 'black':
+                self.noteColour1 = 'white'
+                self.noteColour2 = 'black'
 
-            self.upperKeynotes = [self.CC_0_button, self.DD_0_button, self.AA_0_button, self.GG_0_button, self.FF_0_button]
-
-            self.noteColour1 = 'white'
-            self.noteColour2 = 'black'
+            else:
+                self.noteColour1 = 'black'
+                self.noteColour2 = 'white'
 
             for i in range(0,len(self.lowerKeynotes)):
                 self.lowerKeynotes[i].configure(fg=self.noteColour1)
+
+            for i in range(0,len(self.upperKeynotes)):
+                self.upperKeynotes[i].configure(fg=self.noteColour2)
+
+        def pianoKeyText_change():
+            t='text'
+            for i in range(0,7):
+                self.lowerKeynotes[i].configure(text=f'{self.lowerKeynotes[i].cget(t)[0:2]}{self.octave}')
+
+            for i in range(0,5):
+                self.upperKeynotes[i].configure(text=f'{self.upperKeynotes[i].cget(t)[0:3]}{self.octave}')
+
+
+            for i in range(7,14):
+                self.lowerKeynotes[i].configure(text=f'{self.lowerKeynotes[i].cget(t)[0:2]}{self.secondoctave}')
+
+            for i in range(5,10):
+                self.upperKeynotes[i].configure(text=f'{self.upperKeynotes[i].cget(t)[0:3]}{self.secondoctave}')
 
 
 
@@ -335,6 +362,7 @@ class MyPianoGUI:
 
             self.octavesliderLabel.config(text='octave: ' + o, fg=self.labelColour, bg=self.label_background_colour)
             self.octave = int(o)
+            pianoKeyText_change()
             print(self.octave)
 
 
@@ -346,8 +374,8 @@ class MyPianoGUI:
         self.octaveSlider.set(0)
 
         # key binds added to change octave slider with the keyboard
-        self.master.bind('<Left>', lambda event: self.octaveSlider.set(self.octaveSlider.get()-1))
-        self.master.bind('<Right>', lambda event: self.octaveSlider.set(self.octaveSlider.get()+1))
+        self.master.bind('<Left>', lambda event: self.octaveSlider.set(self.octaveSlider.get()-1),pianoKeyText_change())
+        self.master.bind('<Right>', lambda event: self.octaveSlider.set(self.octaveSlider.get()+1),pianoKeyText_change())
 
         self.octavesliderLabel = tk.Label(self.octaveframe, bg=self.label_background_colour, fg=self.labelColour, width=20, text='octave:0')
         self.octavesliderLabel.grid(row=2, column=2)
