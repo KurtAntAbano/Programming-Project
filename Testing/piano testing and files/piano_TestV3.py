@@ -2,7 +2,9 @@ import tkinter as tk
 from tkinter import *  # for python > 3.4
 # 15/09/23
 from playNoteFunctionsV3 import *
-from song_string_conversion import *
+from metranome_test import *
+from threading import *
+#from song_string_conversion import *
 """ --__Midi0ke__--
 
 First try for Midi0ke virtual piano for the midi-output.
@@ -322,19 +324,6 @@ class MyPianoGUI:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         # -----------------------------------------------------------------------------------------------------
         def print_volume(v):  # function will print the current volume
             self.volume = v
@@ -430,14 +419,19 @@ class MyPianoGUI:
 
             self.state.set(self.instrument_list[self.instrument_count])
 
+        def metronome_function(bpm_entry):
+            bpm_to_pass = int(bpm_entry.get())
+            print(bpm_to_pass)
+
+            myMetronome = metronome(bpm_to_pass, 4)
+            met_thread = Thread(target=myMetronome.playMetronome())
+            met_thread.start()
 
 
 
 
-            # if self.state.get() == "Piano":
-            #     self.state.set("Guitar")
-            # else:
-            #     self.state.set("Piano")
+
+
 
         def update_note_text(note):
             self.noteShow.set(note)
@@ -462,6 +456,11 @@ class MyPianoGUI:
 
         self.showNotes = Button(self.controlFrame, text='show notes',fg=self.labelColour, command=lambda:note_colour_change())
         self.showNotes.place(x=300, y=40)
+
+        self.metranome_btn = Button(self.controlFrame, text = 'Metranome', fg=self.labelColour, command=lambda:metronome_function( self.metranome_entry))
+        self.metranome_btn.place(x=400, y=40)
+        self.metranome_entry = Entry(self.controlFrame, width=10)
+        self.metranome_entry.place(x=400, y =80)
 
     # uses configure to change all attributes
 
@@ -488,6 +487,7 @@ class MyPianoGUI:
         self.record_btn.configure(bg=self.frameColour, fg=self.labelColour)
         self.playback_btn.configure(bg=self.frameColour, fg=self.labelColour)
         self.noteLabel.configure(fg=self.labelColour, bg=self.label_background_colour)
+        self.showNotes.configure(bg=self.frameColour, fg=self.labelColour)
 
     def themeChanger(self, value):  # window containing buttons that change attributes for colour
         darkList = ['#5A5A5A', '#FFA500', '#656565','#424242']
