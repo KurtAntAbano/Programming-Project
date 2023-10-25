@@ -3,7 +3,7 @@ from tkinter import *  # for python > 3.4
 # 15/09/23
 from playNoteFunctionsV3 import *
 from metranome_test import *
-from threading import *
+import threading
 #from song_string_conversion import *
 """ --__Midi0ke__--
 
@@ -396,7 +396,7 @@ class MyPianoGUI:
         self.record_btn = tk.Button(self.recordFrame, text="⏺", height=3, width=4, command=lambda: changeRecBtn())
         self.record_btn.grid(row=1, column=1)
 
-        self.playback_btn = tk.Button(self.recordFrame, text="⏵", height=3, width=4, command=lambda: playback())
+        self.playback_btn = tk.Button(self.recordFrame, text="⏵", height=3, width=4, command=lambda:threading.Thread(playback()).start())
         self.playback_btn.grid(row=1, column=2)
 
         self.noteLabel = tk.Label(self.recordFrame, bg=self.label_background_colour, fg=self.labelColour, width=26, textvariable=self.noteShow)
@@ -424,8 +424,9 @@ class MyPianoGUI:
             print(bpm_to_pass)
 
             myMetronome = metronome(bpm_to_pass, 4)
-            met_thread = Thread(target=myMetronome.playMetronome())
-            met_thread.start()
+            # met_thread = Thread(target=myMetronome.playMetronome())
+            # met_thread.start()
+            myMetronome.playMetronome()
 
 
 
@@ -457,7 +458,7 @@ class MyPianoGUI:
         self.showNotes = Button(self.controlFrame, text='show notes',fg=self.labelColour, command=lambda:note_colour_change())
         self.showNotes.place(x=300, y=40)
 
-        self.metranome_btn = Button(self.controlFrame, text = 'Metranome', fg=self.labelColour, command=lambda:metronome_function( self.metranome_entry))
+        self.metranome_btn = Button(self.controlFrame, text = 'Metranome', fg=self.labelColour, command=lambda:threading.Thread(target=metronome_function(self.metranome_entry)).start)
         self.metranome_btn.place(x=400, y=40)
         self.metranome_entry = Entry(self.controlFrame, width=10)
         self.metranome_entry.place(x=400, y =80)

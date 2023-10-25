@@ -1,11 +1,13 @@
-
+import tkinter as tk
+from tkinter import *  # for python > 3.4
 import pygame
 import time
 import threading
 class metronome:
-    def __init__(self, given_bpm, given_mode):
+    def __init__(self, given_bpm, given_mode, given_run):
         self.bpm = given_bpm
         self.mode = given_mode
+        self.running = given_run
 
 
     def playMetronome(self):
@@ -17,7 +19,7 @@ class metronome:
         mode = 4
         multiple = 8
 
-        while True:
+        while self.running == True:
             time.sleep(delay)
 
             # increment count after every wait and beat after ever 4 counts
@@ -36,7 +38,31 @@ class metronome:
 
             print(beat, count)
 
+    def stopplaying(self):
+        self.running = False
+
+
+
+
+
+def window():
+    win_theme = Tk()
+    win_theme.title("Welcome")
+    win_theme.geometry("350x100")
+
+    dark_btn = Button(win_theme, text="play", width=12, command=lambda:mymetro.playMetronome())
+    dark_btn.grid(row=1, column=1, padx=10, pady=10)
+    dark_btn = Button(win_theme, text="stop", width=12, command=lambda:mymetro.stopplaying())
+    dark_btn.grid(row=1, column=3, padx=10, pady=10)
+    mainloop()
+
+
+
 if __name__ == '__main__':
+
+
     pygame.mixer.init()
-    mymetro = metronome(120, 4)
-    mymetro.playMetronome()
+    mymetro = metronome(120, 4, True)
+    window()
+    # mymetro.playMetronome()
+
