@@ -456,12 +456,12 @@ class MyPianoGUI:
         self.state_Label.place(x=230, y=40)
 
         self.showNotes = Button(self.controlFrame, text='show notes',fg=self.labelColour, command=lambda:note_colour_change())
-        self.showNotes.place(x=300, y=40)
+        self.showNotes.place(x=300, y=8)
 
         self.metranome_btn = Button(self.controlFrame, text = 'Metranome', fg=self.labelColour, command=lambda:threading.Thread(target=metronome_function(self.metranome_entry)).start)
-        self.metranome_btn.place(x=400, y=40)
+        self.metranome_btn.place(x=300, y=40)
         self.metranome_entry = Entry(self.controlFrame, width=10)
-        self.metranome_entry.place(x=400, y =80)
+        self.metranome_entry.place(x=300, y =80)
 
     # uses configure to change all attributes
 
