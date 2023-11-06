@@ -2,6 +2,7 @@
 import pygame
 import time
 import threading
+from tkinter import *
 class metronome:
     def __init__(self, given_bpm, given_mode):
         self.bpm = given_bpm
@@ -36,7 +37,21 @@ class metronome:
 
             print(beat, count)
 
+
+def metranome_win():
+    win_theme = Tk()
+    win_theme.title("Welcome")
+    win_theme.geometry("350x100")
+
+    dark_btn = Button(win_theme, text="dark", width=12)
+    dark_btn.grid(row=1, column=1, padx=10, pady=10)
+
+
+    mainloop()
+
+
 if __name__ == '__main__':
+    metranome_win()
     pygame.mixer.init()
     mymetro = metronome(120, 4)
     mymetro.playMetronome()
