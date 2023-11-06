@@ -12,7 +12,7 @@ frame = Frame(win, width=600, height=400)
 #frame.pack()
 frame.place(anchor='center', relx=0.5, rely=0.5)
 
-img = (Image.open(r"/Testing/piano testing and files/virtupiano_logo.png"))
+img = (Image.open(r"/Testing/piano_testing_and_files/virtupiano_logo.png"))
 resized_img = img.resize((205, 30))
 new_img = ImageTk.PhotoImage(resized_img)
 photo_lbl = Label(frame, image=new_img)

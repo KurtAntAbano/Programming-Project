@@ -1,5 +1,5 @@
 import pygame
-
+pygame.mixer.init()
 
 class note:
     def __init__(self, num, state, vol, oct, secoct, keysection):  # this class adopts the pianos attributes

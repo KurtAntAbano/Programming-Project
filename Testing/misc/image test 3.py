@@ -3,7 +3,7 @@ from tkinter import Canvas, PhotoImage, Tk
 root = Tk()
 
 root.geometry("1230x750")
-bg = PhotoImage(file="../piano testing and files/virtupiano_logo.png")
+bg = PhotoImage(file="../piano_testing_and_files/V3_programming_project/virtupiano_logo.png")
 
 canvas1 = Canvas(root)
 canvas1.pack(fill="both",expand=True)

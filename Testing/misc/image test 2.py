@@ -13,7 +13,7 @@ canvas= Frame(win, width= 500, height= 100)
 canvas.pack()
 
 #Load an image in the script
-img= (Image.open(r"/Testing/piano testing and files/virtupiano_logo.png"))
+img= (Image.open(r"/Testing/piano_testing_and_files/virtupiano_logo.png"))
 
 #Resize the Image using resize method
 resized_image= img.resize((205,30))

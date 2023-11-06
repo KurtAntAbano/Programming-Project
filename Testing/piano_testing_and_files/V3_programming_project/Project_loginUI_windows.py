@@ -6,24 +6,30 @@
 #  USE KWARGS AND ARGS
 #  date:  12/05/23
 ########################################################################################################################
+
+
 from Project_loginUI_functions import login_verify, deleteUser, changePassword
 from tkinter import *
 from Project_SQL_accounts import login
 from tkinter import ttk
+from PIL import ImageTk, Image
+from piano_TestV3 import *
 
-#from tkinter import messagebox
+
+
+
+
+# from tkinter import messagebox
 
 def back(wx):
-    wx.destroy()# destorys any window passed into this function
-    login_notebook() #opens main again
+    wx.destroy()  # destorys any window passed into this function
+    login_notebook()  # opens main again
 
 
 def open_menu(w, database, email_entry, password_entry, flag):
-
     email = email_entry.get()
     password = password_entry.get()
     w.destroy()
-
 
     if login_verify(database, email, password):
         if flag == "user":
@@ -32,6 +38,7 @@ def open_menu(w, database, email_entry, password_entry, flag):
             adminMenu()
     else:
         login_notebook()
+
 
 def login_notebook():
     win = Tk()
@@ -49,6 +56,14 @@ def login_notebook():
     login_label = Label(userLoginWin, text="LOGIN DETAILS:")
     login_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
+    img = (Image.open(r"virtupiano_logo.png"))
+    resized_img = img.resize((205, 30))
+    new_img = ImageTk.PhotoImage(resized_img)
+    photo_lbl = Label(userLoginWin, image=new_img)
+
+    photo_lbl.image = new_img
+    photo_lbl.grid(row=1, column=1, padx=10, pady=10, sticky="W")
+
     username_label = Label(userLoginWin, text="Username")
     username_label.grid(row=2, column=0, padx=10, pady=10, sticky="W")
 
@@ -62,18 +77,25 @@ def login_notebook():
     password_entry1.grid(row=3, column=1, padx=10, pady=10, sticky="E")
 
     loginbutton = Button(userLoginWin, text="login", width=12, command=lambda: open_menu(win,
-                                                                                           UseraccountDB, username_entry1,
-                                                                                           password_entry1, "user"))
+                                                                                         UseraccountDB, username_entry1,
+                                                                                         password_entry1, "user"))
     loginbutton.grid(row=4, column=1, padx=10, pady=10)
 
-    backButton = Button(userLoginWin, text="Exit",command=lambda: quit())
+    backButton = Button(userLoginWin, text="Exit", command=lambda: quit())
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
 
-
-################ADMIN LOGIN WINDOW###################################################
+    ################ADMIN LOGIN WINDOW###################################################
 
     login_label = Label(adminLoginWin, text="LOGIN DETAILS:")
     login_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
+
+    img = (Image.open(r"virtupiano_logo.png"))
+    resized_img = img.resize((205, 30))
+    new_img = ImageTk.PhotoImage(resized_img)
+    photo_lbl = Label(adminLoginWin, image=new_img)
+
+    photo_lbl.image = new_img
+    photo_lbl.grid(row=1, column=1, padx=10, pady=10, sticky="W")
 
     username_label = Label(adminLoginWin, text="Username")
     username_label.grid(row=2, column=0, padx=10, pady=10, sticky="W")
@@ -88,32 +110,29 @@ def login_notebook():
     password_entry2.grid(row=3, column=1, padx=10, pady=10, sticky="E")
 
     loginbutton = Button(adminLoginWin, text="login", width=12, command=lambda: open_menu(win,
-                                                                                           AdminaccountDB, username_entry2,
-                                                                                           password_entry2, "admin"))
+                                                                                          AdminaccountDB,
+                                                                                          username_entry2,
+                                                                                          password_entry2, "admin"))
     loginbutton.grid(row=4, column=1, padx=10, pady=10)
 
     backButton = Button(adminLoginWin, text="Exit", command=lambda: quit())
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
 
-
     mainloop()
-
-
 
 
 def adminMenu():
     adminMenu = Tk()
     adminMenu.geometry("400x200")
 
-    admin_label = Label(adminMenu, text = "ADMIN MENU")
+    admin_label = Label(adminMenu, text="ADMIN MENU")
     admin_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
     deletebutton = Button(adminMenu, text="delete user", width=12, command=lambda: deleteWindow(adminMenu))
     deletebutton.grid(row=4, column=1, padx=10, pady=10)
 
-    backButton = Button(adminMenu, text="Back", command=lambda: back(adminMenu))# passes the current window
+    backButton = Button(adminMenu, text="Back", command=lambda: back(adminMenu))  # passes the current window
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
-
 
 
 def userMenu(email_entry):
@@ -121,16 +140,18 @@ def userMenu(email_entry):
     userMenu = Tk()
     userMenu.geometry("400x200")
 
-    user_label = Label(userMenu, text = "USER MENU")
+    user_label = Label(userMenu, text="USER MENU")
     user_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
     changebutton = Button(userMenu, text="change password", width=12, command=lambda: changePasswordwindow(userMenu,
                                                                                                            username))
     changebutton.grid(row=4, column=1, padx=10, pady=10)
 
-    backButton = Button(userMenu, text="Back", command=lambda: back(userMenu))# passes the current window
+    backButton = Button(userMenu, text="Back", command=lambda: back(userMenu))  # passes the current window
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
 
+    accessPiano = Button(userMenu, text="Access \n VIRTU Piano", command=lambda:main())
+    accessPiano.grid(row=5, column = 5, sticky="SNEW", padx=10, pady=10)
 
 
 def deleteWindow(w):
@@ -145,12 +166,11 @@ def deleteWindow(w):
     userToDelete.grid(row=2, column=1, padx=10, pady=10, sticky="E")
 
     deleteButton = Button(deleteMenu, text="Delete", width=12, command=lambda: deleteUser(UseraccountDB,
-                                                                                        userToDelete))
+                                                                                          userToDelete))
     deleteButton.grid(row=4, column=1, padx=10, pady=10)
 
-    backButton = Button(deleteMenu, text="Back", command=lambda: back(deleteMenu))# passes the current window
+    backButton = Button(deleteMenu, text="Back", command=lambda: back(deleteMenu))  # passes the current window
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
-
 
 
 def changePasswordwindow(w, username):
@@ -158,32 +178,29 @@ def changePasswordwindow(w, username):
     changeMenu = Tk()
     changeMenu.geometry("400x250")
 
-    newPassword_label = Label(changeMenu, text = "Password")
+    newPassword_label = Label(changeMenu, text="Password")
     newPassword_label.grid(row=3, column=0, padx=10, pady=10, sticky="W")
 
     newPassword_entry = Entry(changeMenu, width=30)
     newPassword_entry.grid(row=3, column=1, padx=10, pady=10, sticky="E")
 
-
-    submitbutton = Button(changeMenu, text="submit new password", width=18, command = lambda: changePassword(UseraccountDB,
-                                                                                                        username,
-                                                                                                        newPassword_entry))
+    submitbutton = Button(changeMenu, text="submit new password", width=18,
+                          command=lambda: changePassword(UseraccountDB,
+                                                         username,
+                                                         newPassword_entry))
     submitbutton.grid(row=5, column=1, padx=10, pady=10)
 
-    backButton = Button(changeMenu, text="Back", command=lambda: back(changeMenu))# passes the current window
+    backButton = Button(changeMenu, text="Back", command=lambda: back(changeMenu))  # passes the current window
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
 
 
-
-
-
 if __name__ == "__main__":
-    UseraccountDB = login()# creating an object
+    UseraccountDB = login()  # creating an object
     # uncomment to test when appropriate .......
-
 
     UseraccountDB.createTable()
     UseraccountDB.insertData("kurtabano@gmail.com", "Kurt_password")
+    UseraccountDB.insertData("k@gmail.com", "K")
     # accountWindow()
 
     AdminaccountDB = login()

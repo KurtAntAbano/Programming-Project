@@ -1,6 +1,5 @@
 from Project_myValidation import is_valid_email, presenceCheck
 from tkinter import messagebox
-
 # from Project_loginUI_windows import adminMenu, userMenu
 
 
