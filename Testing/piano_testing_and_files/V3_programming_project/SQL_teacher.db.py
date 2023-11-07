@@ -7,18 +7,18 @@
 
 import sqlite3
 # _________________________ Creating the class and methods __________________
-class login():
+class studentProject():
     def __init__(self): # not needed, you can remove
         pass
     # _____________ method to create tables _________________________________
     def createTable(self):
         try:
-            conn = sqlite3.connect('accounts.db')
+            conn = sqlite3.connect('student.db')
             #print("Opened database successfully")
 
             conn.execute('''CREATE TABLE IF NOT EXISTS USERS 
-                           (UserName      TEXT     PRIMARY KEY     NOT NULL,
-                            password      TEXT    NOT NULL);''')
+                           (User      TEXT     PRIMARY KEY     NOT NULL,
+                            project      TEXT    NOT NULL);''')
 
             #print("Users Accounts Table is created successfully")
             conn.close()
@@ -30,7 +30,7 @@ class login():
     def insertData(self, givenUser, givenPassword):
 
         try:
-            conn = sqlite3.connect('accounts.db')
+            conn = sqlite3.connect('student.db')
             # insert data into database table
             conn.execute('''insert into USERS  (UserName, password) values (?, ?)''',
                          (givenUser, givenPassword))
@@ -44,7 +44,7 @@ class login():
 
     def showAllRecords(self):
         try:
-            conn = sqlite3.connect('accounts.db')
+            conn = sqlite3.connect('student.db')
             # Select all records in a table:
             cursor = conn.execute(''' SELECT UserName, password FROM  USERS ''')
 
@@ -58,7 +58,7 @@ class login():
     # _____________ method to delete a record from the table _________________________________
     def deleteRecord(self, givenuser):
         try:
-            conn = sqlite3.connect('accounts.db')
+            conn = sqlite3.connect('student.db')
             conn.execute("DELETE FROM USERS WHERE  UserName =?", (givenuser,))
             print("deleted")
             conn.commit()
@@ -70,7 +70,7 @@ class login():
     # _____________ method to Update password _________________________________
     def updatePassword(self, givenUser, newPassword):
         try:
-            conn = sqlite3.connect('accounts.db')
+            conn = sqlite3.connect('student.db')
             conn.execute('''UPDATE USERS  SET password = ? WHERE UserName = ? ''', (newPassword, givenUser))
             conn.commit()
             conn.close()
@@ -79,9 +79,9 @@ class login():
 
     # _____________ method to search for a user  _________________________________
     def searchUser(self, givenUser, givenpassword):
-        conn = sqlite3.connect('accounts.db')
+        conn = sqlite3.connect('student.db')
         # Select all records in a table:
-        cursor = conn.execute(''' SELECT UserName, password FROM  USERS ''')
+        cursor = conn.execute(''' SELECT User, project FROM  USERS ''')
         for row in cursor:
             if row[0] == givenUser and row[1] == givenpassword:
                 return True
@@ -91,14 +91,14 @@ class login():
 # ______________  TESTING ALL ABOVE _________________________
 
 if __name__=="__main__":
-    myDB = login() # creating an object
+    student_DB = studentProject() # creating an object
     # uncomment to test when appropriate .......
 
-    myDB.createTable()
-    myDB.insertData("kurtabano@gmail.com", "Kurt_password")
-    myDB.insertData("kurt", "abano")
-    myDB.showAllRecords()
-    print(myDB.searchUser("kurtabano@gmail.com", "Kurt_password"))
+    student_DB.createTable()
+    student_DB.insertData("kurt", "a string")
+    student_DB.showAllRecords()
+    #print(student_DB.searchUser("kurtabano@gmail.com", "Kurt_password"))
+    print(student_DB.searchUser("Kurt", "a string"))
     # print(myDB.deleteRecord("abid2"))
     # myDB.updatePassword("abid", "newPassword")
     # print("--------------------------------")

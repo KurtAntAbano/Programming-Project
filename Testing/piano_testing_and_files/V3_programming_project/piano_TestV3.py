@@ -119,7 +119,7 @@ class MyPianoGUI:
                          lambda event: [note_D0(self, 1), record(f'D{self.octave}'), update_note_text(f'D{self.octave}')])
 
         self.E_0_button = Button(self.pianoFrame, bg="white", text="E_0",fg=self.noteColour1,
-                                 command=lambda: [note_E0(self, 1), record("E"),
+                                 command=lambda: [note_E0(self, 1), record(f'E{self.octave}'),
                                                   update_note_text(f'E{self.octave}')], height=10, width=6)
         self.E_0_button.grid(row=3, column=2)
         self.master.bind('<c>',
@@ -580,6 +580,7 @@ def main():
     pianoFrame = MyPianoGUI(mainWindow)
     #num1 = StringVar()
     pygame.mixer.init()
+    pygame.mixer.set_num_channels(32)
 
     mainWindow.mainloop()
 
