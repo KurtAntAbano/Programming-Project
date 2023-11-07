@@ -16,7 +16,7 @@ class studentProject():
             conn = sqlite3.connect('student.db')
             #print("Opened database successfully")
 
-            conn.execute('''CREATE TABLE IF NOT EXISTS USERS 
+            conn.execute('''CREATE TABLE IF NOT EXISTS PROJECTS
                            (User      TEXT     PRIMARY KEY     NOT NULL,
                             project      TEXT    NOT NULL);''')
 
