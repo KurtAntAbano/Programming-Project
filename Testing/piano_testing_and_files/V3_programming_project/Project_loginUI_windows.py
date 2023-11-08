@@ -35,9 +35,33 @@ def open_menu(w, database, email_entry, password_entry, flag):
         if flag == "user":
             userMenu(email)
         else:
-            adminMenu()
+            adminMenu(email)
     else:
         login_notebook()
+def student_back(w, username):
+    w.destroy()
+    adminMenu(username)
+
+def student_database_window(w, givenUsername):
+    w.destroy()
+    teacher = givenUsername
+    db_win = Tk()
+    db_win.geometry("800x400")
+
+    login_label = Label(db_win, text="Student database:")
+    login_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
+
+
+    backButton = Button(db_win, text="Back", command=lambda: student_back(db_win, teacher))  # passes the current window
+    backButton.grid(row=1, column=4, sticky="SNEW", padx=10, pady=10)
+
+    databaseFrame = Frame(db_win)
+    databaseFrame.grid(row=5, column=0)
+    databaseFrame.configure(bg='black')
+
+    label = Label(databaseFrame, text='testing')
+    label.grid(row=2, column=2)
+
 
 
 def login_notebook():
@@ -121,12 +145,19 @@ def login_notebook():
     mainloop()
 
 
-def adminMenu():
+def adminMenu(email_entry):
+    username = email_entry
     adminMenu = Tk()
     adminMenu.geometry("400x200")
 
     admin_label = Label(adminMenu, text="ADMIN MENU")
     admin_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
+
+    accessPiano = Button(adminMenu, text="Access \n VIRTU Piano", command=lambda:main(username))
+    accessPiano.grid(row=4, column =2 , sticky="SNEW", padx=10, pady=10)
+
+    access_db = Button(adminMenu, text="Student database", command=lambda:student_database_window(adminMenu, username))
+    access_db.grid(row=4, column =3 , sticky="SNEW", padx=10, pady=10)
 
     deletebutton = Button(adminMenu, text="delete user", width=12, command=lambda: deleteWindow(adminMenu))
     deletebutton.grid(row=4, column=1, padx=10, pady=10)
@@ -150,7 +181,7 @@ def userMenu(email_entry):
     backButton = Button(userMenu, text="Back", command=lambda: back(userMenu))  # passes the current window
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
 
-    accessPiano = Button(userMenu, text="Access \n VIRTU Piano", command=lambda:main())
+    accessPiano = Button(userMenu, text="Access \n VIRTU Piano", command=lambda:main(username))
     accessPiano.grid(row=5, column = 5, sticky="SNEW", padx=10, pady=10)
 
 

@@ -32,7 +32,7 @@ class studentProject():
         try:
             conn = sqlite3.connect('student.db')
             # insert data into database table
-            conn.execute('''insert into USERS  (UserName, password) values (?, ?)''',
+            conn.execute('''insert into PROJECTS  (User, project) values (?, ?)''',
                          (givenUser, givenPassword))
             conn.commit()  # do not forget to commit the data (i.e. save the data on the table
             conn.close()
@@ -46,7 +46,7 @@ class studentProject():
         try:
             conn = sqlite3.connect('student.db')
             # Select all records in a table:
-            cursor = conn.execute(''' SELECT UserName, password FROM  USERS ''')
+            cursor = conn.execute(''' SELECT User, project FROM  PROJECTS ''')
 
             for row in cursor:
                 print("User Name = ", row[0])
@@ -59,7 +59,7 @@ class studentProject():
     def deleteRecord(self, givenuser):
         try:
             conn = sqlite3.connect('student.db')
-            conn.execute("DELETE FROM USERS WHERE  UserName =?", (givenuser,))
+            conn.execute("DELETE FROM PROJECTS WHERE  User =?", (givenuser,))
             print("deleted")
             conn.commit()
             conn.close()
@@ -71,7 +71,7 @@ class studentProject():
     def updatePassword(self, givenUser, newPassword):
         try:
             conn = sqlite3.connect('student.db')
-            conn.execute('''UPDATE USERS  SET password = ? WHERE UserName = ? ''', (newPassword, givenUser))
+            conn.execute('''UPDATE PROJECTS  SET project = ? WHERE User = ? ''', (newPassword, givenUser))
             conn.commit()
             conn.close()
         except:
@@ -81,7 +81,7 @@ class studentProject():
     def searchUser(self, givenUser, givenpassword):
         conn = sqlite3.connect('student.db')
         # Select all records in a table:
-        cursor = conn.execute(''' SELECT User, project FROM  USERS ''')
+        cursor = conn.execute(''' SELECT User, project FROM  PROJECTS ''')
         for row in cursor:
             if row[0] == givenUser and row[1] == givenpassword:
                 return True
@@ -98,7 +98,7 @@ if __name__=="__main__":
     student_DB.insertData("kurt", "a string")
     student_DB.showAllRecords()
     #print(student_DB.searchUser("kurtabano@gmail.com", "Kurt_password"))
-    print(student_DB.searchUser("Kurt", "a string"))
+    print(student_DB.searchUser("kurt", "a string"))
     # print(myDB.deleteRecord("abid2"))
     # myDB.updatePassword("abid", "newPassword")
     # print("--------------------------------")
