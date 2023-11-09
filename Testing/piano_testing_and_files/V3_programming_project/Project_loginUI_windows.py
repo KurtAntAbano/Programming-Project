@@ -42,11 +42,53 @@ def student_back(w, username):
     w.destroy()
     adminMenu(username)
 
+
+def display_records():
+    # Connect to the SQLite database
+    conn = sqlite3.connect('student.db')  # Replace 'your_database.db' with your database file name
+    cursor = conn.cursor()
+
+    cursor.execute('SELECT * FROM PROJECTS')
+    records = cursor.fetchall()
+
+    window = tk.Toplevel()
+    window.title('Database Records')
+
+    tree = ttk.Treeview(window)
+
+    columns = [description[0] for description in cursor.description]
+    tree["columns"] = columns
+    tree["show"] = "headings"
+
+
+    for col in columns:
+        tree.heading(col, text=col)
+        tree.column(col, width=100)  # Adjust width as needed
+
+
+    for record in records:
+        tree.insert("", "end", values=record)
+
+    tree.pack(expand=True, fill="both")
+
+
+    cursor.close()
+    conn.close()
 def student_database_window(w, givenUsername):
     w.destroy()
     teacher = givenUsername
     db_win = Tk()
     db_win.geometry("800x400")
+
+    display_records()
+
+    student_DB = studentProject()
+    rows = student_DB.give_rows()
+    print(rows)
+    student_DB.showAllRecords()
+
+
+
 
     login_label = Label(db_win, text="Student database:")
     login_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
@@ -57,10 +99,23 @@ def student_database_window(w, givenUsername):
 
     databaseFrame = Frame(db_win)
     databaseFrame.grid(row=5, column=0)
-    databaseFrame.configure(bg='black')
+    # databaseFrame.configure(bg='black')
 
     label = Label(databaseFrame, text='testing')
-    label.grid(row=2, column=2)
+    label.pack(side='top')
+
+    def displaySongString(index):
+        # song = rows[index][1]
+        # print(song)
+
+        print(index)
+
+    dict_list = [{row[0]: row[1:]} for row in rows]
+    print(dict_list)
+
+    for i in range(0, len(rows)):
+        button = tk.Button(databaseFrame, text=f"Button {i+1} {rows[i][0]}", command=lambda:displaySongString(rows[i][0]))
+        button.pack(side='left')
 
 
 
