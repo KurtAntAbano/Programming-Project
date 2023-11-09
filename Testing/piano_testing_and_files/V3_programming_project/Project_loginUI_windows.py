@@ -88,6 +88,10 @@ def student_database_window(w, givenUsername):
     student_DB.showAllRecords()
 
 
+    #NEW IDEA: use dictionary create buttons using loop, in order to access the song strings,
+    #use cget('text') to extract button text (which will be the name of user) use this calue to reference dictionary
+    # and viola
+
 
 
     login_label = Label(db_win, text="Student database:")
