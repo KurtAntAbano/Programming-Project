@@ -92,6 +92,10 @@ def student_database_window(w, givenUsername):
     #use cget('text') to extract button text (which will be the name of user) use this calue to reference dictionary
     # and viola
 
+    #(in order to reference the button, add the button name to a list?)
+
+
+
 
 
     login_label = Label(db_win, text="Student database:")
@@ -114,12 +118,32 @@ def student_database_window(w, givenUsername):
 
         print(index)
 
-    dict_list = [{row[0]: row[1:]} for row in rows]
-    print(dict_list)
+    dictionary = [{row[0]: row[1:]} for row in rows]
 
-    for i in range(0, len(rows)):
-        button = tk.Button(databaseFrame, text=f"Button {i+1} {rows[i][0]}", command=lambda:displaySongString(rows[i][0]))
-        button.pack(side='left')
+    # new_dict = {}
+    # for item in dictionary:
+    #     new_dict[dictionary[]] = item
+    #
+    # print(new_dict)
+
+    print(dictionary)
+    for d in dictionary:
+        for key in d:
+            if key == 'Kurt Abano':
+                namee = d[key]
+                print(key, namee)
+    print(dictionary[0])
+
+    # for i in range(0, len(rows)):
+    #     buttonName = f'button{rows[i][0]}'
+    #     buttonName = tk.Button(databaseFrame, text=f"Button {i+1} {rows[i][0]}", command=lambda:displaySongString(rows[i][0]))
+    #     buttonName.pack(side='left')
+
+    # for i in range(0, di):
+    #     buttonName = f'button{rows[i][0]}'
+    #     buttonName = tk.Button(databaseFrame, text=f"Button {i+1} {rows[i][0]}", command=lambda:displaySongString(rows[i][0]))
+    #     buttonName.pack(side='left')
+
 
 
 
