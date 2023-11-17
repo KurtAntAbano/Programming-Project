@@ -116,6 +116,7 @@ if __name__=="__main__":
     student_DB.createTable()
     student_DB.insertData("kurt", "a string")
     student_DB.insertData("anthony", "hello world")
+    student_DB.insertData("Thomas", "rice balls")
     student_DB.showAllRecords()
     #print(student_DB.searchUser("kurtabano@gmail.com", "Kurt_password"))
     print(student_DB.searchUser("kurt", "a string"))

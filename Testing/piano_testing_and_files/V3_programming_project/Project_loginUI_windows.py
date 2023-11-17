@@ -74,17 +74,36 @@ def display_records():
 
     cursor.close()
     conn.close()
+
+
+def on_get_index_clicked(given_tree, dict):
+    # Get the selected index
+    selected_iid = given_tree.focus()
+
+    item_index = given_tree.index(selected_iid)
+
+    print(item_index)
+
+    key_value = dict[item_index]
+    print(key_value)
+
+
 def student_database_window(w, givenUsername):
     w.destroy()
     teacher = givenUsername
     db_win = Tk()
     db_win.geometry("800x400")
 
-    display_records()
+
+
+
+
+
+
 
     student_DB = studentProject()
     rows = student_DB.give_rows()
-    print(rows)
+    #print(rows)
     student_DB.showAllRecords()
 
 
@@ -106,11 +125,56 @@ def student_database_window(w, givenUsername):
     backButton.grid(row=1, column=4, sticky="SNEW", padx=10, pady=10)
 
     databaseFrame = Frame(db_win)
-    databaseFrame.grid(row=5, column=0)
+    databaseFrame.grid(row=10, column=0, sticky='S')
     # databaseFrame.configure(bg='black')
 
-    label = Label(databaseFrame, text='testing')
-    label.pack(side='top')
+    label = Label(databaseFrame, text='sample test')
+    label.grid(row=0, column=0)
+
+    #  ----------------------------------------TREE VIEW-----------------------------------------------------------
+
+
+
+
+
+    conn = sqlite3.connect('student.db')  # Replace 'your_database.db' with your database file name
+    cursor = conn.cursor()
+
+    cursor.execute('SELECT * FROM PROJECTS')
+    records = cursor.fetchall()
+
+    # window = tk.Toplevel()
+    # window.title('Database Records')
+
+    tree = ttk.Treeview(databaseFrame)
+
+    columns = [description[0] for description in cursor.description]
+    tree["columns"] = columns
+    tree["show"] = "headings"
+
+    for col in columns:
+        tree.heading(col, text=col)
+        tree.column(col, width=100)  # Adjust width as needed
+
+    for record in records:
+        tree.insert("", "end", values=record)
+
+
+
+    tree.grid(row=0, column=0)
+
+    btn_move = ttk.Button(databaseFrame, text="Get index", command=lambda:on_get_index_clicked(tree, dictionary))
+    btn_move.grid(row=3, column=3)
+
+    vsb = ttk.Scrollbar(databaseFrame, orient="vertical", command=tree.yview)
+    vsb.place(x=30 + 200 + 2, y=95, height=80)
+
+    cursor.close()
+    conn.close()
+
+
+
+
 
     def displaySongString(index):
         # song = rows[index][1]
@@ -129,11 +193,13 @@ def student_database_window(w, givenUsername):
     print(dictionary)
     for d in dictionary:
         for key in d:
-            if key == 'Kurt Abano':
+            if key == 'kurt':
                 namee = d[key]
                 print(key, namee)
-    print(dictionary[0])
+    #print(dictionary[1])
 
+
+    # function that creates buttons from a given list scrapped in favopur of .focus and select
     # for i in range(0, len(rows)):
     #     buttonName = f'button{rows[i][0]}'
     #     buttonName = tk.Button(databaseFrame, text=f"Button {i+1} {rows[i][0]}", command=lambda:displaySongString(rows[i][0]))
