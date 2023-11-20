@@ -76,17 +76,33 @@ def display_records():
     conn.close()
 
 
-def on_get_index_clicked(given_tree, dict):
+def on_get_index_clicked(given_tree, given_rows):
+    row = given_rows
     # Get the selected index
     selected_iid = given_tree.focus()
 
     item_index = given_tree.index(selected_iid)
+    string_to_convert = row[item_index][1]
 
     print(item_index)
+    print(f"string:{string_to_convert}")
 
-    key_value = dict[item_index]
-    print(key_value)
+    list_notes = stringtolist(string_to_convert)
+    print(f"list:{list_notes}")
 
+
+
+
+
+
+    # keyAndvalue = dict[item_index]
+    # print(keyAndvalue)
+    #
+    # string_value = list(keyAndvalue.values())[0]
+    # print(string_value)
+    # #
+    # # list_notes = stringtolist(string_value)
+    # # print(list_notes) DICTIONARY WAS GOING TO BE USED , but a better solution was found
 
 def student_database_window(w, givenUsername):
     w.destroy()
@@ -163,7 +179,7 @@ def student_database_window(w, givenUsername):
 
     tree.grid(row=0, column=0)
 
-    btn_move = ttk.Button(databaseFrame, text="Get index", command=lambda:on_get_index_clicked(tree, dictionary))
+    btn_move = ttk.Button(databaseFrame, text="Get index", command=lambda:on_get_index_clicked(tree, rows))
     btn_move.grid(row=3, column=3)
 
     vsb = ttk.Scrollbar(databaseFrame, orient="vertical", command=tree.yview)
@@ -287,6 +303,10 @@ def login_notebook():
                                                                                           username_entry2,
                                                                                           password_entry2, "admin"))
     loginbutton.grid(row=4, column=1, padx=10, pady=10)
+
+
+    skipButton = Button(adminLoginWin, text="skip", command=lambda: adminMenu('hello'))
+    skipButton.grid(row=4, column=2, sticky="SNEW", padx=10, pady=10)
 
     backButton = Button(adminLoginWin, text="Exit", command=lambda: quit())
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)

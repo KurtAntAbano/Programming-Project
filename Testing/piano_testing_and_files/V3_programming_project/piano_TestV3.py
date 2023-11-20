@@ -394,10 +394,11 @@ class MyPianoGUI:
                 self.previous_time = 0
 
         # uses loops to play back the recording list
-        def playback():
+        def playback(givenString):
             state = self.state.get()
-            print(self.input_string)
-            for i in range(1, len(self.input_string)):
+            string_to_play = givenString
+            print(string_to_play)
+            for i in range(1, len(string_to_play)):
                 note = self.input_string[i]
                 if i % 2 != 0:
                     if str(note[1]) == '#':
@@ -406,7 +407,7 @@ class MyPianoGUI:
                         note = pygame.mixer.Sound(f'wavsV3\\{state}\\octave{note[1:]}\\{state}{note[0]}.wav')
                     note.play()
                 else:
-                    time.sleep(self.input_string[i])
+                    time.sleep(string_to_play[i])
 
         def deleteSong_function():
             deleteSong_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
@@ -431,7 +432,7 @@ class MyPianoGUI:
         #self.record_btn.grid(row=1, column=1)
         self.record_btn.place(x=0, y=20)
 
-        self.playback_btn = tk.Button(self.recordFrame, text="⏵", height=3, width=4, command=lambda:threading.Thread(playback()).start())
+        self.playback_btn = tk.Button(self.recordFrame, text="⏵", height=3, width=4, command=lambda:threading.Thread(playback(self.input_string)).start())
         #self.playback_btn.grid(row=1, column=2)
         self.playback_btn.place(x=40, y=20)
 
@@ -629,5 +630,5 @@ def main(user):
     mainWindow.mainloop()
 
 if __name__ == "__main__":
-    studentUser = 'Kurt Abano'
+    studentUser = 'timmy'
     main(studentUser)
