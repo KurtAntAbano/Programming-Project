@@ -394,20 +394,14 @@ class MyPianoGUI:
                 self.previous_time = 0
 
         # uses loops to play back the recording list
-        def playback(givenString):
-            state = self.state.get()
-            string_to_play = givenString
-            print(string_to_play)
-            for i in range(1, len(string_to_play)):
-                note = self.input_string[i]
-                if i % 2 != 0:
-                    if str(note[1]) == '#':
-                        note = pygame.mixer.Sound(f'wavsV3\\{state}\\octave{note[2:]}\\{state}{note[0:2]}.wav')
-                    else:
-                        note = pygame.mixer.Sound(f'wavsV3\\{state}\\octave{note[1:]}\\{state}{note[0]}.wav')
-                    note.play()
-                else:
-                    time.sleep(string_to_play[i])
+
+
+
+
+
+
+
+        # WHERE OLD PLAYBACK FUNCTON USED TO GOOOO
 
         def deleteSong_function():
             deleteSong_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
@@ -517,6 +511,21 @@ class MyPianoGUI:
         self.photo_lbl.image = new_img
 
         self.photo_lbl.pack(side="right")
+
+    def playback(self, givenString):
+        state = self.state.get()
+        string_to_play = givenString
+        print(string_to_play)
+        for i in range(1, len(string_to_play)):
+            note = givenString[i]
+            if i % 2 != 0:
+                if str(note[1]) == '#':
+                    note = pygame.mixer.Sound(f'wavsV3\\{state}\\octave{note[2:]}\\{state}{note[0:2]}.wav')
+                else:
+                    note = pygame.mixer.Sound(f'wavsV3\\{state}\\octave{note[1:]}\\{state}{note[0]}.wav')
+                note.play()
+            else:
+                time.sleep(string_to_play[i])
 
 
 

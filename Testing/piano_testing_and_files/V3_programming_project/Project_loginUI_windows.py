@@ -76,6 +76,14 @@ def display_records():
     conn.close()
 
 
+
+class main_window(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        # configure the root window
+        self.title('Main Window')
+        self.geometry('0x0')  # 450 x 600 , 900 used to be 750
+
 def on_get_index_clicked(given_tree, given_rows):
     row = given_rows
     # Get the selected index
@@ -89,6 +97,10 @@ def on_get_index_clicked(given_tree, given_rows):
 
     list_notes = stringtolist(string_to_convert)
     print(f"list:{list_notes}")
+
+    mainWindow = main_window()
+    pianoFrame = MyPianoGUI(mainWindow, 'temp')
+    pianoFrame.playback(list_notes)
 
 
 
