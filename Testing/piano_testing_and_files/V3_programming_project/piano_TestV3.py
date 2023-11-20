@@ -426,7 +426,7 @@ class MyPianoGUI:
         #self.record_btn.grid(row=1, column=1)
         self.record_btn.place(x=0, y=20)
 
-        self.playback_btn = tk.Button(self.recordFrame, text="⏵", height=3, width=4, command=lambda:threading.Thread(playback(self.input_string)).start())
+        self.playback_btn = tk.Button(self.recordFrame, text="⏵", height=3, width=4, command=lambda:threading.Thread(self.playback(self.input_string)).start())
         #self.playback_btn.grid(row=1, column=2)
         self.playback_btn.place(x=40, y=20)
 
