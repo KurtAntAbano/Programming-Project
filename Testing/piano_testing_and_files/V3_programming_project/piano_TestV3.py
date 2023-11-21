@@ -595,6 +595,12 @@ class MyPianoGUI:
 
             self.updateWindow()
 
+    def destroy_GUI(self):
+        self.master.destroy()
+    def show_GUI(self):
+        self.master.mainloop()
+
+
 
 
 def themeChangeWindow(object):
@@ -635,8 +641,9 @@ def main(user):
     pygame.mixer.init()
     pygame.mixer.set_num_channels(32)
 
+    pianoFrame.show_GUI()
 
-    mainWindow.mainloop()
+
 
 if __name__ == "__main__":
     studentUser = 'timmy'

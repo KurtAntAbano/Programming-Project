@@ -77,12 +77,6 @@ def display_records():
 
 
 
-class main_window(tk.Tk):
-    def __init__(self):
-        super().__init__()
-        # configure the root window
-        self.title('Main Window')
-        self.geometry('0x0')  # 450 x 600 , 900 used to be 750
 
 def on_get_index_clicked(given_tree, given_rows):
     row = given_rows
@@ -101,6 +95,7 @@ def on_get_index_clicked(given_tree, given_rows):
     mainWindow = main_window()
     pianoFrame = MyPianoGUI(mainWindow, 'temp')
     pianoFrame.playback(list_notes)
+    pianoFrame.destroy_GUI()
 
 
 
