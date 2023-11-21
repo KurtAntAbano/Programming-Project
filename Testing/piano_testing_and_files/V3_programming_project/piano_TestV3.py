@@ -513,9 +513,11 @@ class MyPianoGUI:
         self.photo_lbl.pack(side="right")
 
     def playback(self, givenString):
+        pygame.mixer.set_num_channels(20)
         state = self.state.get()
         string_to_play = givenString
         print(string_to_play)
+        channel_count = 0
         for i in range(1, len(string_to_play)):
             note = givenString[i]
             if i % 2 != 0:
@@ -523,7 +525,9 @@ class MyPianoGUI:
                     note = pygame.mixer.Sound(f'wavsV3\\{state}\\octave{note[2:]}\\{state}{note[0:2]}.wav')
                 else:
                     note = pygame.mixer.Sound(f'wavsV3\\{state}\\octave{note[1:]}\\{state}{note[0]}.wav')
-                note.play()
+                channel = pygame.mixer.Channel(channel_count)
+                channel.play(note)
+                channel_count += 1
             else:
                 time.sleep(string_to_play[i])
 
