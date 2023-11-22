@@ -28,7 +28,7 @@ class note:
         # self.playSound.play()
         #
         #
-        # self.playSound.set_volume(int(self.volume)/10)
+        self.playSound.set_volume(int(self.volume)/10)
 
         channel = pygame.mixer.Channel(self.channel)
 
