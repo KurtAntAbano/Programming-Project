@@ -18,7 +18,7 @@ class note:
 
     def notePlay(self):  # this function uses attributes and string formatting to recall the correct wav file
         #noteSound = self.sound
-        if self.key == 1:
+        if self.key == 2:
             octave = self.octave
             self.channel +=12
         else:

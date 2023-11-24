@@ -115,7 +115,7 @@ def student_database_window(w, givenUsername):
     w.destroy()
     teacher = givenUsername
     db_win = Tk()
-    db_win.geometry("800x400")
+    db_win.geometry("400x400")
 
 
 
@@ -187,10 +187,11 @@ def student_database_window(w, givenUsername):
     tree.grid(row=0, column=0)
 
     btn_move = ttk.Button(databaseFrame, text="play", command=lambda:on_get_index_clicked(tree, rows))
-    btn_move.grid(row=3, column=3)
+    btn_move.grid(row=4, column=0)
 
     vsb = ttk.Scrollbar(databaseFrame, orient="vertical", command=tree.yview)
-    vsb.place(x=30 + 200 + 2, y=95, height=80)
+    #vsb.place(x=30 + 200 + 2, y=95, height=80)
+    vsb.place(x=205, y=60, height=150)
 
     cursor.close()
     conn.close()

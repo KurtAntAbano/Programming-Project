@@ -414,7 +414,12 @@ class MyPianoGUI:
             if saveSong_msgbox:
                 song_to_save = listtostring(self.input_string)
                 print(song_to_save)
-                self.song_db.insertData(self.user, song_to_save)
+                #self.song_db.insertData(self.user, song_to_save)
+
+                self.song_db.insertData('kurt', 'dupe')
+
+                #  song_to_save can be the same
+                #  but user cannot?
 
 
 
@@ -643,12 +648,12 @@ def main(user):
     pianoFrame = MyPianoGUI(mainWindow, user)
     #num1 = StringVar()
     pygame.mixer.init()
-    pygame.mixer.set_num_channels(32)
+    pygame.mixer.set_num_channels(100)
 
     pianoFrame.show_GUI()
 
 
 
 if __name__ == "__main__":
-    studentUser = 'timmy'
+    studentUser = 'troy'
     main(studentUser)

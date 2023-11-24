@@ -18,7 +18,7 @@ class studentProject():
 
             conn.execute('''CREATE TABLE IF NOT EXISTS PROJECTS
                            (User      TEXT     PRIMARY KEY     NOT NULL,
-                            project      TEXT    NOT NULL);''')
+                            project      TEXT    NOT NULL,);''')
 
             #print("Users Accounts Table is created successfully")
             conn.close()
