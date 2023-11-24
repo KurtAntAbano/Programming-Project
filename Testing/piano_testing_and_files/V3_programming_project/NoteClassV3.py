@@ -18,10 +18,10 @@ class note:
 
     def notePlay(self):  # this function uses attributes and string formatting to recall the correct wav file
         #noteSound = self.sound
-        if self.key == 2:
+        if self.key == 1:
             octave = self.octave
-            self.channel +=12
         else:
+            self.channel += 12
             octave = self.secondoctave
         self.playSound = pygame.mixer.Sound(f'wavsV3\\{self.state}\\octave{octave}\\{self.state}{self.number}.wav')
         #threading.Thread(target=self.playSound.play())

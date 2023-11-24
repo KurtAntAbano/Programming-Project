@@ -518,7 +518,7 @@ class MyPianoGUI:
         self.photo_lbl.pack(side="right")
 
     def playback(self, givenString):
-        pygame.mixer.set_num_channels(20)
+        pygame.mixer.set_num_channels(100)
         state = self.state.get()
         string_to_play = givenString
         print(string_to_play)
