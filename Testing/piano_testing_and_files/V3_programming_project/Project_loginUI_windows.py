@@ -186,7 +186,7 @@ def student_database_window(w, givenUsername):
 
     tree.grid(row=0, column=0)
 
-    btn_move = ttk.Button(databaseFrame, text="Get index", command=lambda:on_get_index_clicked(tree, rows))
+    btn_move = ttk.Button(databaseFrame, text="play", command=lambda:on_get_index_clicked(tree, rows))
     btn_move.grid(row=3, column=3)
 
     vsb = ttk.Scrollbar(databaseFrame, orient="vertical", command=tree.yview)
