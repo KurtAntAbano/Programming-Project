@@ -441,7 +441,7 @@ class MyPianoGUI:
         self.saveSong = tk.Button(self.recordFrame, text='save',height=1, width=4, command=lambda:self.saveSong_window())
         self.saveSong.place(x=40, y=100)
 
-        self.showIDNAME = tk.Button(self.recordFrame, text='show ID',height=1, width=4, command=show_user_details)
+        self.showIDNAME = tk.Button(self.recordFrame, text='show ID',height=1, width=7, command=show_user_details)
         self.showIDNAME.place(x=80, y=100)
 
 
