@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import *  # for python > 3.4
 
 from future.moves.tkinter import messagebox
 
@@ -7,9 +6,10 @@ from future.moves.tkinter import messagebox
 from playNoteFunctionsV3 import *
 from metranome_test import *
 from song_string_conversion import *
-from SQL_teacher import *
+from SQL_teacherV2 import *
 import threading
 from PIL import ImageTk, Image
+from SQL_teacherV2 import studentProject
 #from song_string_conversion import *
 """ --__Midi0ke__--
 
@@ -25,13 +25,14 @@ import time
 
 
 class MyPianoGUI:
-    def __init__(self, master, givenUser):
+    def __init__(self, master, givenUserID, givenName):
 
 
         self.song_db = studentProject()
         self.song_db.createTable()
 
-        self.user = givenUser
+        self.user = givenUserID
+        self.name = givenName
         self.master = master
         self.state = tk.StringVar(value='Piano')
         self.volume = 90
@@ -409,19 +410,14 @@ class MyPianoGUI:
                 self.input_string = []
 
 
-        def saveSong_function():
-            saveSong_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
-            if saveSong_msgbox:
-                song_to_save = listtostring(self.input_string)
-                print(song_to_save)
-                #self.song_db.insertData(self.user, song_to_save)
-
-                self.song_db.insertData('kurt', 'dupe')
-
-                #  song_to_save can be the same
-                #  but user cannot?
 
 
+
+
+
+        def show_user_details():
+            print(self.user)
+            print(self.name)
 
 
 
@@ -442,8 +438,11 @@ class MyPianoGUI:
         self.deleteSong = tk.Button(self.recordFrame, text='🗑',height=1, width=4, command=deleteSong_function)
         self.deleteSong.place(x=0, y=100)
 
-        self.saveSong = tk.Button(self.recordFrame, text='save',height=1, width=4, command=saveSong_function)
+        self.saveSong = tk.Button(self.recordFrame, text='save',height=1, width=4, command=lambda:self.saveSong_window())
         self.saveSong.place(x=40, y=100)
+
+        self.showIDNAME = tk.Button(self.recordFrame, text='show ID',height=1, width=4, command=show_user_details)
+        self.showIDNAME.place(x=80, y=100)
 
 
         self.instrument_list = ["Piano", "Guitar", "Harp", "Flute"]
@@ -536,12 +535,16 @@ class MyPianoGUI:
             else:
                 time.sleep(string_to_play[i])
 
+    def saveSong_function(self, givenEntry):
+        saveSong_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
+        songName = givenEntry.get()
+        if saveSong_msgbox:
+            song_to_save = listtostring(self.input_string)
+            print(song_to_save)
+            self.song_db.insertData(self.user, self.name, songName, song_to_save)
 
-
-
-
-
-
+            #  song_to_save can be the same
+            #  but user cannot?
 
 
 
@@ -609,7 +612,22 @@ class MyPianoGUI:
     def show_GUI(self):
         self.master.mainloop()
 
+    def saveSong_window(self):
+        win = Tk()
+        win.title("Welcome")
+        win.geometry("350x150")
 
+        savelabel = Label(win, text="Please enter song name")
+        savelabel.grid(row=1,column=1)
+
+        projectName_entry = Entry(win, width=30)
+        projectName_entry.grid(row=2, column=2)
+
+        save_btn = Button(win, text="save", width=12, command=lambda:self.saveSong_function(projectName_entry))
+        save_btn.grid(row=2, column=1, padx=10, pady=10)
+
+        exitButton = Button(win, text="back", width=12, command=lambda: win.destroy())
+        exitButton.grid(row=3, column=2, pady=5)
 
 
 def themeChangeWindow(object):
@@ -639,13 +657,13 @@ class main_window(tk.Tk):
         self.title('Main Window')
         self.geometry('900x500')  # 450 x 600 , 900 used to be 750
 
-def main(user):
+def main(userID, userName):
 
 
 
 
     mainWindow = main_window()
-    pianoFrame = MyPianoGUI(mainWindow, user)
+    pianoFrame = MyPianoGUI(mainWindow, userID, userName)
     #num1 = StringVar()
     pygame.mixer.init()
     pygame.mixer.set_num_channels(100)
@@ -655,5 +673,4 @@ def main(user):
 
 
 if __name__ == "__main__":
-    studentUser = 'troy'
-    main(studentUser)
+    main("1", "Kurt")

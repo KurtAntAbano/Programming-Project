@@ -7,7 +7,7 @@
 
 import sqlite3
 # _________________________ Creating the class and methods __________________
-class studentProject():
+class studentProjects():
     def __init__(self): # not needed, you can remove
         pass
     # _____________ method to create tables _________________________________
@@ -110,7 +110,7 @@ class studentProject():
 # ______________  TESTING ALL ABOVE _________________________
 
 if __name__=="__main__":
-    student_DB = studentProject() # creating an object
+    student_DB = studentProjects() # creating an object
     # uncomment to test when appropriate .......
 
     student_DB.createTable()

@@ -9,11 +9,11 @@
 
 
 from Project_loginUI_functions import login_verify, deleteUser, changePassword
-from tkinter import *
-from Project_SQL_accounts import login
+from Project_SQL_accountsV2 import login
 from tkinter import ttk
-from PIL import ImageTk, Image
 from piano_TestV3 import *
+import sqlite3
+from SQL_teacherV2 import studentProject
 
 
 
@@ -45,10 +45,10 @@ def student_back(w, username):
 
 def display_records():
     # Connect to the SQLite database
-    conn = sqlite3.connect('student.db')  # Replace 'your_database.db' with your database file name
+    conn = sqlite3.connect('Student_songs.db')  # Replace 'your_database.db' with your database file name
     cursor = conn.cursor()
 
-    cursor.execute('SELECT * FROM PROJECTS')
+    cursor.execute('SELECT * FROM SONG_DATABASE ')
     records = cursor.fetchall()
 
     window = tk.Toplevel()
@@ -84,7 +84,7 @@ def on_get_index_clicked(given_tree, given_rows):
     selected_iid = given_tree.focus()
 
     item_index = given_tree.index(selected_iid)
-    string_to_convert = row[item_index][1]
+    string_to_convert = row[item_index][3]
 
     print(item_index)
     print(f"string:{string_to_convert}")
@@ -93,7 +93,7 @@ def on_get_index_clicked(given_tree, given_rows):
     print(f"list:{list_notes}")
 
     mainWindow = main_window()
-    pianoFrame = MyPianoGUI(mainWindow, 'temp')
+    pianoFrame = MyPianoGUI(mainWindow, 'temp', 'temp')
     pianoFrame.playback(list_notes)
     pianoFrame.destroy_GUI()
 
@@ -115,7 +115,7 @@ def student_database_window(w, givenUsername):
     w.destroy()
     teacher = givenUsername
     db_win = Tk()
-    db_win.geometry("400x400")
+    db_win.geometry("800x300")
 
 
 
@@ -160,10 +160,10 @@ def student_database_window(w, givenUsername):
 
 
 
-    conn = sqlite3.connect('student.db')  # Replace 'your_database.db' with your database file name
+    conn = sqlite3.connect('Student_songs.db')  # Replace 'your_database.db' with your database file name
     cursor = conn.cursor()
 
-    cursor.execute('SELECT * FROM PROJECTS')
+    cursor.execute('SELECT * FROM SONG_DATABASE')
     records = cursor.fetchall()
 
     # window = tk.Toplevel()
@@ -191,7 +191,7 @@ def student_database_window(w, givenUsername):
 
     vsb = ttk.Scrollbar(databaseFrame, orient="vertical", command=tree.yview)
     #vsb.place(x=30 + 200 + 2, y=95, height=80)
-    vsb.place(x=205, y=60, height=150)
+    vsb.place(x=580, y=60, height=150)
 
     cursor.close()
     conn.close()
@@ -233,6 +233,29 @@ def student_database_window(w, givenUsername):
     #     buttonName = f'button{rows[i][0]}'
     #     buttonName = tk.Button(databaseFrame, text=f"Button {i+1} {rows[i][0]}", command=lambda:displaySongString(rows[i][0]))
     #     buttonName.pack(side='left')
+
+def fetch_ID(email):
+    conn = sqlite3.connect('Student_accounts.db')
+
+    cursor = conn.cursor()
+
+    cursor.execute('SELECT StudentID FROM USERS_DATABASE WHERE Email = ?', (email,))
+    ID = cursor.fetchone()[0]
+    print(f"i found the ID: {ID}")
+    return ID
+
+
+def fetch_Name(email):
+    conn = sqlite3.connect('Student_accounts.db')
+
+    cursor = conn.cursor()
+
+    cursor.execute('SELECT StudentName FROM USERS_DATABASE WHERE Email = ?', (email,))
+    Name = cursor.fetchone()[0]
+    print(f"i found the name: {Name}")
+    return Name
+
+
 
 
 
@@ -313,7 +336,7 @@ def login_notebook():
     loginbutton.grid(row=4, column=1, padx=10, pady=10)
 
 
-    skipButton = Button(adminLoginWin, text="skip", command=lambda: adminMenu('hello'))
+    skipButton = Button(adminLoginWin, text="skip", command=lambda: adminMenu("admin@gmail.com"))
     skipButton.grid(row=4, column=2, sticky="SNEW", padx=10, pady=10)
 
     backButton = Button(adminLoginWin, text="Exit", command=lambda: quit())
@@ -327,10 +350,14 @@ def adminMenu(email_entry):
     adminMenu = Tk()
     adminMenu.geometry("400x200")
 
+    ID_to_pass = fetch_ID(username)
+    Name_to_pass = fetch_Name(username)
+
+
     admin_label = Label(adminMenu, text="ADMIN MENU")
     admin_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
-    accessPiano = Button(adminMenu, text="Access \n VIRTU Piano", command=lambda:main(username))
+    accessPiano = Button(adminMenu, text="Access \n VIRTU Piano", command=lambda:main(ID_to_pass, Name_to_pass))
     accessPiano.grid(row=4, column =2 , sticky="SNEW", padx=10, pady=10)
 
     access_db = Button(adminMenu, text="Student database", command=lambda:student_database_window(adminMenu, username))
@@ -407,12 +434,11 @@ if __name__ == "__main__":
     # uncomment to test when appropriate .......
 
     UseraccountDB.createTable()
-    UseraccountDB.insertData("kurtabano@gmail.com", "Kurt_password")
-    UseraccountDB.insertData("k@gmail.com", "K")
+    UseraccountDB.insertData("30", "jett", "k@gmail.com", "K")
     # accountWindow()
 
     AdminaccountDB = login()
     AdminaccountDB.createTable()
-    AdminaccountDB.insertData("admin@gmail.com", "admin")
+    AdminaccountDB.insertData("20", "Jane", "admin@gmail.com", "admin")
 
     login_notebook()
