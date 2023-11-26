@@ -97,11 +97,6 @@ def on_get_index_clicked(given_tree, given_rows):
     pianoFrame.playback(list_notes)
     pianoFrame.destroy_GUI()
 
-
-
-
-
-
     # keyAndvalue = dict[item_index]
     # print(keyAndvalue)
     #
@@ -111,11 +106,35 @@ def on_get_index_clicked(given_tree, given_rows):
     # # list_notes = stringtolist(string_value)
     # # print(list_notes) DICTIONARY WAS GOING TO BE USED , but a better solution was found
 
+
+def giveFeedback(gfeedback, gscore, gtree, grows):
+    feedback = gfeedback.get()
+    score = gscore.get()
+    print(feedback, score)
+
+    row = grows
+    # Get the selected index
+    selected_iid = gtree.focus()
+
+    item_index = gtree.index(selected_iid)
+    selectedID = row[item_index][0]
+
+    selectedSong = row[item_index][2]
+    print(selectedSong, selectedID)
+
+    conn = sqlite3.connect('Student_songs.db')
+    cursor = conn.cursor()
+    cursor.execute("UPDATE SONG_DATABASE SET Feedback = ?, Score = ? WHERE StudentID = ? AND StudentName = ?", (feedback, score, selectedID, selectedSong,))
+
+    conn.commit()
+    conn.close()
+
+
 def student_database_window(w, givenUsername):
     w.destroy()
     teacher = givenUsername
     db_win = Tk()
-    db_win.geometry("800x300")
+    db_win.geometry("1000x500")
 
 
 
@@ -153,6 +172,22 @@ def student_database_window(w, givenUsername):
 
     label = Label(databaseFrame, text='sample test')
     label.grid(row=0, column=0)
+
+
+    feedbackLabel = Label(databaseFrame, text = 'Feedback:')
+    feedbackLabel.grid(row=6, column=0)
+
+    feedbackEntry = Entry(databaseFrame, width=60)
+    feedbackEntry.grid(row=6, column=1)
+
+
+    scoreLabel = Label(databaseFrame, text = 'score:')
+    scoreLabel.grid(row=7, column=0)
+
+    scoreEntry = Entry(databaseFrame, width=60)
+    scoreEntry.grid(row=7, column=1)
+
+
 
     #  ----------------------------------------TREE VIEW-----------------------------------------------------------
 
@@ -197,6 +232,9 @@ def student_database_window(w, givenUsername):
     conn.close()
 
 
+
+    saveFeedback = ttk.Button(databaseFrame, text="save project", command=lambda:giveFeedback(feedbackEntry, scoreEntry, tree, rows))
+    saveFeedback.grid(row=8, column=0)
 
 
 
