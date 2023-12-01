@@ -414,6 +414,10 @@ def userMenu(email_entry):
     userMenu = Tk()
     userMenu.geometry("400x200")
 
+
+    ID_to_pass = fetch_ID(username)
+    Name_to_pass = fetch_Name(username)
+
     user_label = Label(userMenu, text="USER MENU")
     user_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
@@ -424,7 +428,7 @@ def userMenu(email_entry):
     backButton = Button(userMenu, text="Back", command=lambda: back(userMenu))  # passes the current window
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
 
-    accessPiano = Button(userMenu, text="Access \n VIRTU Piano", command=lambda:main(username))
+    accessPiano = Button(userMenu, text="Access \n VIRTU Piano", command=lambda:main(ID_to_pass, Name_to_pass))
     accessPiano.grid(row=5, column = 5, sticky="SNEW", padx=10, pady=10)
 
 
