@@ -100,7 +100,6 @@ if __name__=="__main__":
 
     myDB.createTable()
     myDB.insertData("1", "Kurt", "kurtabano@gmail.com", "Kurt_password")
-    myDB.insertData("10", "anthony", "ant@gmail.com", "ant")
     myDB.showAllRecords()
     print(myDB.searchUser("kurtabano@gmail.com", "Kurt_password"))
     # print(myDB.deleteRecord("abid2"))
