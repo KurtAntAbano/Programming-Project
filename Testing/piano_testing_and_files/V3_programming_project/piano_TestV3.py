@@ -643,17 +643,42 @@ class MyPianoGUI:
     def feedback_window(self):
         win = Tk()
         win.title("Welcome")
-        win.geometry("350x150")
+        win.geometry("450x500")
 
-        savelabel = Label(win, text="FEEDBACK AND SCORE")
+        savelabel = Label(win, text="FEEDBACK AND SCORE", font=('Times 18'))
         savelabel.grid(row=1, column=1)
 
         conn = sqlite3.connect('Student_songs.db')
 
         cursor = conn.cursor()
 
-        result = cursor.execute('SELECT * FROM SONG_DATABASE WHERE StudentID = ?', (self.user,))
-        print(result.fetchall())
+        result_to_fetch = cursor.execute('SELECT SongName, Feedback, Score FROM SONG_DATABASE WHERE StudentID = ?', (self.user,))
+        results = result_to_fetch.fetchall()
+
+        row_coords = 2
+
+        for i in range(0, len(results)):
+            string = f"For song: {results[i][0]} \nFeedback: {results[i][1]} \nScore: {results[i][2]}/10\n"
+            print(string)
+
+            review_label = Label(win, text=string,bg = 'white', font=('Times 14'))
+            review_label.grid(row=row_coords, column=1)
+            row_coords += 4
+
+
+        exitButton = Button(win, text="back", width=12, command=lambda: win.destroy())
+        exitButton.grid(row=2, column=4)
+
+
+
+
+
+
+
+
+
+
+        print(results)
         # feedback = cursor.fetchone()[0]
         # score = cursor.fetchone()[1]
         # print(f"i found the feedback: {feedback}")
