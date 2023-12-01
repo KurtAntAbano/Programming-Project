@@ -51,6 +51,7 @@ def display_records():
     cursor.execute('SELECT * FROM SONG_DATABASE ')
     records = cursor.fetchall()
 
+
     window = tk.Toplevel()
     window.title('Database Records')
 
@@ -124,7 +125,7 @@ def giveFeedback(gfeedback, gscore, gtree, grows):
 
     conn = sqlite3.connect('Student_songs.db')
     cursor = conn.cursor()
-    cursor.execute("UPDATE SONG_DATABASE SET Feedback = ?, Score = ? WHERE StudentID = ? AND StudentName = ?", (feedback, score, selectedID, selectedSong,))
+    cursor.execute("UPDATE SONG_DATABASE SET Feedback = ?, Score = ? WHERE StudentID = ? AND SongName = ?", (feedback, score, selectedID, selectedSong,))
 
     conn.commit()
     conn.close()

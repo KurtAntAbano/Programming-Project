@@ -444,10 +444,18 @@ class MyPianoGUI:
         self.showIDNAME = tk.Button(self.recordFrame, text='show ID',height=1, width=7, command=show_user_details)
         self.showIDNAME.place(x=80, y=100)
 
+        self.viewFeedback = tk.Button(self.recordFrame, text='View feedback',height=1, width=7, command=self.feedback_window)
+        self.viewFeedback.place(x=120, y=100)
+
+
 
         self.instrument_list = ["Piano", "Guitar", "Harp", "Flute"]
         print(len(self.instrument_list))
         self.instrument_count = 0
+
+
+
+
 
 
         def update_btn_text(sign):  # changes text on a button
@@ -549,6 +557,9 @@ class MyPianoGUI:
 
 
 
+
+
+
     # uses configure to change all attributes
 
     def updateWindow(self):  # this function is used after UI colour changes are made
@@ -628,6 +639,25 @@ class MyPianoGUI:
 
         exitButton = Button(win, text="back", width=12, command=lambda: win.destroy())
         exitButton.grid(row=3, column=2, pady=5)
+
+    def feedback_window(self):
+        win = Tk()
+        win.title("Welcome")
+        win.geometry("350x150")
+
+        savelabel = Label(win, text="FEEDBACK AND SCORE")
+        savelabel.grid(row=1, column=1)
+
+        conn = sqlite3.connect('Student_songs.db')
+
+        cursor = conn.cursor()
+
+        result = cursor.execute('SELECT * FROM SONG_DATABASE WHERE StudentID = ?', (self.user,))
+        print(result.fetchall())
+        # feedback = cursor.fetchone()[0]
+        # score = cursor.fetchone()[1]
+        # print(f"i found the feedback: {feedback}")
+        # print(f"i found the score: {score}")
 
 
 def themeChangeWindow(object):
