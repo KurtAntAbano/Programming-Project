@@ -291,21 +291,37 @@ def fetch_Name(email):
     cursor = conn.cursor()
 
     cursor.execute('SELECT StudentName FROM USERS_DATABASE WHERE Email = ?', (email,))
+
     Name = cursor.fetchone()[0]
     print(f"i found the name: {Name}")
     return Name
+
+
+def fetch_all_studentIDs():
+    conn = sqlite3.connect('Student_accounts.db')
+
+    cursor = conn.cursor()
+    cursor.execute('SELECT StudentID FROM USERS_DATABASE')
+    all_ids = cursor.fetchall()
+    for row in all_ids:
+        print(row[0])
+
+    # print(f"these are all the ids{all_ids}")
+    # print(all_ids[1])
+
+
 
 def createAccount(w):# win1 named w so that its easier to trace
     w.destroy()# destorys win1
     win3 = Tk()
     win3.title("Sign in ... ")
-    win3.geometry("400x250")
+    win3.geometry("400x350")
 
     titleLabel = Label(win3, text=" Please complete all fields ")
     titleLabel.grid(row=0, column=0, columnspan=3, sticky="SNEW", pady=10, padx=10)
 
-    username_label = Label(win3, text = "Username")
-    username_label.grid(row=2, column=0, padx=10, pady=10, sticky="W")
+    email_label = Label(win3, text = "Username")
+    email_label.grid(row=2, column=0, padx=10, pady=10, sticky="W")
 
     password_label = Label(win3, text = "Password")
     password_label.grid(row=3, column=0, padx=10, pady=10, sticky="W")
@@ -313,9 +329,17 @@ def createAccount(w):# win1 named w so that its easier to trace
     password_relabel = Label(win3, text = "Re-enter Password")
     password_relabel.grid(row=4, column=0, padx=10, pady=10, sticky="W")
 
+    ID_label = Label(win3, text = "Enter ID")
+    ID_label.grid(row=5, column=0, padx=10, pady=10, sticky="W")
 
-    username_entry = Entry(win3, width = 30)
-    username_entry.grid(row=2, column=1, padx=10, pady=10, sticky="E")
+    user_label = Label(win3, text = "Enter user")
+    user_label.grid(row=6, column=0, padx=10, pady=10, sticky="W")
+
+
+
+
+    email_entry = Entry(win3, width = 30)
+    email_entry.grid(row=2, column=1, padx=10, pady=10, sticky="E")
 
     password_entry = Entry(win3, width=30)
     password_entry.grid(row=3, column=1, padx=10, pady=10, sticky="E")
@@ -323,17 +347,60 @@ def createAccount(w):# win1 named w so that its easier to trace
     password_reentry = Entry(win3, width=30)
     password_reentry.grid(row=4, column=1, padx=10, pady=10, sticky="E")
 
+    ID_entry = Entry(win3, width=30)
+    ID_entry.grid(row=5, column=1, padx=10, pady=10, sticky="E")
 
-    createbutton = Button(win3, text="create account", width=12, command = lambda: saveAccount(win3, username_entry, password_entry, password_reentry ))
-    createbutton.grid(row=5, column=1, padx=10, pady=10)
+    user_entry = Entry(win3, width=30)
+    user_entry.grid(row=6, column=1, padx=10, pady=10, sticky="E")
+
+
+
+    createbutton = Button(win3, text="create account", width=12, command = lambda: saveAccount(win3, email_entry, password_entry, password_reentry, ID_entry, user_entry))
+    createbutton.grid(row=7, column=1, padx=10, pady=10)
 
     backButton = Button(win3, text="Back", command=lambda: back(win3))# passes the current window
-    backButton.grid(row=5, column=0, sticky="SNEW", padx=10, pady=10)
+    backButton.grid(row=7, column=0, sticky="SNEW", padx=10, pady=10)
 
     mainloop()
 
-def saveAccount(window, username, password, repass):
-    pass
+def saveAccount(window, givenEmail, givenPassword, givenRepassword, givenID, givenUser):
+
+    email = givenEmail.get()
+    password = givenPassword.get()
+    repassword = givenRepassword.get()
+    ID = givenID.get()
+    user = givenUser.get()
+
+    if is_empty_check(email, password, repassword, ID, user):
+        if is_the_same(password, repassword):
+            conn = sqlite3.connect('Student_accounts.db')
+
+            cursor = conn.cursor()
+            cursor.execute('SELECT StudentID FROM USERS_DATABASE')
+            all_ids = cursor.fetchall()
+            for row in all_ids:
+                if row[0] == ID:
+                    messagebox.showinfo(title="ERROR", message="ID already exists")
+                    createAccount(window)
+
+
+            myDB = login()
+            myDB.insertData(ID, user, email, password)
+        else:
+            messagebox.showinfo(title="ERROR", message="passwords do not match")
+            createAccount(window)
+
+    else:
+        createAccount(window)
+
+
+
+
+
+
+
+
+            # print(row[0])
     #use insert function and add a parameter /entry for the userID
     
 
@@ -445,6 +512,9 @@ def adminMenu(email_entry):
     deletebutton = Button(adminMenu, text="delete user", width=12, command=lambda: deleteWindow(adminMenu))
     deletebutton.grid(row=4, column=1, padx=10, pady=10)
 
+    createbutton = Button(adminMenu, text="create account", width=12, command=lambda: createAccount(adminMenu))
+    createbutton.grid(row=5, column=1, padx=10, pady=10)
+
     backButton = Button(adminMenu, text="Back", command=lambda: back(adminMenu))  # passes the current window
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
 
@@ -513,6 +583,7 @@ def changePasswordwindow(w, username):
 
 
 if __name__ == "__main__":
+    #fetch_all_studentIDs()
     UseraccountDB = login()  # creating an object
     # uncomment to test when appropriate .......
 

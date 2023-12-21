@@ -88,12 +88,14 @@ def is_the_same(p, rp):
     else:
         messagebox.showinfo(title="ERROR", message="*Passwords do not match")
 
-def is_empty_check(u, p, rp):
-    if u == "" or p == "" or rp == "":
+def is_empty_check(u, p, rp, ID, user):
+    if u == "" or p == "" or rp == "" or ID == "" or user =="":
         messagebox.showinfo(title="ERROR", message= "*Please make sure all fields are completed ")
+        return False
 
     else:
         return True
+
 
 if __name__ == "__main__":
     # print(dateFormatCheck("04/12/2005"))
