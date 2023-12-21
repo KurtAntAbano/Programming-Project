@@ -4,6 +4,7 @@
 #  bugs or notes: added isStringCHeck and isNumericCheck, next time use regex for data format and phone number
 #  date:  04/05/23
 ########################################################################################################################
+from tkinter import messagebox
 
 
 def is_valid_email(email):
@@ -80,6 +81,19 @@ def dateFormatCheck(text):  # checks if a string is in the correct date format
     #  incorporate the date validation file into this function to check whether the dat can actually exist
     #  create a function called, 'isValidDate()'
 
+
+def is_the_same(p, rp):
+    if p == rp:
+        return True
+    else:
+        messagebox.showinfo(title="ERROR", message="*Passwords do not match")
+
+def is_empty_check(u, p, rp):
+    if u == "" or p == "" or rp == "":
+        messagebox.showinfo(title="ERROR", message= "*Please make sure all fields are completed ")
+
+    else:
+        return True
 
 if __name__ == "__main__":
     # print(dateFormatCheck("04/12/2005"))

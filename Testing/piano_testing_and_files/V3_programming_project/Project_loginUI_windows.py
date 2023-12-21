@@ -9,6 +9,7 @@
 
 
 from Project_loginUI_functions import login_verify, deleteUser, changePassword
+from Project_myValidation import *
 from Project_SQL_accountsV2 import login
 from tkinter import ttk
 from piano_TestV3 import *
@@ -294,8 +295,46 @@ def fetch_Name(email):
     print(f"i found the name: {Name}")
     return Name
 
+def createAccount(w):# win1 named w so that its easier to trace
+    w.destroy()# destorys win1
+    win3 = Tk()
+    win3.title("Sign in ... ")
+    win3.geometry("400x250")
+
+    titleLabel = Label(win3, text=" Please complete all fields ")
+    titleLabel.grid(row=0, column=0, columnspan=3, sticky="SNEW", pady=10, padx=10)
+
+    username_label = Label(win3, text = "Username")
+    username_label.grid(row=2, column=0, padx=10, pady=10, sticky="W")
+
+    password_label = Label(win3, text = "Password")
+    password_label.grid(row=3, column=0, padx=10, pady=10, sticky="W")
+
+    password_relabel = Label(win3, text = "Re-enter Password")
+    password_relabel.grid(row=4, column=0, padx=10, pady=10, sticky="W")
 
 
+    username_entry = Entry(win3, width = 30)
+    username_entry.grid(row=2, column=1, padx=10, pady=10, sticky="E")
+
+    password_entry = Entry(win3, width=30)
+    password_entry.grid(row=3, column=1, padx=10, pady=10, sticky="E")
+
+    password_reentry = Entry(win3, width=30)
+    password_reentry.grid(row=4, column=1, padx=10, pady=10, sticky="E")
+
+
+    createbutton = Button(win3, text="create account", width=12, command = lambda: saveAccount(win3, username_entry, password_entry, password_reentry ))
+    createbutton.grid(row=5, column=1, padx=10, pady=10)
+
+    backButton = Button(win3, text="Back", command=lambda: back(win3))# passes the current window
+    backButton.grid(row=5, column=0, sticky="SNEW", padx=10, pady=10)
+
+    mainloop()
+
+def saveAccount(window, username, password, repass):
+    pass
+    
 
 
 
