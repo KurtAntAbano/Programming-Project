@@ -9,7 +9,7 @@ import threading
 def play_audio():
     global is_playing
     chunk = 1024
-    wf = wave.open('../piano_testing_and_files/V3_programming_project/PianoC.wav', 'rb')
+    wf = wave.open('PianoC.wav', 'rb')
     p = pyaudio.PyAudio()
 
     stream = p.open(

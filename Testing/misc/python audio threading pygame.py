@@ -2,7 +2,7 @@ import pygame
 
 pygame.init()
 pygame.mixer.init()
-audio = pygame.mixer.Sound('../piano_testing_and_files/V3_programming_project/PianoC.wav')  # Load your audio file
+audio = pygame.mixer.Sound('PianoC.wav')  # Load your audio file
 audio.play()  # Start playing the audio
 running = True
 while running:
