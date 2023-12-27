@@ -5,6 +5,8 @@ def note_C0(soundObj,keysection):
     # this function takes the object piano along with all its current attributes
     # the function then creates an object from the note class, passing each parameter and calls the noteplay method
 
+    #  the piano object is passed since the object posseses attributes of the note, whether the key is in the
+    #  first half or second half is also passed (since this affects the octave)
     state = soundObj.state.get()
     noteObject = note("C", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, 0)
     noteObject.notePlay()

@@ -118,6 +118,9 @@ class MyPianoGUI:
         self.C_0_button = Button(self.pianoFrame, bg="white", text="C_0", fg=self.noteColour1,
                                  command=lambda: [note_C0(self, 1), record(f'C{self.octave}'),
                                                   update_note_text(f'C{self.octave}')], height=10, width=6)
+        #  the keys are buttons that passes itself and either 1 or 2 corresponding to the first 12 keys or second 12 keys
+        #  it also records the note alongside the current octave
+
         self.C_0_button.grid(row=3, column=0)
         self.master.bind('<z>',
                          lambda event: [note_C0(self, 1), record(f'C{self.octave}'), update_note_text(f'C{self.octave}')])
@@ -444,7 +447,7 @@ class MyPianoGUI:
         self.showIDNAME = tk.Button(self.recordFrame, text='show ID',height=1, width=7, command=show_user_details)
         self.showIDNAME.place(x=80, y=100)
 
-        self.viewFeedback = tk.Button(self.recordFrame, text='View feedback',height=1, width=7, command=self.feedback_window)
+        self.viewFeedback = tk.Button(self.recordFrame, text='View feedback',height=1, width=10, command=self.feedback_window)
         self.viewFeedback.place(x=120, y=100)
 
 
@@ -511,9 +514,9 @@ class MyPianoGUI:
         self.showNotes.place(x=300, y=8)
 
         self.metranome_btn = Button(self.controlFrame, text = 'Metranome', fg=self.labelColour, command=lambda:threading.Thread(target=metronome_function(self.metranome_entry)).start)
-        self.metranome_btn.place(x=300, y=40)
+        #self.metranome_btn.place(x=300, y=40)
         self.metranome_entry = Entry(self.controlFrame, width=10)
-        self.metranome_entry.place(x=300, y =80)
+        #self.metranome_entry.place(x=300, y =80)
 
 
         img = (Image.open(r"virtupiano_logo.png"))
@@ -532,8 +535,8 @@ class MyPianoGUI:
         channel_count = 0
         for i in range(1, len(string_to_play)):
             note = givenString[i]
-            if i % 2 != 0:
-                if str(note[1]) == '#':
+            if i % 2 != 0:  # this flipflops between every item in the song string
+                if str(note[1]) == '#':  # this if functions checks whether the note is black
                     note = pygame.mixer.Sound(f'wavsV3\\{state}\\octave{note[2:]}\\{state}{note[0:2]}.wav')
                 else:
                     note = pygame.mixer.Sound(f'wavsV3\\{state}\\octave{note[1:]}\\{state}{note[0]}.wav')
@@ -547,9 +550,10 @@ class MyPianoGUI:
         saveSong_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
         songName = givenEntry.get()
         if saveSong_msgbox:
-            song_to_save = listtostring(self.input_string)
+            song_to_save = listtostring(self.input_string) # converts the list
             print(song_to_save)
             self.song_db.insertData(self.user, self.name, songName, song_to_save)
+            # this sql query saves the song with the following attributes
 
             #  song_to_save can be the same
             #  but user cannot?
@@ -586,6 +590,13 @@ class MyPianoGUI:
         self.playback_btn.configure(bg=self.frameColour, fg=self.labelColour)
         self.noteLabel.configure(fg=self.labelColour, bg=self.label_background_colour)
         self.showNotes.configure(bg=self.frameColour, fg=self.labelColour)
+        self.deleteSong.configure(bg=self.frameColour, fg=self.labelColour)
+        self.saveSong.configure(bg=self.frameColour, fg=self.labelColour)
+        self.showIDNAME.configure(bg=self.frameColour, fg=self.labelColour)
+        self.viewFeedback.configure(bg=self.frameColour, fg=self.labelColour)
+
+
+
 
     def themeChanger(self, value):  # window containing buttons that change attributes for colour
         darkList = ['#5A5A5A', '#FFA500', '#656565','#424242']

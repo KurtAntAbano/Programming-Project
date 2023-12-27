@@ -44,38 +44,37 @@ def student_back(w, username):
     adminMenu(username)
 
 
-def display_records():
-    # Connect to the SQLite database
-    conn = sqlite3.connect('Student_songs.db')  # Replace 'your_database.db' with your database file name
-    cursor = conn.cursor()
-
-    cursor.execute('SELECT * FROM SONG_DATABASE ')
-    records = cursor.fetchall()
-
-
-    window = tk.Toplevel()
-    window.title('Database Records')
-
-    tree = ttk.Treeview(window)
-
-    columns = [description[0] for description in cursor.description]
-    tree["columns"] = columns
-    tree["show"] = "headings"
-
-
-    for col in columns:
-        tree.heading(col, text=col)
-        tree.column(col, width=100)  # Adjust width as needed
-
-
-    for record in records:
-        tree.insert("", "end", values=record)
-
-    tree.pack(expand=True, fill="both")
-
-
-    cursor.close()
-    conn.close()
+# def display_records():
+#     conn = sqlite3.connect('Student_songs.db')
+#     cursor = conn.cursor()
+#
+#     cursor.execute('SELECT * FROM SONG_DATABASE ')
+#     records = cursor.fetchall()
+#
+#
+#     window = tk.Toplevel()
+#     window.title('Database Records')
+#
+#     tree = ttk.Treeview(window)
+#
+#     columns = [description[0] for description in cursor.description]
+#     tree["columns"] = columns
+#     tree["show"] = "headings"
+#
+#
+#     for col in columns:
+#         tree.heading(col, text=col)
+#         tree.column(col, width=100)
+#
+#
+#     for record in records:
+#         tree.insert("", "end", values=record)
+#
+#     tree.pack(expand=True, fill="both")
+#
+#
+#     cursor.close()
+#     conn.close()
 
 
 
@@ -83,10 +82,10 @@ def display_records():
 def on_get_index_clicked(given_tree, given_rows):
     row = given_rows
     # Get the selected index
-    selected_iid = given_tree.focus()
+    selected_iid = given_tree.focus()  # selects whatever the cursor is hovering
 
-    item_index = given_tree.index(selected_iid)
-    string_to_convert = row[item_index][3]
+    item_index = given_tree.index(selected_iid)  # the index of the selected item is taken
+    string_to_convert = row[item_index][3]  # string indexing is then used to isolate the desire record
 
     print(item_index)
     print(f"string:{string_to_convert}")
@@ -137,10 +136,6 @@ def student_database_window(w, givenUsername):
     teacher = givenUsername
     db_win = Tk()
     db_win.geometry("1000x500")
-
-
-
-
 
 
 
@@ -214,7 +209,7 @@ def student_database_window(w, givenUsername):
 
     for col in columns:
         tree.heading(col, text=col)
-        tree.column(col, width=100)  # Adjust width as needed
+        tree.column(col, width=100)
 
     for record in records:
         tree.insert("", "end", values=record)
@@ -320,7 +315,7 @@ def createAccount(w):# win1 named w so that its easier to trace
     titleLabel = Label(win3, text=" Please complete all fields ")
     titleLabel.grid(row=0, column=0, columnspan=3, sticky="SNEW", pady=10, padx=10)
 
-    email_label = Label(win3, text = "Username")
+    email_label = Label(win3, text = "Email")
     email_label.grid(row=2, column=0, padx=10, pady=10, sticky="W")
 
     password_label = Label(win3, text = "Password")
@@ -430,7 +425,7 @@ def login_notebook():
     photo_lbl.image = new_img
     photo_lbl.grid(row=1, column=1, padx=10, pady=10, sticky="W")
 
-    username_label = Label(userLoginWin, text="Username")
+    username_label = Label(userLoginWin, text="Email")
     username_label.grid(row=2, column=0, padx=10, pady=10, sticky="W")
 
     password_label = Label(userLoginWin, text="Password")
@@ -463,7 +458,7 @@ def login_notebook():
     photo_lbl.image = new_img
     photo_lbl.grid(row=1, column=1, padx=10, pady=10, sticky="W")
 
-    username_label = Label(adminLoginWin, text="Username")
+    username_label = Label(adminLoginWin, text="Email")
     username_label.grid(row=2, column=0, padx=10, pady=10, sticky="W")
 
     password_label = Label(adminLoginWin, text="Password")
@@ -547,7 +542,7 @@ def deleteWindow(w):
     deleteMenu = Tk()
     deleteMenu.geometry("400x100")
 
-    username_label = Label(deleteMenu, text="Username")
+    username_label = Label(deleteMenu, text="Email")
     username_label.grid(row=2, column=0, padx=10, pady=10, sticky="W")
 
     userToDelete = Entry(deleteMenu, width=30)

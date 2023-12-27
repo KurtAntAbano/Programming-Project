@@ -18,7 +18,7 @@ class note:
 
     def notePlay(self):  # this function uses attributes and string formatting to recall the correct wav file
         #noteSound = self.sound
-        if self.key == 1:
+        if self.key == 1:  # this if statement sees whether the key was prat of the first or second half of the piano this is to determine the ocatve
             octave = self.octave
         else:
             self.channel += 12
@@ -31,6 +31,7 @@ class note:
         self.playSound.set_volume(int(self.volume)/10)
 
         channel = pygame.mixer.Channel(self.channel)
+        # channels allow files to play independently of each other this will help avoid any slowdowns
 
         channel.play(self.playSound)
 
