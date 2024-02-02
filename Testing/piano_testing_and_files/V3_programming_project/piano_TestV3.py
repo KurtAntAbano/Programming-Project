@@ -1,5 +1,6 @@
 import tkinter as tk
 
+import pygame as pygame
 from future.moves.tkinter import messagebox
 
 # 15/09/23
