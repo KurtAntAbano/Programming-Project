@@ -1,7 +1,8 @@
 from tkinter import *  # for python > 3.4
 import tkinter as tk
 import pygame
-#from NoteClass import *
+
+# from NoteClass import *
 
 """ --__Midi0ke__--
 
@@ -15,14 +16,19 @@ in the second I build the GUI for the piano-keyboard.
 @author : Dead"""
 
 
-def note_C0(soundObj):
-    if soundObj.state.get() == "Piano":
-        noteToplay = r'PianoC.wav'
-    else:
-        noteToplay = r'GuitarC1.wav'
-    noteObject = note("C_0", noteToplay, soundObj.volume)
-    noteObject.notePlay()
-    root.bind("<c>", noteObject.notePlay())
+# def note_C0(soundObj):
+#     if soundObj.state.get() == "Piano":
+#         noteToplay = r'PianoC.wav'
+#     else:
+#         noteToplay = r'GuitarC1.wav'
+#     noteObject = note("C_0", noteToplay, soundObj.volume)
+#     noteObject.notePlay()
+#     root.bind("<c>", noteObject.notePlay())
+
+def note_C0():
+    num1.set("C_0")
+    sound = pygame.mixer.Sound("wav-piano-sound-master_wav_c1s.wav")
+    sound.play()
 
 
 def note_CC0():
@@ -94,7 +100,7 @@ def note_B0():
 class MyPianoGUI:
     def __init__(self, master):
         self.master = master
-        self.state = "Piano"
+        self.instrument = "Piano"
         self.volume = 90
         self.backgroundColour = "#F0F0F0"
         self.labelColour = '#856ff8'
@@ -103,14 +109,14 @@ class MyPianoGUI:
         master['background'] = self.backgroundColour
 
         # create a menubar
-        menubar = Menu(root)
-        root.config(menu=menubar)
+        menubar = Menu(self.master)
+        self.master.config(menu=menubar)
 
         # create a menu
         file_menu = Menu(menubar, tearoff=False)
 
         # add a menu item to the menu
-        file_menu.add_command(label='Exit', command=root.destroy)
+        file_menu.add_command(label='Exit', command=master.destroy)
 
         # add the File menu to the menubar
         menubar.add_cascade(label="File", menu=file_menu)
@@ -119,15 +125,14 @@ class MyPianoGUI:
         menubar.add_cascade(label="Settings", menu=settings_menu)
 
         settings_menu.add_command(label='Colour themes')
-        settings_menu.add_command(label='Adjust piano size')
 
-        self.Label = Label(master, text="MIDIOKE", fg=self.labelColour)
+        self.Label = Label(master, text="VIRTU-PIANO", fg=self.labelColour)
         self.Label.grid(row=0, columnspan=11)
 
         # Buttons for keyboard
-        self.C_0_button = Button(master, bg="white", text="C_0", command=lambda: note_C0(myPiano), height=10, width=3)
+        self.C_0_button = Button(master, bg="white", text="C_0", command=lambda: note_C0, height=10, width=3)
         self.C_0_button.grid(row=5, column=0)
-        self.master.bind('<c>', lambda event: note_C0(myPiano))
+        self.master.bind('<c>', lambda event: note_C0)
 
         self.CC_0_button = Button(master, bg="black", fg="white", text="C#_0", command=note_CC0, height=10, width=2)
         self.CC_0_button.grid(row=1, columnspan=2)
@@ -177,19 +182,18 @@ class MyPianoGUI:
         self.sliderLabel.grid(row=6, column=8)
 
         def update_btn_text():
-            if self.state.get() == "Piano":
-                self.state.set("Guitar")
+            if self.instrument.get() == "Piano":
+                self.instrument.set("Guitar")
             else:
-                self.state.set("Piano")
+                self.instrument.set("Piano")
 
-        self.state = tk.StringVar()
-        self.state_btn = tk.Button(root, textvariable=self.state, command=update_btn_text)
-        self.state.set("Piano")
+        self.instrument = tk.StringVar()
+        self.state_btn = tk.Button(master, textvariable=self.instrument, command=update_btn_text)
+        self.instrument.set("Piano")
         self.state_btn.grid(row=5, column=7)
 
         self.Label = Label(master, text="change\n state")
         self.Label.grid(row=6, column=7)
-
 
 
 root = Tk()
