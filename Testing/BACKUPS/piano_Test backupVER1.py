@@ -26,73 +26,61 @@ in the second I build the GUI for the piano-keyboard.
 #     root.bind("<c>", noteObject.notePlay())
 
 def note_C0():
-    num1.set("C_0")
     sound = pygame.mixer.Sound("octave1backup/c1.wav")
     sound.play()
 
 
 def note_CC0():
-    num1.set("C#_0")
     sound = pygame.mixer.Sound("octave1backup/wav-piano-sound-master_wav_c1s.wav")
     sound.play()
 
 
 def note_D0():
-    num1.set("D_0")
     sound = pygame.mixer.Sound("octave1backup/wav-piano-sound-master_wav_d1.wav")
     sound.play()
 
 
 def note_DD0():
-    num1.set("D#_0")
     sound = pygame.mixer.Sound("octave1backup/wav-piano-sound-master_wav_d1s.wav")
     sound.play()
 
 
 def note_E0():
-    num1.set("E_0")
     sound = pygame.mixer.Sound("octave1backup/wav-piano-sound-master_wav_e1.wav")
     sound.play()
 
 
 def note_F0():
-    num1.set("F_0")
     sound = pygame.mixer.Sound("octave1backup/wav-piano-sound-master_wav_f1.wav")
     sound.play()
 
 
 def note_FF0():
-    num1.set("F#_0")
     sound = pygame.mixer.Sound("octave1backup/wav-piano-sound-master_wav_f1s.wav")
     sound.play()
 
 
 def note_G0():
-    num1.set("G_0")
     sound = pygame.mixer.Sound("octave1backup/wav-piano-sound-master_wav_g1.wav")
     sound.play()
 
 
 def note_GG0():
-    num1.set("G#_0")
     sound = pygame.mixer.Sound("octave1backup/wav-piano-sound-master_wav_g1s.wav")
     sound.play()
 
 
 def note_A0():
-    num1.set("A_0")
     sound = pygame.mixer.Sound("octave1backup/wav-piano-sound-master_wav_a1.wav")
     sound.play()
 
 
 def note_AA0():
-    num1.set("A#_0")
     sound = pygame.mixer.Sound("octave1backup/wav-piano-sound-master_wav_a1s.wav")
     sound.play()
 
 
 def note_B0():
-    num1.set("B_0")
     sound = pygame.mixer.Sound("octave1backup/wav-piano-sound-master_wav_b1.wav")
     sound.play()
 
@@ -132,7 +120,6 @@ class MyPianoGUI:
         # Buttons for keyboard
         self.C_0_button = Button(master, bg="white", text="C_0", command=note_C0, height=10, width=3)
         self.C_0_button.grid(row=5, column=0)
-
 
         self.CC_0_button = Button(master, bg="black", fg="white", text="C#_0", command=note_CC0, height=10, width=2)
         self.CC_0_button.grid(row=1, columnspan=2)
@@ -192,7 +179,7 @@ class MyPianoGUI:
         self.instrument.set("Piano")
         self.state_btn.grid(row=5, column=7)
 
-        self.Label = Label(master, text="change\n state")
+        self.Label = Label(master, text="change\n instrument")
         self.Label.grid(row=6, column=7)
 
 
