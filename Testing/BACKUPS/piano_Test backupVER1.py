@@ -93,7 +93,7 @@ class MyPianoGUI:
         self.backgroundColour = "#F0F0F0"
         self.labelColour = '#856ff8'
 
-        master.title("Midi0ke__piano_GUI")
+        master.title("piano_GUI")
         master['background'] = self.backgroundColour
 
         # create a menubar

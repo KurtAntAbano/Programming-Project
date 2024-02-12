@@ -48,9 +48,9 @@ class MyPianoGUI:
         self.recordFrame = Frame(self.master)
         self.recordFrame.pack(side='left', fill="both", expand=True, pady=5, padx=5, ipadx=0, ipady=0)
 
-        # https://www.pythonguis.com/faq/pack-place-and-grid-in-tkinter/
+        # https://www.pythongusis.com/faq/pack-place-and-grid-in-tkinter/
 
-        master.title("Midi0ke__piano_GUI")
+        master.title("piano_GUI")
         master['background'] = self.backgroundColour
 
         # create a menubar
@@ -72,7 +72,7 @@ class MyPianoGUI:
         self.settings_menu.add_command(label='Colour themes', command=lambda: themeChangeWindow(pianoFrame))
         self.settings_menu.add_command(label='Adjust piano size')
 
-        self.mainLabel = Label(self.pianoFrame, text="MIDIOKE", fg=self.labelColour)
+        self.mainLabel = Label(self.pianoFrame, text="VIRTU-PIANO", fg=self.labelColour)
         self.mainLabel.grid(row=0, columnspan=11)
 
         def colourChange(btn):
