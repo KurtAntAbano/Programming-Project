@@ -3,8 +3,8 @@ import time
 
 
 def note_C0(soundObj,keysection):
-    # this function takes the object piano along with all its current attributes
-    # the function then creates an object from the note class, passing each parameter and calls the noteplay method
+    # this function takes the object piano along with all its current attributes the function then creates an object from the note class,
+    # passing piano objects attributes and calls the notePlay method
 
     state = soundObj.state.get()
     noteObject = note("C", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection)
