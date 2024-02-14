@@ -273,7 +273,7 @@ class MyPianoGUI:
         def print_volume(v):  # function will print the current volume
             self.volume = v
             self.sliderLabel.config(text='you have selected ' + v, fg=self.labelColour)
-            print(self.volume)
+            print(f"volume is now {self.volume}")
 
         #  initiate volume slider
         self.volumeSlider = tk.Scale(self.controlFrame, label='VOLUME', from_=0, to=10, orient=tk.HORIZONTAL,
@@ -291,17 +291,7 @@ class MyPianoGUI:
         def print_octave(o):  # this function will print the current octave
             self.octave = o
             self.octavesliderLabel.config(text='octave: ' + o, fg=self.labelColour)
-            print(self.octave)
-
-        def octaveincrease():  # functions to decrease and increase octave for key binds
-            if self.octave != 2:
-                self.octave += 1
-            print(self.octave)
-
-        def octavedecrease():
-            if self.octave != -2:
-                self.octave -= 1
-            print(self.octave)
+            print(f"octave is now {self.octave}")
 
         # initiate octave slider
         self.octaveSlider = tk.Scale(self.octaveframe, label='OCTAVE', from_=-2, to=2, orient=tk.HORIZONTAL, length=100,
@@ -310,12 +300,24 @@ class MyPianoGUI:
         self.octaveSlider.configure(fg=self.labelColour)
         self.octaveSlider.set(0)
 
-        # key binds added to change octave slider with the keyboard
-        self.master.bind('<.>', lambda event: octaveincrease())
-        self.master.bind('<,>', lambda event: octavedecrease())
-
         self.octavesliderLabel = tk.Label(self.octaveframe, bg='white', fg=self.labelColour, width=20, text='octave:0')
         self.octavesliderLabel.grid(row=2, column=2)
+
+        def octave_increase():  # functions to decrease and increase octave for key binds
+            if self.octave != 2:
+                self.octave = int(self.octave) + 1
+            self.octaveSlider.set(self.octave)
+            print(f"octave is now {self.octave}")
+
+        def octave_decrease():
+            if self.octave != -2:
+                self.octave = int(self.octave) - 1
+            self.octaveSlider.set(self.octave)
+            print(f"octave is now {self.octave}")
+
+        # key binds added to change octave slider with the keyboard
+        self.master.bind('<.>', lambda event: octave_increase())
+        self.master.bind('<,>', lambda event: octave_decrease())
 
         #  changes colour of the recording button
         def changeRecBtn():
@@ -342,13 +344,14 @@ class MyPianoGUI:
                     time.sleep(self.input_list[i])
 
         self.record_btn = tk.Button(self.recordFrame, text="⏺", height=3, width=4, command=lambda: changeRecBtn())
-        #self.record_btn.grid(row=1, column=1)
+        # self.record_btn.grid(row=1, column=1)
 
         self.playback_btn = tk.Button(self.recordFrame, text="⏵", height=3, width=4, command=lambda: playback())
-        #self.playback_btn.grid(row=1, column=2)
+        # self.playback_btn.grid(row=1, column=2)
 
         self.noteLabel = tk.Label(self.recordFrame, bg='white', fg='black', width=32, textvariable=self.noteShow)
-        #self.noteLabel.grid(row=1, column=5)
+
+        # self.noteLabel.grid(row=1, column=5)
 
         def update_btn_text():  # changes text on a button
             if self.state.get() == "Piano":
