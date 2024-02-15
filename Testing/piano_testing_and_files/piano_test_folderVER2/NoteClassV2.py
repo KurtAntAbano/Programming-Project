@@ -19,7 +19,7 @@ class note:
         self.playSound = pygame.mixer.Sound(f'wavsV2\\{self.instrument}\\octave{self.octave}\\{self.instrument}{self.number}.wav')
         self.playSound.play()
 
-        self.playSound.set_volume(int(self.volume) / 50)
+        self.playSound.set_volume(int(self.volume) / 10)
 
     def noteStop(self):
         self.playSound.stop()

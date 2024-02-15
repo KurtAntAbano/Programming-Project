@@ -70,7 +70,6 @@ class MyPianoGUI:
         self.menubar.add_cascade(label="Settings", menu=self.settings_menu)
 
         self.settings_menu.add_command(label='Colour themes', command=lambda: themeChangeWindow(pianoObj))
-        self.settings_menu.add_command(label='Adjust piano size')
 
         self.mainLabel = Label(self.pianoFrame, text="VIRTU-PIANO", fg=self.labelColour)
         self.mainLabel.grid(row=0, columnspan=11)
@@ -321,7 +320,7 @@ class MyPianoGUI:
 
         #  changes colour of the recording button
         def changeRecBtn():
-            if self.recording == False:
+            if not self.recording:
                 self.recording = True
                 self.record_btn.configure(bg="red")
             else:
@@ -337,21 +336,28 @@ class MyPianoGUI:
             print(self.input_list)
             for i in range(1, len(self.input_list)):
                 note = self.input_list[i]
-                if i % 2 != 0:
-                    note = pygame.mixer.Sound(f'wavsV2\\{state}\\octave{note[1:]}\\{state}{note[0]}.wav')
+                if i % 2 != 0:  # this flipflops between every item in the song string
+                    if str(note[1]) == '#':  # this if functions checks whether the note is black
+                        note = pygame.mixer.Sound(f'wavsV2\\{state}\\octave{note[2:]}\\{state}{note[0:2]}.wav')
+                    else:
+                        note = pygame.mixer.Sound(f'wavsV2\\{state}\\octave{note[1:]}\\{state}{note[0]}.wav')
                     note.play()
                 else:
                     time.sleep(self.input_list[i])
 
         self.record_btn = tk.Button(self.recordFrame, text="⏺", height=3, width=4, command=lambda: changeRecBtn())
-        # self.record_btn.grid(row=1, column=1)
+        self.record_btn.grid(row=1, column=1)
 
         self.playback_btn = tk.Button(self.recordFrame, text="⏵", height=3, width=4, command=lambda: playback())
-        # self.playback_btn.grid(row=1, column=2)
+        self.playback_btn.grid(row=1, column=2)
 
-        self.noteLabel = tk.Label(self.recordFrame, bg='white', fg='black', width=32, textvariable=self.noteShow)
+        def update_note_text(note):
+            self.noteShow.set(note)
+            self.noteLabel.configure(textvariable=self.noteShow)
 
-        # self.noteLabel.grid(row=1, column=5)
+        self.noteLabel = tk.Label(self.recordFrame, bg=self.backgroundColour, fg=self.labelColour, width=27, textvariable=self.noteShow)
+
+        self.noteLabel.grid(row=1, column=4)
 
         def update_btn_text():  # changes text on a button
             if self.state.get() == "Piano":
@@ -393,7 +399,7 @@ class MyPianoGUI:
         self.recordFrame.configure(bg=self.frameColour)
         self.record_btn.configure(bg=self.frameColour, fg=self.labelColour)
         self.playback_btn.configure(bg=self.frameColour, fg=self.labelColour)
-        self.noteLabel.configure(fg=self.labelColour, bg=self.frameColour)
+        self.noteLabel.configure(fg=self.labelColour, bg=self.backgroundColour)
 
     def themeChanger(self, value):  # window containing buttons that change attributes for colour
         darkList = ['#5A5A5A', '#FFA500', '#656565']
