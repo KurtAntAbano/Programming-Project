@@ -447,6 +447,9 @@ def login_notebook():
     my_notebook.add(adminLoginWin, text="Admin Login")
     # Create a Label in Tabs
 
+    win.title("Login")
+
+
     login_label = Label(userLoginWin, text="LOGIN DETAILS:")
     login_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
