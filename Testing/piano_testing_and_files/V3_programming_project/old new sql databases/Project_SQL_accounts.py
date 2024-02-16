@@ -17,8 +17,7 @@ class login():
             print("Opened database successfully")
 
             conn.execute('''CREATE TABLE IF NOT EXISTS USERS 
-                           (UserID      TEXT     PRIMARY KEY     NOT NULL,
-                           UserName      TEXT     NOT NULL,
+                           (UserName      TEXT     PRIMARY KEY     NOT NULL,
                             password      TEXT    NOT NULL);''')
 
             print("Users Accounts Table is created successfully")
@@ -28,14 +27,14 @@ class login():
             return False
 
     # _____________ method to insert data into the table _________________________________
-    def insertData(self,givenUserID, givenUser, givenPassword):
+    def insertData(self, givenUser, givenPassword):
 
         try:
             conn = sqlite3.connect('accounts.db')
             # insert data into database table
-            conn.execute('''insert into USERS  (UserID, UserName, password) values (?, ?, ?)''',
-                         (givenUserID, givenUser, givenPassword))
-            conn.commit()
+            conn.execute('''insert into USERS  (UserName, password) values (?, ?)''',
+                         (givenUser, givenPassword))
+            conn.commit()  # do not forget to commit the data (i.e. save the data on the table
             conn.close()
             return True
         except:
@@ -94,11 +93,10 @@ class login():
 if __name__=="__main__":
     myDB = login() # creating an object
     # uncomment to test when appropriate .......
-
     myDB.createTable()
-    myDB.insertData("17", "kurtabano@gmail.com", "Kurt_password")
-    myDB.insertData("16", "kurt", "abano")
-    #myDB.showAllRecords()
+    myDB.insertData("kurtabano@gmail.com", "Kurt_password")
+    myDB.insertData("kurt", "abano")
+    myDB.showAllRecords()
     #print(myDB.searchUser("kurtabano@gmail.com", "Kurt_password"))
     # print(myDB.deleteRecord("abid2"))
     # myDB.updatePassword("abid", "newPassword")
