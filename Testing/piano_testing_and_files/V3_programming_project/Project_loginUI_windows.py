@@ -10,7 +10,8 @@
 
 from Project_loginUI_functions import login_verify, deleteUser, changePassword
 from Project_myValidation import *
-from Project_SQL_accountsV2 import login
+from Project_SQL_teacher_accountsV2 import teacher_login
+from Project_SQL_student_accountsV2 import login
 from tkinter import ttk
 from piano_TestV3 import *
 import sqlite3
@@ -269,27 +270,59 @@ def student_database_window(w, givenUsername):
     #     buttonName = tk.Button(databaseFrame, text=f"Button {i+1} {rows[i][0]}", command=lambda:displaySongString(rows[i][0]))
     #     buttonName.pack(side='left')
 
-def fetch_ID(email):
-    conn = sqlite3.connect('Student_accounts.db')
+def fetch_ID(email, database):
+    if database == AdminaccountDB:
+        database_connect = 'Teacher_accounts.db'
+        database_name = 'TEACHERS_DATABASE'
+        ID_to_find = 'TeacherID'
+
+    else:
+        database_connect = 'Student_accounts.db'
+        database_name = 'USERS_DATABASE'
+        ID_to_find = 'StudentID'
+
+    conn = sqlite3.connect(database_connect)
 
     cursor = conn.cursor()
 
-    cursor.execute('SELECT StudentID FROM USERS_DATABASE WHERE Email = ?', (email,))
+    cursor.execute(f'SELECT {ID_to_find} FROM {database_name} WHERE Email = ?', (email,))
+
     ID = cursor.fetchone()[0]
     print(f"i found the ID: {ID}")
     return ID
 
 
-def fetch_Name(email):
-    conn = sqlite3.connect('Student_accounts.db')
+def fetch_Name(email, database):
+    # conn = sqlite3.connect('Student_accounts.db')
+    #
+    # cursor = conn.cursor()
+    #
+    # cursor.execute('SELECT StudentName FROM USERS_DATABASE WHERE Email = ?', (email,))
+    #
+    # Name = cursor.fetchone()[0]
+    # print(f"i found the name: {Name}")
+    # return Name
+    if database == AdminaccountDB:
+        database_connect = 'Teacher_accounts.db'
+        database_name = 'TEACHERS_DATABASE'
+        Name_to_find = 'TeacherName'
+
+    else:
+        database_connect = 'Student_accounts.db'
+        database_name = 'USERS_DATABASE'
+        Name_to_find = 'StudentName'
+
+    conn = sqlite3.connect(database_connect)
 
     cursor = conn.cursor()
 
-    cursor.execute('SELECT StudentName FROM USERS_DATABASE WHERE Email = ?', (email,))
+    cursor.execute(f'SELECT {Name_to_find} FROM {database_name} WHERE Email = ?', (email,))
 
     Name = cursor.fetchone()[0]
-    print(f"i found the name: {Name}")
+    print(f"i found the ID: {Name}")
     return Name
+
+
 
 
 def fetch_all_studentIDs():
@@ -491,8 +524,8 @@ def adminMenu(email_entry):
     adminMenu = Tk()
     adminMenu.geometry("400x200")
 
-    ID_to_pass = fetch_ID(username)
-    Name_to_pass = fetch_Name(username)
+    ID_to_pass = fetch_ID(username, AdminaccountDB)
+    Name_to_pass = fetch_Name(username, AdminaccountDB)
 
 
     admin_label = Label(adminMenu, text="ADMIN MENU")
@@ -520,8 +553,8 @@ def userMenu(email_entry):
     userMenu.geometry("400x200")
 
 
-    ID_to_pass = fetch_ID(username)
-    Name_to_pass = fetch_Name(username)
+    ID_to_pass = fetch_ID(username, UseraccountDB)
+    Name_to_pass = fetch_Name(username, UseraccountDB)
 
     user_label = Label(userMenu, text="USER MENU")
     user_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
@@ -586,8 +619,8 @@ if __name__ == "__main__":
     UseraccountDB.insertData("30", "jett", "k@gmail.com", "K")
     # accountWindow()
 
-    AdminaccountDB = login()
+    AdminaccountDB = teacher_login()
     AdminaccountDB.createTable()
-    AdminaccountDB.insertData("20", "Jane", "admin@gmail.com", "admin")
+    AdminaccountDB.insertData("23", "James", "adam@gmail.com", "adam")
 
     login_notebook()
