@@ -676,10 +676,9 @@ class main_window(tk.Tk):
         self.geometry('900x500')  # 450 x 600 , 900 used to be 750
 
 
-def main(userID, userName):
+def Piano_main(userID, userName):
     mainWindow = main_window()
     pianoFrame = MyPianoGUI(mainWindow, userID, userName)
-    # num1 = StringVar()
     pygame.mixer.init()
     pygame.mixer.set_num_channels(100)
 
@@ -689,4 +688,4 @@ def main(userID, userName):
 if __name__ == "__main__":
     # main("1", "Kurt")
 
-    main("10", "anthony")
+    Piano_main("10", "anthony")

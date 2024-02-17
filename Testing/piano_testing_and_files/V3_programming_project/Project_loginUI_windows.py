@@ -23,9 +23,9 @@ from SQL_teacherV2 import studentProject
 
 # from tkinter import messagebox
 
-def back(wx):
-    wx.destroy()  # destorys any window passed into this function
-    login_notebook()  # opens main again
+def back(window_to_destory):
+    window_to_destory.destroy()  # destroys any window passed into this function
+    login_notebook()  # opens login windows again
 
 
 def open_menu(w, database, email_entry, password_entry, flag):
@@ -293,15 +293,6 @@ def fetch_ID(email, database):
 
 
 def fetch_Name(email, database):
-    # conn = sqlite3.connect('Student_accounts.db')
-    #
-    # cursor = conn.cursor()
-    #
-    # cursor.execute('SELECT StudentName FROM USERS_DATABASE WHERE Email = ?', (email,))
-    #
-    # Name = cursor.fetchone()[0]
-    # print(f"i found the name: {Name}")
-    # return Name
     if database == AdminaccountDB:
         database_connect = 'Teacher_accounts.db'
         database_name = 'TEACHERS_DATABASE'
@@ -322,7 +313,15 @@ def fetch_Name(email, database):
     print(f"i found the ID: {Name}")
     return Name
 
-
+    # conn = sqlite3.connect('Student_accounts.db')
+    #
+    # cursor = conn.cursor()
+    #
+    # cursor.execute('SELECT StudentName FROM USERS_DATABASE WHERE Email = ?', (email,))
+    #
+    # Name = cursor.fetchone()[0]
+    # print(f"i found the name: {Name}")
+    # return Name
 
 
 def fetch_all_studentIDs():
@@ -524,52 +523,50 @@ def login_notebook():
 
 def adminMenu(email_entry):
     username = email_entry
-    adminMenu = Tk()
-    adminMenu.geometry("400x200")
+    admin_Menu = Tk()
+    admin_Menu.geometry("400x200")
 
     ID_to_pass = fetch_ID(username, AdminaccountDB)
     Name_to_pass = fetch_Name(username, AdminaccountDB)
 
-
-    admin_label = Label(adminMenu, text="ADMIN MENU")
+    admin_label = Label(admin_Menu, text="ADMIN MENU")
     admin_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
-    accessPiano = Button(adminMenu, text="Access \n VIRTU Piano", command=lambda:main(ID_to_pass, Name_to_pass))
-    accessPiano.grid(row=4, column =2 , sticky="SNEW", padx=10, pady=10)
+    accessPiano = Button(admin_Menu, text="Access \n VIRTU Piano", command=lambda:Piano_main(ID_to_pass, Name_to_pass))
+    accessPiano.grid(row=4, column=2, sticky="SNEW", padx=10, pady=10)
 
-    access_db = Button(adminMenu, text="Student database", command=lambda:student_database_window(adminMenu, username))
-    access_db.grid(row=4, column =3 , sticky="SNEW", padx=10, pady=10)
+    access_db = Button(admin_Menu, text="Student database", command=lambda:student_database_window(admin_Menu, username))
+    access_db.grid(row=4, column=3, sticky="SNEW", padx=10, pady=10)
 
-    deletebutton = Button(adminMenu, text="delete user", width=12, command=lambda: deleteWindow(adminMenu))
+    deletebutton = Button(admin_Menu, text="delete user", width=12, command=lambda: deleteWindow(admin_Menu))
     deletebutton.grid(row=4, column=1, padx=10, pady=10)
 
-    createbutton = Button(adminMenu, text="create account", width=12, command=lambda: createAccount(adminMenu))
+    createbutton = Button(admin_Menu, text="create account", width=12, command=lambda: createAccount(admin_Menu))
     createbutton.grid(row=5, column=1, padx=10, pady=10)
 
-    backButton = Button(adminMenu, text="Back", command=lambda: back(adminMenu))  # passes the current window
+    backButton = Button(admin_Menu, text="Back", command=lambda: back(admin_Menu))  # passes the current window
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
 
 
 def userMenu(email_entry):
     username = email_entry
-    userMenu = Tk()
-    userMenu.geometry("400x200")
-
+    user_Menu = Tk()
+    user_Menu.geometry("400x200")
 
     ID_to_pass = fetch_ID(username, UseraccountDB)
     Name_to_pass = fetch_Name(username, UseraccountDB)
 
-    user_label = Label(userMenu, text="USER MENU")
+    user_label = Label(user_Menu, text="USER MENU")
     user_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
-    changebutton = Button(userMenu, text="change password", width=12, command=lambda: changePasswordwindow(userMenu,
-                                                                                                           username))
+    changebutton = Button(user_Menu, text="change password", width=12, command=lambda: changePasswordwindow(user_Menu,
+                                                                                                            username))
     changebutton.grid(row=4, column=1, padx=10, pady=10)
 
-    backButton = Button(userMenu, text="Back", command=lambda: back(userMenu))  # passes the current window
+    backButton = Button(user_Menu, text="Back", command=lambda: back(user_Menu))  # passes the current window
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
 
-    accessPiano = Button(userMenu, text="Access \n VIRTU Piano", command=lambda:main(ID_to_pass, Name_to_pass))
+    accessPiano = Button(user_Menu, text="Access \n VIRTU Piano", command=lambda:Piano_main(ID_to_pass, Name_to_pass))
     accessPiano.grid(row=5, column = 5, sticky="SNEW", padx=10, pady=10)
 
 
@@ -596,6 +593,8 @@ def changePasswordwindow(w, username):
     w.destroy()
     changeMenu = Tk()
     changeMenu.geometry("400x250")
+
+    changeMenu.title("Change password window")
 
     newPassword_label = Label(changeMenu, text="Password")
     newPassword_label.grid(row=3, column=0, padx=10, pady=10, sticky="W")
