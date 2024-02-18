@@ -549,18 +549,18 @@ def adminMenu(email_entry):
 
 
 def userMenu(email_entry):
-    username = email_entry
+    email = email_entry
     user_Menu = Tk()
     user_Menu.geometry("400x200")
 
-    ID_to_pass = fetch_ID(username, UseraccountDB)
-    Name_to_pass = fetch_Name(username, UseraccountDB)
+    ID_to_pass = fetch_ID(email, UseraccountDB)
+    Name_to_pass = fetch_Name(email, UseraccountDB)
 
     user_label = Label(user_Menu, text="USER MENU")
     user_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
     changebutton = Button(user_Menu, text="change password", width=12, command=lambda: changePasswordwindow(user_Menu,
-                                                                                                            username))
+                                                                                                            email))
     changebutton.grid(row=4, column=1, padx=10, pady=10)
 
     backButton = Button(user_Menu, text="Back", command=lambda: back(user_Menu))  # passes the current window
@@ -568,6 +568,7 @@ def userMenu(email_entry):
 
     accessPiano = Button(user_Menu, text="Access \n VIRTU Piano", command=lambda:Piano_main(ID_to_pass, Name_to_pass))
     accessPiano.grid(row=5, column = 5, sticky="SNEW", padx=10, pady=10)
+
 
 
 def deleteWindow(w):
@@ -589,7 +590,7 @@ def deleteWindow(w):
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
 
 
-def changePasswordwindow(w, username):
+def changePasswordwindow(w, given_email):
     w.destroy()
     changeMenu = Tk()
     changeMenu.geometry("400x250")
@@ -604,7 +605,7 @@ def changePasswordwindow(w, username):
 
     submitbutton = Button(changeMenu, text="submit new password", width=18,
                           command=lambda: changePassword(UseraccountDB,
-                                                         username,
+                                                         given_email,
                                                          newPassword_entry))
     submitbutton.grid(row=5, column=1, padx=10, pady=10)
 

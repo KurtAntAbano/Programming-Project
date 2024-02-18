@@ -63,7 +63,7 @@ class login():
     def deleteRecord(self, givenuser):
         try:
             conn = sqlite3.connect('Student_accounts.db')
-            conn.execute("DELETE FROM USERS WHERE  Email =?", (givenuser,))
+            conn.execute("DELETE FROM USERS_database WHERE  Email =?", (givenuser,))
             print("deleted")
             conn.commit()
             conn.close()
@@ -72,10 +72,10 @@ class login():
             return False
 
     # _____________ method to Update password _________________________________
-    def updatePassword(self, givenUser, newPassword):
+    def updatePassword(self, given_email, newPassword):
         try:
             conn = sqlite3.connect('Student_accounts.db')
-            conn.execute('''UPDATE USERS  SET Password = ? WHERE Email = ? ''', (newPassword, givenUser))
+            conn.execute('''UPDATE USERS_DATABASE  SET Password = ? WHERE Email = ? ''', (newPassword, given_email))
             conn.commit()
             conn.close()
         except:
