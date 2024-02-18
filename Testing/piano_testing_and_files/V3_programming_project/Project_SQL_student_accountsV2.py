@@ -59,10 +59,10 @@ class login():
         except:
             return False
 
-    # _____________ method to delete a record from the table _________________________________
+    # _____________ method to n a record from the table _________________________________
     def deleteRecord(self, givenuser):
         try:
-            conn = sqlite3.connect('Student_accounts.db')
+            conn = sqlite3.connect('Student_accounts.db')  # connects the database and uses a SQL DELETE statement to remove the student
             conn.execute("DELETE FROM USERS_database WHERE  Email =?", (givenuser,))
             print("deleted")
             conn.commit()

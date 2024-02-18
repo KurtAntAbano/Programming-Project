@@ -11,6 +11,7 @@ from SQL_teacherV2 import *
 import threading
 from PIL import ImageTk, Image
 from SQL_teacherV2 import studentProject
+from Project_loginUI_windows import *
 
 # from song_string_conversion import *
 """ --__Midi0ke__--
@@ -35,7 +36,6 @@ class MyPianoGUI:
         self.user = givenUserID
         self.name = givenName
         self.master = master
-        self.state = tk.StringVar(value='Piano')
         self.volume = 90
         self.backgroundColour = '#d8d8d8'  # '#5A5A5A'
         self.labelColour = '#856ff8'
@@ -46,8 +46,8 @@ class MyPianoGUI:
         self.recording = False
         self.input_string = []
         self.previous_time = 0
-        self.noteShow = ''
-        self.noteShow = tk.StringVar()
+        #self.noteShow = ''
+        #self.noteShow = tk.StringVar()
         self.noteColour1 = 'black'
         self.noteColour2 = 'white'
 
@@ -81,6 +81,8 @@ class MyPianoGUI:
 
         # add a menu item to the menu
         self.file_menu.add_command(label='Exit', command=master.destroy)
+
+
 
         # add the File menu to the menubar
         self.menubar.add_cascade(label="File", menu=self.file_menu)
@@ -417,7 +419,7 @@ class MyPianoGUI:
         # self.playback_btn.grid(row=1, column=2)
         self.playback_btn.place(x=40, y=20)
 
-        self.noteLabel = tk.Label(self.recordFrame, bg=self.label_background_colour, fg=self.labelColour, width=10, textvariable=self.noteShow)
+        self.noteLabel = tk.Label(self.recordFrame, bg=self.label_background_colour, fg=self.labelColour, width=10, text=" ")
         # self.noteLabel.grid(row=1, column=5)
         self.noteLabel.place(x=0, y=80)
 
@@ -448,7 +450,8 @@ class MyPianoGUI:
                 if self.instrument_count < 0:
                     self.instrument_count = 3
 
-            self.state.set(self.instrument_list[self.instrument_count])
+            # self.state.set(self.instrument_list[self.instrument_count])
+            self.state_Label.configure(text=self.instrument_list[self.instrument_count])
 
         def metronome_function(bpm_entry):
             bpm_to_pass = int(bpm_entry.get())
@@ -460,8 +463,8 @@ class MyPianoGUI:
             myMetronome.playMetronome()
 
         def update_note_text(note):
-            self.noteShow.set(note)
-            self.noteLabel.configure(textvariable=self.noteShow)
+            #self.noteShow.set(note)
+            self.noteLabel.configure(text=note)
 
         self.state = tk.StringVar()
         self.state.set("Piano")
@@ -477,7 +480,7 @@ class MyPianoGUI:
         self.Label = Label(self.controlFrame, text="change\n state", fg=self.labelColour)
         self.Label.grid(row=6, column=10)
 
-        self.state_Label = Label(self.controlFrame, textvariable=self.state, width=5, bg='white', fg=self.labelColour, )
+        self.state_Label = Label(self.controlFrame, text=self.instrument_list[0], width=5, bg='white', fg=self.labelColour, )
         self.state_Label.place(x=240, y=40)
 
         self.showNotes = Button(self.controlFrame, text='show notes', fg=self.labelColour, command=lambda: note_colour_change())

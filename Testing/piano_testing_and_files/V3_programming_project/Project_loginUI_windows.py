@@ -13,12 +13,10 @@ from Project_myValidation import *
 from Project_SQL_teacher_accountsV2 import teacher_login
 from Project_SQL_student_accountsV2 import login
 from tkinter import ttk
+
 from piano_TestV3 import *
 import sqlite3
 from SQL_teacherV2 import studentProject
-
-
-
 
 
 # from tkinter import messagebox
@@ -40,6 +38,8 @@ def open_menu(w, database, email_entry, password_entry, flag):
             adminMenu(email)
     else:
         login_notebook()
+
+
 def student_back(w, username):
     w.destroy()
     adminMenu(username)
@@ -76,8 +76,6 @@ def student_back(w, username):
 #
 #     cursor.close()
 #     conn.close()
-
-
 
 
 def on_get_index_clicked(given_tree, given_rows):
@@ -126,7 +124,8 @@ def giveFeedback(gfeedback, gscore, gtree, grows):
 
     conn = sqlite3.connect('Student_songs.db')
     cursor = conn.cursor()
-    cursor.execute("UPDATE SONG_DATABASE SET Feedback = ?, Score = ? WHERE StudentID = ? AND SongName = ?", (feedback, score, selectedID, selectedSong,))
+    cursor.execute("UPDATE SONG_DATABASE SET Feedback = ?, Score = ? WHERE StudentID = ? AND SongName = ?",
+                   (feedback, score, selectedID, selectedSong,))
 
     conn.commit()
     conn.close()
@@ -138,28 +137,19 @@ def student_database_window(w, givenUsername):
     db_win = Tk()
     db_win.geometry("1000x500")
 
-
-
-
     student_DB = studentProject()
     rows = student_DB.give_rows()
-    #print(rows)
+    # print(rows)
     student_DB.showAllRecords()
 
-
-    #NEW IDEA: use dictionary create buttons using loop, in order to access the song strings,
-    #use cget('text') to extract button text (which will be the name of user) use this calue to reference dictionary
+    # NEW IDEA: use dictionary create buttons using loop, in order to access the song strings,
+    # use cget('text') to extract button text (which will be the name of user) use this calue to reference dictionary
     # and viola
 
-    #(in order to reference the button, add the button name to a list?)
-
-
-
-
+    # (in order to reference the button, add the button name to a list?)
 
     login_label = Label(db_win, text="Student database:")
     login_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
-
 
     backButton = Button(db_win, text="Back", command=lambda: student_back(db_win, teacher))  # passes the current window
     backButton.grid(row=1, column=4, sticky="SNEW", padx=10, pady=10)
@@ -171,27 +161,19 @@ def student_database_window(w, givenUsername):
     label = Label(databaseFrame, text='sample test')
     label.grid(row=0, column=0)
 
-
-    feedbackLabel = Label(databaseFrame, text = 'Feedback:')
+    feedbackLabel = Label(databaseFrame, text='Feedback:')
     feedbackLabel.grid(row=6, column=0)
 
     feedbackEntry = Entry(databaseFrame, width=60)
     feedbackEntry.grid(row=6, column=1)
 
-
-    scoreLabel = Label(databaseFrame, text = 'score:')
+    scoreLabel = Label(databaseFrame, text='score:')
     scoreLabel.grid(row=7, column=0)
 
     scoreEntry = Entry(databaseFrame, width=60)
     scoreEntry.grid(row=7, column=1)
 
-
-
     #  ----------------------------------------TREE VIEW-----------------------------------------------------------
-
-
-
-
 
     conn = sqlite3.connect('Student_songs.db')  # Replace 'your_database.db' with your database file name
     cursor = conn.cursor()
@@ -215,26 +197,20 @@ def student_database_window(w, givenUsername):
     for record in records:
         tree.insert("", "end", values=record)
 
-
-
     tree.grid(row=0, column=0)
 
-    btn_move = ttk.Button(databaseFrame, text="play", command=lambda:on_get_index_clicked(tree, rows))
+    btn_move = ttk.Button(databaseFrame, text="play", command=lambda: on_get_index_clicked(tree, rows))
     btn_move.grid(row=4, column=0)
 
     vsb = ttk.Scrollbar(databaseFrame, orient="vertical", command=tree.yview)
-    #vsb.place(x=30 + 200 + 2, y=95, height=80)
+    # vsb.place(x=30 + 200 + 2, y=95, height=80)
     vsb.place(x=580, y=60, height=150)
 
     cursor.close()
     conn.close()
 
-
-
-    saveFeedback = ttk.Button(databaseFrame, text="save project", command=lambda:giveFeedback(feedbackEntry, scoreEntry, tree, rows))
+    saveFeedback = ttk.Button(databaseFrame, text="save project", command=lambda: giveFeedback(feedbackEntry, scoreEntry, tree, rows))
     saveFeedback.grid(row=8, column=0)
-
-
 
     def displaySongString(index):
         # song = rows[index][1]
@@ -256,8 +232,7 @@ def student_database_window(w, givenUsername):
             if key == 'kurt':
                 namee = d[key]
                 print(key, namee)
-    #print(dictionary[1])
-
+    # print(dictionary[1])
 
     # function that creates buttons from a given list scrapped in favopur of .focus and select
     # for i in range(0, len(rows)):
@@ -269,6 +244,7 @@ def student_database_window(w, givenUsername):
     #     buttonName = f'button{rows[i][0]}'
     #     buttonName = tk.Button(databaseFrame, text=f"Button {i+1} {rows[i][0]}", command=lambda:displaySongString(rows[i][0]))
     #     buttonName.pack(side='left')
+
 
 def fetch_ID(email, database):
     if database == AdminaccountDB:
@@ -337,35 +313,31 @@ def fetch_all_studentIDs():
     # print(all_ids[1])
 
 
-
-def createAccount(w):# win1 named w so that its easier to trace
-    w.destroy()# destorys win1
+def createAccountWindow(w):  # win1 named w so that its easier to trace
+    w.destroy()  # destorys win1
     win3 = Tk()
-    win3.title("Sign in ... ")
+    win3.title("Create account ... ")
     win3.geometry("400x350")
 
     titleLabel = Label(win3, text=" Please complete all fields ")
     titleLabel.grid(row=0, column=0, columnspan=3, sticky="SNEW", pady=10, padx=10)
 
-    email_label = Label(win3, text = "Email")
+    email_label = Label(win3, text="Email")
     email_label.grid(row=2, column=0, padx=10, pady=10, sticky="W")
 
-    password_label = Label(win3, text = "Password")
+    password_label = Label(win3, text="Password")
     password_label.grid(row=3, column=0, padx=10, pady=10, sticky="W")
 
-    password_relabel = Label(win3, text = "Re-enter Password")
+    password_relabel = Label(win3, text="Re-enter Password")
     password_relabel.grid(row=4, column=0, padx=10, pady=10, sticky="W")
 
-    ID_label = Label(win3, text = "Enter ID")
+    ID_label = Label(win3, text="Enter ID")
     ID_label.grid(row=5, column=0, padx=10, pady=10, sticky="W")
 
-    user_label = Label(win3, text = "Enter user")
+    user_label = Label(win3, text="Enter user")
     user_label.grid(row=6, column=0, padx=10, pady=10, sticky="W")
 
-
-
-
-    email_entry = Entry(win3, width = 30)
+    email_entry = Entry(win3, width=30)
     email_entry.grid(row=2, column=1, padx=10, pady=10, sticky="E")
 
     password_entry = Entry(win3, width=30)
@@ -380,57 +352,46 @@ def createAccount(w):# win1 named w so that its easier to trace
     user_entry = Entry(win3, width=30)
     user_entry.grid(row=6, column=1, padx=10, pady=10, sticky="E")
 
-
-
-    createbutton = Button(win3, text="create account", width=12, command = lambda: saveAccount(win3, email_entry, password_entry, password_reentry, ID_entry, user_entry))
+    createbutton = Button(win3, text="create account", width=12,
+                          command=lambda: saveAccount(win3, email_entry, password_entry, password_reentry, ID_entry, user_entry))
     createbutton.grid(row=7, column=1, padx=10, pady=10)
 
-    backButton = Button(win3, text="Back", command=lambda: back(win3))# passes the current window
+    backButton = Button(win3, text="Back", command=lambda: back(win3))  # passes the current window
     backButton.grid(row=7, column=0, sticky="SNEW", padx=10, pady=10)
 
     mainloop()
 
-def saveAccount(window, givenEmail, givenPassword, givenRepassword, givenID, givenUser):
 
+def saveAccount(window, givenEmail, givenPassword, givenRepassword, givenID, givenUser):
     email = givenEmail.get()
     password = givenPassword.get()
     repassword = givenRepassword.get()
     ID = givenID.get()
     user = givenUser.get()
 
-    if is_empty_check(email, password, repassword, ID, user):
-        if is_the_same(password, repassword):
+    if is_empty_check(email, password, repassword, ID, user):  # this checks whether any fields are empty
+        if is_the_same(password, repassword):  # this checks whether the passwords are the same
             conn = sqlite3.connect('Student_accounts.db')
 
             cursor = conn.cursor()
             cursor.execute('SELECT StudentID FROM USERS_DATABASE')
             all_ids = cursor.fetchall()
             for row in all_ids:
-                if row[0] == ID:
+                if row[0] == ID:  # this checks whether the ID is unique
                     messagebox.showinfo(title="ERROR", message="ID already exists")
-                    createAccount(window)
-
+                    createAccountWindow(window)
 
             myDB = login()
-            myDB.insertData(ID, user, email, password)
+            if myDB.insertData(ID, user, email, password):
+                messagebox.showinfo(title="success", message="Account created successfully")
         else:
-            messagebox.showinfo(title="ERROR", message="passwords do not match")
-            createAccount(window)
+            createAccountWindow(window)
 
     else:
-        createAccount(window)
+        createAccountWindow(window)
 
-
-
-
-
-
-
-
-            # print(row[0])
-    #use insert function and add a parameter /entry for the userID
-    
-
+        # print(row[0])
+    # use insert function and add a parameter /entry for the userID
 
 
 def login_notebook():
@@ -447,7 +408,6 @@ def login_notebook():
     # Create a Label in Tabs
 
     win.title("Login")
-
 
     login_label = Label(userLoginWin, text="LOGIN DETAILS:")
     login_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
@@ -511,8 +471,7 @@ def login_notebook():
                                                                                           password_entry2, "admin"))
     loginbutton.grid(row=4, column=1, padx=10, pady=10)
 
-
-    skipButton = Button(adminLoginWin, text="skip", command=lambda: adminMenu("admin@gmail.com"))
+    skipButton = Button(adminLoginWin, text="skip", command=lambda: adminMenu("adam@gmail.com"))
     skipButton.grid(row=4, column=2, sticky="SNEW", padx=10, pady=10)
 
     backButton = Button(adminLoginWin, text="Exit", command=lambda: quit())
@@ -521,27 +480,35 @@ def login_notebook():
     mainloop()
 
 
+def open_piano_GUI(window, ID, name):
+    window.destroy()
+    Piano_main(ID, name)
+    login_notebook()
+
+
 def adminMenu(email_entry):
-    username = email_entry
+    email = email_entry
     admin_Menu = Tk()
     admin_Menu.geometry("400x200")
 
-    ID_to_pass = fetch_ID(username, AdminaccountDB)
-    Name_to_pass = fetch_Name(username, AdminaccountDB)
+    admin_Menu.title("Admin_menu")
+
+    ID_to_pass = fetch_ID(email, AdminaccountDB)
+    Name_to_pass = fetch_Name(email, AdminaccountDB)
 
     admin_label = Label(admin_Menu, text="ADMIN MENU")
     admin_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
-    accessPiano = Button(admin_Menu, text="Access \n VIRTU Piano", command=lambda:Piano_main(ID_to_pass, Name_to_pass))
+    accessPiano = Button(admin_Menu, text="Access \n VIRTU Piano", command=lambda: open_piano_GUI(admin_Menu, ID_to_pass, Name_to_pass))
     accessPiano.grid(row=4, column=2, sticky="SNEW", padx=10, pady=10)
 
-    access_db = Button(admin_Menu, text="Student database", command=lambda:student_database_window(admin_Menu, username))
+    access_db = Button(admin_Menu, text="Student database", command=lambda: student_database_window(admin_Menu, email))
     access_db.grid(row=4, column=3, sticky="SNEW", padx=10, pady=10)
 
     deletebutton = Button(admin_Menu, text="delete user", width=12, command=lambda: deleteWindow(admin_Menu))
     deletebutton.grid(row=4, column=1, padx=10, pady=10)
 
-    createbutton = Button(admin_Menu, text="create account", width=12, command=lambda: createAccount(admin_Menu))
+    createbutton = Button(admin_Menu, text="create account", width=12, command=lambda: createAccountWindow(admin_Menu))
     createbutton.grid(row=5, column=1, padx=10, pady=10)
 
     backButton = Button(admin_Menu, text="Back", command=lambda: back(admin_Menu))  # passes the current window
@@ -552,6 +519,8 @@ def userMenu(email_entry):
     email = email_entry
     user_Menu = Tk()
     user_Menu.geometry("400x200")
+
+    user_Menu.title("User_menu")
 
     ID_to_pass = fetch_ID(email, UseraccountDB)
     Name_to_pass = fetch_Name(email, UseraccountDB)
@@ -566,13 +535,12 @@ def userMenu(email_entry):
     backButton = Button(user_Menu, text="Back", command=lambda: back(user_Menu))  # passes the current window
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
 
-    accessPiano = Button(user_Menu, text="Access \n VIRTU Piano", command=lambda:Piano_main(ID_to_pass, Name_to_pass))
-    accessPiano.grid(row=5, column = 5, sticky="SNEW", padx=10, pady=10)
+    accessPiano = Button(user_Menu, text="Access \n VIRTU Piano", command=lambda: open_piano_GUI(user_Menu, ID_to_pass, Name_to_pass))
+    accessPiano.grid(row=5, column=5, sticky="SNEW", padx=10, pady=10)
 
 
-
-def deleteWindow(w):
-    w.destroy()
+def deleteWindow(window):  # this window allows users to write which user they want to delete
+    window.destroy()
     deleteMenu = Tk()
     deleteMenu.geometry("400x100")
 
@@ -584,6 +552,7 @@ def deleteWindow(w):
 
     deleteButton = Button(deleteMenu, text="Delete", width=12, command=lambda: deleteUser(UseraccountDB,
                                                                                           userToDelete))
+    # once this button is pressed a function is called which will delete the user
     deleteButton.grid(row=4, column=1, padx=10, pady=10)
 
     backButton = Button(deleteMenu, text="Back", command=lambda: back(deleteMenu))  # passes the current window
@@ -614,7 +583,7 @@ def changePasswordwindow(w, given_email):
 
 
 if __name__ == "__main__":
-    #fetch_all_studentIDs()
+    # fetch_all_studentIDs()
     UseraccountDB = login()  # creating an object
     # uncomment to test when appropriate .......
 

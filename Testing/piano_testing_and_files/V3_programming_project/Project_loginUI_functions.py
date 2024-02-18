@@ -33,8 +33,8 @@ def login_verify(database, email, password):
 
 def deleteUser(database, username_entry):
     username = username_entry.get()
-
-    if database.deleteRecord(username) == False:
+    #  depending on the outcome of the deletion appropriate message boxes show to the teacher
+    if database.deleteRecord(username) == False:  # database.deleteRecord() is a method from the database SQL class python file
         messagebox.showinfo(title="ERROR", message="*User does not exist")
     else:
         messagebox.showinfo(title="SUCCESS", message="*User deleted")
