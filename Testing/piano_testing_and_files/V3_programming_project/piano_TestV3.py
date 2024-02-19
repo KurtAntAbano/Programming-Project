@@ -360,7 +360,6 @@ class MyPianoGUI:
         # -------------------------------------------------------------------------------------
 
         def print_octave(o):  # this function will print the current octave
-            # self.octave = str(o)
             self.secondoctave = int(o) + 1
             if self.secondoctave == 3:
                 self.secondoctave = 2
@@ -378,7 +377,7 @@ class MyPianoGUI:
         self.octaveSlider.configure(fg=self.labelColour)
         self.octaveSlider.set(0)
 
-        # key binds added to change octave slider with the keyboard
+        # key binds added to change octave slider with the keyboard. works by adding or subtracting one to the slider
         self.master.bind('<Left>', lambda event: self.octaveSlider.set(self.octaveSlider.get() - 1), pianoKeyText_change())
         self.master.bind('<Right>', lambda event: self.octaveSlider.set(self.octaveSlider.get() + 1), pianoKeyText_change())
 
