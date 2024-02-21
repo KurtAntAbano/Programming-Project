@@ -4,17 +4,18 @@ pygame.mixer.init()
 import threading
 
 class note:
-    def __init__(self, num, state, vol, oct, secoct, keysection, given_channel):  # this class adopts the pianos attributes
+    def __init__(self, num, state, vol, oct, secoct, keysection, given_piano_object):  # this class adopts the pianos attributes
         self.number = num
         self.state = state
         self.volume = vol
         self.octave = oct
         self.secondoctave = secoct
         self.key =keysection
+        self.piano_object = given_piano_object
 
 
         pygame.mixer.init()
-        self.channel = given_channel
+        self.channel = self.piano_object.channel_to_use  # channel attribute now uses the channel_to_use attribute from the piano object
 
     def notePlay(self):  # this function uses attributes and string formatting to recall the correct wav file
         #noteSound = self.sound
@@ -34,6 +35,11 @@ class note:
         # channels allow files to play independently of each other this will help avoid any slowdowns
 
         channel.play(self.playSound)
+
+    def change_channel(self):
+        self.piano_object.increment_channel()
+        #  this method is from the note class it uses the piano object that was given and uses its method to increment the channel
+
 
 
 

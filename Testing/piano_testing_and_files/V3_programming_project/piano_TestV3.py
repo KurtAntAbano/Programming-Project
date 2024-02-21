@@ -50,6 +50,7 @@ class MyPianoGUI:
         #self.noteShow = tk.StringVar()
         self.noteColour1 = 'black'
         self.noteColour2 = 'white'
+        self.channel_to_use = 0
 
         self.master.resizable(0, 0)
 
@@ -340,6 +341,23 @@ class MyPianoGUI:
             for i in range(5, 10):
                 self.upperKeynotes[i].configure(text=f'{self.upperKeynotes[i].cget(t)[0:3]}{self.secondoctave}')
 
+
+        self.lower_keybinds = ['Z','X','C','V','B','N','M', 'W','E','R','T','Y','U','I']
+
+
+        self.upper_keybinds = ['S', 'D','G','H','J','3','4','6','7','8']
+        def pianoKey_keybind_text():
+            for i in range(0, 14):
+                self.lowerKeynotes[i].configure(text=f'{self.lower_keybinds[i]}')
+
+
+            for i in range(0, 10):
+                self.upperKeynotes[i].configure(text=f'{self.upper_keybinds[i]}')
+
+
+        self.piano_keybind_btn = Button(self.controlFrame, text='show key-binds', fg=self.labelColour, command=lambda: pianoKey_keybind_text())
+        #self.piano_keybind_btn.place(x=300, y=50)  #to be implemented labels to show key binds
+
         # -----------------------------------------------------------------------------------------------------
         def print_volume(v):  # function will print the current volume
             self.volume = v
@@ -498,6 +516,11 @@ class MyPianoGUI:
         self.photo_lbl.image = new_img
 
         self.photo_lbl.pack(side="right")
+
+    def increment_channel(self):  # this function will increment the channel by 1
+        self.channel_to_use += 1  # this is so that each note has its own channel and can play to its full length
+        if self.channel_to_use == 100:
+            self.channel_to_use = 0
 
     def playback(self, givenString):
         pygame.mixer.set_num_channels(100)

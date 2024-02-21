@@ -8,8 +8,9 @@ def note_C0(soundObj,keysection):
     #  the piano object is passed since the object posseses attributes of the note, whether the key is in the
     #  first half or second half is also passed (since this affects the octave)
     state = soundObj.state.get()
-    noteObject = note("C", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, 0)
+    noteObject = note("C", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, soundObj)
     noteObject.notePlay()
+    noteObject.change_channel()
     # time.sleep(0.5)
     # print("stop")
     #noteObject.noteStop()
@@ -19,77 +20,88 @@ def note_C0(soundObj,keysection):
 def note_CC0(soundObj,keysection):
     state = soundObj.state.get()
 
-    noteObject = note("C#", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, 1)
+    noteObject = note("C#", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, soundObj)
     noteObject.notePlay()
+    noteObject.change_channel()
 
 
 def note_D0(soundObj,keysection):
     state = soundObj.state.get()
 
-    noteObject = note("D", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, 2)
+    noteObject = note("D", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, soundObj)
     noteObject.notePlay()
+    noteObject.change_channel()
 
 
 
 def note_DD0(soundObj,keysection):
     state = soundObj.state.get()
 
-    noteObject = note("D#", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, 3)
+    noteObject = note("D#", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, soundObj)
     noteObject.notePlay()
+    #noteObject.change_channel()
 
 
 
 def note_E0(soundObj,keysection):
     state = soundObj.state.get()
 
-    noteObject = note("E", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, 4)
+    noteObject = note("E", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, soundObj)
     noteObject.notePlay()
+    noteObject.change_channel()
 
 
 
 def note_F0(soundObj,keysection):
     state = soundObj.state.get()
 
-    noteObject = note("F", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, 5)
+    noteObject = note("F", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, soundObj)
     noteObject.notePlay()
+    noteObject.change_channel()
 
 
 def note_FF0(soundObj,keysection):
     state = soundObj.state.get()
 
-    noteObject = note("F#", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, 6)
+    noteObject = note("F#", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, soundObj)
     noteObject.notePlay()
+    noteObject.change_channel()
 
 def note_G0(soundObj,keysection):
     state = soundObj.state.get()
 
-    noteObject = note("G", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, 7)
+    noteObject = note("G", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, soundObj)
     noteObject.notePlay()
+    noteObject.change_channel()
 
 
 
 def note_GG0(soundObj,keysection):
     state = soundObj.state.get()
 
-    noteObject = note("G#", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, 8)
+    noteObject = note("G#", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, soundObj)
     noteObject.notePlay()
+    noteObject.change_channel()
 
 
 def note_A0(soundObj,keysection):
     state = soundObj.state.get()
 
-    noteObject = note("A", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, 9)
+    noteObject = note("A", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, soundObj)
     noteObject.notePlay()
+    noteObject.change_channel()
 
 
 def note_AA0(soundObj,keysection):
     state = soundObj.state.get()
 
-    noteObject = note("A#", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, 10)
+    noteObject = note("A#", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, soundObj)
     noteObject.notePlay()
+    noteObject.change_channel()
 
 def note_B0(soundObj,keysection):
     state = soundObj.state.get()
 
-    noteObject = note("B", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, 11)
+    noteObject = note("B", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, soundObj)
     noteObject.notePlay()
+    noteObject.change_channel()
