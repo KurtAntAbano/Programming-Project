@@ -8,6 +8,7 @@ from playNoteFunctionsV3 import *
 from metranome_test import *
 from song_string_conversion import *
 from SQL_teacherV2 import *
+from SQL_teacherV1 import *
 import threading
 from PIL import ImageTk, Image
 from SQL_teacherV2 import studentProject
@@ -646,11 +647,11 @@ class MyPianoGUI:
         savelabel = Label(win, text="FEEDBACK AND SCORE", font=('Times 18'))
         savelabel.grid(row=1, column=1)
 
-        conn = sqlite3.connect('Student_songs.db')
+        conn = sqlite3.connect('Student_songs_V1.db')
 
         cursor = conn.cursor()
 
-        result_to_fetch = cursor.execute('SELECT SongName, Feedback, Score FROM SONG_DATABASE WHERE StudentID = ?', (self.user,))
+        result_to_fetch = cursor.execute('SELECT SongName, Feedback, Score FROM SONG_DATABASE_V1 WHERE StudentID = ?', (self.user,))
         results = result_to_fetch.fetchall()
 
         row_coords = 2
