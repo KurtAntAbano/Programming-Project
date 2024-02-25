@@ -7,7 +7,7 @@
 
 import sqlite3
 # _________________________ Creating the class and methods __________________
-class studentProject():
+class studentProjectV1():
     def __init__(self): # not needed, you can remove
         pass
     # _____________ method to create tables _________________________________
@@ -17,7 +17,7 @@ class studentProject():
             #print("Opened database successfully")
 
             conn.execute('''CREATE TABLE IF NOT EXISTS SONG_DATABASE_V1 
-                           (StudentID TEXT  NOT NULL,
+                           (StudentID TEXT  PRIMARY KEY  NOT NULL, 
                            StudentName TEXT NOT NULL,
                            SongName      TEXT     NOT NULL,
                            SongContents      TEXT    NOT NULL,
@@ -39,7 +39,7 @@ class studentProject():
             # insert data into database table
             conn.execute('''insert into SONG_DATABASE_V1  (StudentID, StudentName, SongName, SongContents) values (?, ?, ?, ?)''',
                          (givenID, givenName, givenSongName, givenSongContents))
-            conn.commit()  # do not forget to commit the data (i.e. save the data on the table
+            conn.commit()
             conn.close()
             return True
         except:
@@ -106,7 +106,7 @@ class studentProject():
 # ______________  TESTING ALL ABOVE _________________________
 
 if __name__=="__main__":
-    student_DB = studentProject() # creating an object
+    student_DB = studentProjectV1() # creating an object
     # uncomment to test when appropriate .......
 
     student_DB.createTable()

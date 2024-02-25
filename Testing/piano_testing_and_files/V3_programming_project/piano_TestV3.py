@@ -7,7 +7,7 @@ from future.moves.tkinter import messagebox
 from playNoteFunctionsV3 import *
 from metranome_test import *
 from song_string_conversion import *
-from SQL_teacherV2 import *
+#from SQL_teacherV2 import *
 from SQL_teacherV1 import *
 import threading
 from PIL import ImageTk, Image
@@ -31,7 +31,7 @@ import time
 class MyPianoGUI:
     def __init__(self, master, givenUserID, givenName):
 
-        self.song_db = studentProject()
+        self.song_db = studentProjectV1()
         self.song_db.createTable()
 
         self.user = givenUserID
@@ -425,8 +425,8 @@ class MyPianoGUI:
                 self.input_string = []
 
         def show_user_details():
-            print(self.user)
-            print(self.name)
+            print(f'The current ID is {self.user}')
+            print(f'The current student name is {self.name}')
 
         self.record_btn = tk.Button(self.recordFrame, text="⏺", height=3, width=4, command=lambda: changeRecBtn())
         # self.record_btn.grid(row=1, column=1)
@@ -450,8 +450,8 @@ class MyPianoGUI:
         self.showIDNAME = tk.Button(self.recordFrame, text='show ID', height=1, width=7, command=show_user_details)
         self.showIDNAME.place(x=80, y=100)
 
-        self.viewFeedback = tk.Button(self.recordFrame, text='View feedback', height=1, width=10, command=self.feedback_window)
-        self.viewFeedback.place(x=120, y=100)
+        self.viewFeedback = tk.Button(self.recordFrame, text='View feedback', height=1, width=6, command=self.feedback_window)
+        self.viewFeedback.place(x=140, y=100)
 
         self.instrument_list = ["Piano", "Guitar", "Harp", "Flute"]
         print(len(self.instrument_list))
@@ -520,7 +520,7 @@ class MyPianoGUI:
 
     def increment_channel(self):  # this function will increment the channel by 1
         self.channel_to_use += 1  # this is so that each note has its own channel and can play to its full length
-        if self.channel_to_use == 100:
+        if self.channel_to_use == 88:
             self.channel_to_use = 0
 
     def playback(self, givenString):
@@ -630,10 +630,10 @@ class MyPianoGUI:
         savelabel = Label(win, text="Please enter song name")
         savelabel.grid(row=1, column=1)
 
-        projectName_entry = Entry(win, width=30)
-        projectName_entry.grid(row=2, column=2)
+        songName_entry = Entry(win, width=30)
+        songName_entry.grid(row=2, column=2)
 
-        save_btn = Button(win, text="save", width=12, command=lambda: self.saveSong_function(projectName_entry))
+        save_btn = Button(win, text="save", width=12, command=lambda: self.saveSong_function(songName_entry))
         save_btn.grid(row=2, column=1, padx=10, pady=10)
 
         exitButton = Button(win, text="back", width=12, command=lambda: win.destroy())
@@ -714,4 +714,4 @@ def Piano_main(userID, userName):
 if __name__ == "__main__":
     # main("1", "Kurt")
 
-    Piano_main("10", "anthony")
+    Piano_main("1", "Kurt")

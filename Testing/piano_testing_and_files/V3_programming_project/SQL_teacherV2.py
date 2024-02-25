@@ -17,9 +17,9 @@ class studentProject():
             #print("Opened database successfully")
 
             conn.execute('''CREATE TABLE IF NOT EXISTS SONG_DATABASE 
-                           (StudentID TEXT  NOT NULL,
+                           (StudentID TEXT  PRIMARY KEY NOT NULL,
+                           SongName      TEXT     PRIMARY KEY   NOT NULL,
                            StudentName TEXT NOT NULL,
-                           SongName      TEXT     NOT NULL,
                            SongContents      TEXT    NOT NULL,
                            Feedback      TEXT,
                            Score INTEGER,
