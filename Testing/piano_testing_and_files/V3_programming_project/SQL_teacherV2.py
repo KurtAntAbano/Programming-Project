@@ -24,8 +24,10 @@ class studentProject():
                            Feedback      TEXT,
                            Score INTEGER,
                            PRIMARY KEY (StudentID, SongName),
-                           FOREIGN KEY (StudentID) REFERENCES USERS_DATABASE(StudentID),
+                           FOREIGN KEY (StudentID) REFERENCES USERS_DATABASE(StudentID),  
                            FOREIGN KEY (StudentName) REFERENCES USERS_DATABASE(StudentName));''')
+            #  foreign keys shows how the song table and accounts table are linked
+            #  composite keys, shown by having multiple primary keys, allows users to save multiple songs
 
             #print("Users Accounts Table is created successfully")
             conn.close()
