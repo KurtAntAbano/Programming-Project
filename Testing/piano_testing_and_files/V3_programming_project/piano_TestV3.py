@@ -7,8 +7,8 @@ from future.moves.tkinter import messagebox
 from playNoteFunctionsV3 import *
 from metranome_test import *
 from song_string_conversion import *
-#from SQL_teacherV2 import *
-from SQL_teacherV1 import *
+from SQL_teacherV2 import *
+#from SQL_teacherV1 import *
 import threading
 from PIL import ImageTk, Image
 from SQL_teacherV2 import studentProject
@@ -31,7 +31,7 @@ import time
 class MyPianoGUI:
     def __init__(self, master, givenUserID, givenName):
 
-        self.song_db = studentProjectV1()
+        self.song_db = studentProject()
         self.song_db.createTable()
 
         self.user = givenUserID
@@ -542,13 +542,15 @@ class MyPianoGUI:
             else:
                 time.sleep(string_to_play[i])
 
-    def saveSong_function(self, givenEntry):
+    def saveSong_function(self, window, givenEntry):
         saveSong_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
         songName = givenEntry.get()
         if saveSong_msgbox:
             song_to_save = listtostring(self.input_string)  # converts the list
             print(song_to_save)
             self.song_db.insertData(self.user, self.name, songName, song_to_save)
+            window.destroy()
+
             # this sql query saves the song with the following attributes
 
             #  song_to_save can be the same
@@ -633,7 +635,7 @@ class MyPianoGUI:
         songName_entry = Entry(win, width=30)
         songName_entry.grid(row=2, column=2)
 
-        save_btn = Button(win, text="save", width=12, command=lambda: self.saveSong_function(songName_entry))
+        save_btn = Button(win, text="save", width=12, command=lambda: self.saveSong_function(win, songName_entry))
         save_btn.grid(row=2, column=1, padx=10, pady=10)
 
         exitButton = Button(win, text="back", width=12, command=lambda: win.destroy())
@@ -647,11 +649,11 @@ class MyPianoGUI:
         savelabel = Label(win, text="FEEDBACK AND SCORE", font=('Times 18'))
         savelabel.grid(row=1, column=1)
 
-        conn = sqlite3.connect('Student_songs_V1.db')
+        conn = sqlite3.connect('Student_songs.db')
 
         cursor = conn.cursor()
 
-        result_to_fetch = cursor.execute('SELECT SongName, Feedback, Score FROM SONG_DATABASE_V1 WHERE StudentID = ?', (self.user,))
+        result_to_fetch = cursor.execute('SELECT SongName, Feedback, Score FROM SONG_DATABASE WHERE StudentID = ?', (self.user,))
         results = result_to_fetch.fetchall()
 
         row_coords = 2
@@ -714,4 +716,4 @@ def Piano_main(userID, userName):
 if __name__ == "__main__":
     # main("1", "Kurt")
 
-    Piano_main("1", "Kurt")
+    Piano_main("10", "anthony")
