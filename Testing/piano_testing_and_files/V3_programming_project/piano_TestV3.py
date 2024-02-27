@@ -428,11 +428,13 @@ class MyPianoGUI:
             print(f'The current ID is {self.user}')
             print(f'The current student name is {self.name}')
 
-        self.record_btn = tk.Button(self.recordFrame, text="⏺", height=3, width=4, command=lambda: changeRecBtn())
+            messagebox.showinfo(title="ERROR", message=f"The current ID is {self.user}\nThe current student name is {self.name}")
+
+        self.record_btn = tk.Button(self.recordFrame, text="⏺", fg=self.labelColour, height=3, width=4, command=lambda: changeRecBtn())
         # self.record_btn.grid(row=1, column=1)
         self.record_btn.place(x=0, y=20)
 
-        self.playback_btn = tk.Button(self.recordFrame, text="⏵", height=3, width=4,
+        self.playback_btn = tk.Button(self.recordFrame, text="⏵", fg=self.labelColour, height=3, width=4,
                                       command=lambda: threading.Thread(self.playback(self.input_string)).start())
         # self.playback_btn.grid(row=1, column=2)
         self.playback_btn.place(x=40, y=20)
@@ -441,17 +443,17 @@ class MyPianoGUI:
         # self.noteLabel.grid(row=1, column=5)
         self.noteLabel.place(x=0, y=80)
 
-        self.deleteSong = tk.Button(self.recordFrame, text='🗑', height=1, width=4, command=deleteSong_function)
+        self.deleteSong = tk.Button(self.recordFrame, text='🗑', fg=self.labelColour, height=1, width=4, command=deleteSong_function)
         self.deleteSong.place(x=0, y=100)
 
-        self.saveSong = tk.Button(self.recordFrame, text='save', height=1, width=4, command=lambda: self.saveSong_window())
+        self.saveSong = tk.Button(self.recordFrame, text='save', fg=self.labelColour, height=1, width=4, command=lambda: self.saveSong_window())
         self.saveSong.place(x=40, y=100)
 
-        self.showIDNAME = tk.Button(self.recordFrame, text='show ID', height=1, width=7, command=show_user_details)
-        self.showIDNAME.place(x=80, y=100)
+        self.showIDNAME = tk.Button(self.recordFrame, text='show ID', fg=self.labelColour, height=1, width=7, command=show_user_details)
+        self.showIDNAME.place(x=90, y=100)
 
-        self.viewFeedback = tk.Button(self.recordFrame, text='View feedback', height=1, width=6, command=self.feedback_window)
-        self.viewFeedback.place(x=140, y=100)
+        self.viewFeedback = tk.Button(self.recordFrame, text='View feedback', fg=self.labelColour, height=1, width=12, command=self.feedback_window)
+        self.viewFeedback.place(x=160, y=100)
 
         self.instrument_list = ["Piano", "Guitar", "Harp", "Flute"]
         print(len(self.instrument_list))
@@ -502,7 +504,7 @@ class MyPianoGUI:
         self.state_Label.place(x=240, y=40)
 
         self.showNotes = Button(self.controlFrame, text='show notes', fg=self.labelColour, command=lambda: note_colour_change())
-        self.showNotes.place(x=300, y=8)
+        self.showNotes.place(x=300, y=50)
 
         self.metranome_btn = Button(self.controlFrame, text='Metranome', fg=self.labelColour,
                                     command=lambda: threading.Thread(target=metronome_function(self.metranome_entry)).start)

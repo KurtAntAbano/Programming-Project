@@ -130,12 +130,18 @@ def giveFeedback(gfeedback, gscore, gtree, grows):
     conn.commit()
     conn.close()
 
+def show_help():
+    messagebox.showinfo(title="Help", message = f"To listen to a song, select a record from the table and click play")
+
+def show_help_feedback():
+    messagebox.showinfo(title="Help", message=f"To give feedback and a score:\nSelect a record\nwrite your feedback and score\n press submit and they will be save in the table")
 
 def student_database_window(w, givenUsername):
     w.destroy()
     teacher = givenUsername
     db_win = Tk()
-    db_win.geometry("1000x500")
+    db_win.title("SONG TABLE")
+    db_win.geometry("620x500")
 
     student_DB = studentProject()
     rows = student_DB.give_rows()
@@ -148,34 +154,31 @@ def student_database_window(w, givenUsername):
 
     # (in order to reference the button, add the button name to a list?)
 
-    login_label = Label(db_win, text="Student database:")
+    login_label = Label(db_win, text="Song Table:")
     login_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
     backButton = Button(db_win, text="Back", command=lambda: student_back(db_win, teacher))  # passes the current window
-    backButton.grid(row=1, column=4, sticky="SNEW", padx=10, pady=10)
+    backButton.place(x=50, y=100)
 
     databaseFrame = Frame(db_win)
     databaseFrame.grid(row=10, column=0, sticky='S')
-    # databaseFrame.configure(bg='black')
 
-    label = Label(databaseFrame, text='sample test')
-    label.grid(row=0, column=0)
 
-    feedbackLabel = Label(databaseFrame, text='Feedback:')
-    feedbackLabel.grid(row=6, column=0)
+    feedbackLabel = Label(db_win, text='Feedback:')
+    feedbackLabel.place(x=20, y=350)
 
-    feedbackEntry = Entry(databaseFrame, width=60)
-    feedbackEntry.grid(row=6, column=1)
+    feedbackEntry = Entry(db_win, width=60)
+    feedbackEntry.place(x=100, y=350)
 
-    scoreLabel = Label(databaseFrame, text='score:')
-    scoreLabel.grid(row=7, column=0)
+    scoreLabel = Label(db_win, text='score:')
+    scoreLabel.place(x=20, y=400)
 
-    scoreEntry = Entry(databaseFrame, width=60)
-    scoreEntry.grid(row=7, column=1)
+    scoreEntry = Entry(db_win, width=60)
+    scoreEntry.place(x=100, y=400)
 
     #  ----------------------------------------TREE VIEW-----------------------------------------------------------
 
-    conn = sqlite3.connect('Student_songs.db')  # Replace 'your_database.db' with your database file name
+    conn = sqlite3.connect('Student_songs.db')
     cursor = conn.cursor()
 
     cursor.execute('SELECT * FROM SONG_DATABASE')
@@ -199,18 +202,24 @@ def student_database_window(w, givenUsername):
 
     tree.grid(row=0, column=0)
 
-    btn_move = ttk.Button(databaseFrame, text="play", command=lambda: on_get_index_clicked(tree, rows))
-    btn_move.grid(row=4, column=0)
+    btn_move = ttk.Button(db_win, text="play", command=lambda: on_get_index_clicked(tree, rows))
+    btn_move.place(x=120, y=270)
 
-    vsb = ttk.Scrollbar(databaseFrame, orient="vertical", command=tree.yview)
-    # vsb.place(x=30 + 200 + 2, y=95, height=80)
+    help_label = Button(db_win, text=" ⍰ ", command=show_help)
+    help_label.place(x=200, y=270)
+
+
+    vsb = ttk.Scrollbar(db_win, orient="vertical", command=tree.yview)
     vsb.place(x=580, y=60, height=150)
 
     cursor.close()
     conn.close()
 
-    saveFeedback = ttk.Button(databaseFrame, text="save project", command=lambda: giveFeedback(feedbackEntry, scoreEntry, tree, rows))
-    saveFeedback.grid(row=8, column=0)
+    saveFeedback = ttk.Button(db_win, text="submit feedback and score", command=lambda: giveFeedback(feedbackEntry, scoreEntry, tree, rows))
+    saveFeedback.place(x=100, y=450)
+
+    feedback_help_label = Button(db_win, text=" ⍰ ", command=show_help_feedback)
+    feedback_help_label.place(x=257, y=450)
 
     def displaySongString(index):
         # song = rows[index][1]
@@ -229,10 +238,10 @@ def student_database_window(w, givenUsername):
     print(dictionary)
     for d in dictionary:
         for key in d:
-            if key == 'kurt':
-                namee = d[key]
-                print(key, namee)
-    # print(dictionary[1])
+            if key == 'anthony':
+                name = d[key]
+                print(key, name)
+
 
     # function that creates buttons from a given list scrapped in favopur of .focus and select
     # for i in range(0, len(rows)):
