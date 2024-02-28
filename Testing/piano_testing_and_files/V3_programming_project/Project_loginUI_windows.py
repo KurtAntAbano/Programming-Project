@@ -136,17 +136,17 @@ def show_help():
 def show_help_feedback():
     messagebox.showinfo(title="Help", message=f"To give feedback and a score:\nSelect a record\nwrite your feedback and score\n press submit and they will be save in the table")
 
-def student_database_window(w, givenUsername):
+def song_table_window(w, givenUsername):
     w.destroy()
     teacher = givenUsername
     db_win = Tk()
     db_win.title("SONG TABLE")
     db_win.geometry("620x500")
 
-    student_DB = studentProject()
-    rows = student_DB.give_rows()
-    # print(rows)
-    student_DB.showAllRecords()
+    song_DB = studentProject()  # creates an instance of my song table class and uses a method to get all rows from the table
+    rows = song_DB.give_rows()
+    print(f"rows = {rows}")
+    song_DB.showAllRecords()
 
     # NEW IDEA: use dictionary create buttons using loop, in order to access the song strings,
     # use cget('text') to extract button text (which will be the name of user) use this calue to reference dictionary
@@ -158,23 +158,23 @@ def student_database_window(w, givenUsername):
     login_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
     backButton = Button(db_win, text="Back", command=lambda: student_back(db_win, teacher))  # passes the current window
-    backButton.place(x=50, y=100)
+    #backButton.place(x=50, y=100)
 
     databaseFrame = Frame(db_win)
     databaseFrame.grid(row=10, column=0, sticky='S')
 
 
     feedbackLabel = Label(db_win, text='Feedback:')
-    feedbackLabel.place(x=20, y=350)
+    #feedbackLabel.place(x=20, y=350)
 
     feedbackEntry = Entry(db_win, width=60)
-    feedbackEntry.place(x=100, y=350)
+    #feedbackEntry.place(x=100, y=350)
 
     scoreLabel = Label(db_win, text='score:')
-    scoreLabel.place(x=20, y=400)
+    #scoreLabel.place(x=20, y=400)
 
     scoreEntry = Entry(db_win, width=60)
-    scoreEntry.place(x=100, y=400)
+    #scoreEntry.place(x=100, y=400)
 
     #  ----------------------------------------TREE VIEW-----------------------------------------------------------
 
@@ -183,13 +183,11 @@ def student_database_window(w, givenUsername):
 
     cursor.execute('SELECT * FROM SONG_DATABASE')
     records = cursor.fetchall()
+    print(f'records:{records}')
 
-    # window = tk.Toplevel()
-    # window.title('Database Records')
+    tree = ttk.Treeview(databaseFrame)  # this places the tree in the database frame
 
-    tree = ttk.Treeview(databaseFrame)
-
-    columns = [description[0] for description in cursor.description]
+    columns = [description[0] for description in cursor.description]  # extracts the column names from the cursor.description attribute
     tree["columns"] = columns
     tree["show"] = "headings"
 
@@ -198,36 +196,33 @@ def student_database_window(w, givenUsername):
         tree.column(col, width=100)
 
     for record in records:
-        tree.insert("", "end", values=record)
+        tree.insert("", "end", values=record)  # inserts each record into the tree view
 
     tree.grid(row=0, column=0)
 
     btn_move = ttk.Button(db_win, text="play", command=lambda: on_get_index_clicked(tree, rows))
-    btn_move.place(x=120, y=270)
+    #btn_move.place(x=120, y=270)
 
     help_label = Button(db_win, text=" ⍰ ", command=show_help)
-    help_label.place(x=200, y=270)
+    #help_label.place(x=200, y=270)
 
 
-    vsb = ttk.Scrollbar(db_win, orient="vertical", command=tree.yview)
-    vsb.place(x=580, y=60, height=150)
+    tree_scroll_bar = ttk.Scrollbar(db_win, orient="vertical", command=tree.yview)
+    tree_scroll_bar.place(x=580, y=60, height=150)
 
     cursor.close()
     conn.close()
 
     saveFeedback = ttk.Button(db_win, text="submit feedback and score", command=lambda: giveFeedback(feedbackEntry, scoreEntry, tree, rows))
-    saveFeedback.place(x=100, y=450)
+    #saveFeedback.place(x=100, y=450)
 
     feedback_help_label = Button(db_win, text=" ⍰ ", command=show_help_feedback)
-    feedback_help_label.place(x=257, y=450)
+    #feedback_help_label.place(x=257, y=450)
 
-    def displaySongString(index):
-        # song = rows[index][1]
-        # print(song)
+    def displaySongString(row):
+        print(row)
 
-        print(index)
-
-    dictionary = [{row[0]: row[1:]} for row in rows]
+    dictionary_list = [{row[0]: row[1:]} for row in rows]
 
     # new_dict = {}
     # for item in dictionary:
@@ -235,20 +230,22 @@ def student_database_window(w, givenUsername):
     #
     # print(new_dict)
 
-    print(dictionary)
-    for d in dictionary:
-        for key in d:
-            if key == 'anthony':
-                name = d[key]
-                print(key, name)
+    print(dictionary_list)
+    for dictionary in dictionary_list:
+        for key in dictionary:
+            if key == '10':
+                records = dictionary[key]
+                print(key, records)
+
 
 
     # function that creates buttons from a given list scrapped in favopur of .focus and select
+    # count = 0
     # for i in range(0, len(rows)):
-    #     buttonName = f'button{rows[i][0]}'
-    #     buttonName = tk.Button(databaseFrame, text=f"Button {i+1} {rows[i][0]}", command=lambda:displaySongString(rows[i][0]))
-    #     buttonName.pack(side='left')
-
+    #     buttonName = tk.Button(db_win, text=f"{rows[i][1]}: {rows[i][2]}", command=lambda:displaySongString(rows[i]))
+    #     buttonName.place(x=0, y= count)
+    #     count += 30
+    #
     # for i in range(0, di):
     #     buttonName = f'button{rows[i][0]}'
     #     buttonName = tk.Button(databaseFrame, text=f"Button {i+1} {rows[i][0]}", command=lambda:displaySongString(rows[i][0]))
@@ -511,7 +508,7 @@ def adminMenu(email_entry):
     accessPiano = Button(admin_Menu, text="Access \n VIRTU Piano", command=lambda: open_piano_GUI(admin_Menu, ID_to_pass, Name_to_pass))
     accessPiano.grid(row=4, column=2, sticky="SNEW", padx=10, pady=10)
 
-    access_db = Button(admin_Menu, text="Student database", command=lambda: student_database_window(admin_Menu, email))
+    access_db = Button(admin_Menu, text="Song Table", command=lambda: song_table_window(admin_Menu, email))
     access_db.grid(row=4, column=3, sticky="SNEW", padx=10, pady=10)
 
     deletebutton = Button(admin_Menu, text="delete user", width=12, command=lambda: deleteWindow(admin_Menu))
