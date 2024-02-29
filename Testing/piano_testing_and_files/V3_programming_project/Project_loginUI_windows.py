@@ -78,63 +78,76 @@ def student_back(w, username):
 #     conn.close()
 
 
-def on_get_index_clicked(given_tree, given_rows):
+def index_clicked(given_tree, given_rows):
     row = given_rows
     # Get the selected index
     selected_iid = given_tree.focus()  # selects whatever the cursor is hovering
 
     item_index = given_tree.index(selected_iid)  # the index of the selected item is taken
-    string_to_convert = row[item_index][3]  # string indexing is then used to isolate the desire record
+    string_to_convert = row[item_index][3]  # string indexing is then used to isolate the desired record
 
     print(item_index)
     print(f"string:{string_to_convert}")
 
-    list_notes = stringtolist(string_to_convert)
+    list_notes = string_to_list(string_to_convert)  # remember the list of notes is in string format, so we must convert
+    # it back into a list
     print(f"list:{list_notes}")
 
     mainWindow = main_window()
-    pianoFrame = MyPianoGUI(mainWindow, 'temp', 'temp')
+    pianoFrame = MyPianoGUI(mainWindow, 'temp', 'temp')  # an instance of the piano class is made so that I can use
+    # the playback method to play the selected song
     pianoFrame.playback(list_notes)
     pianoFrame.destroy_GUI()
-
-    # keyAndvalue = dict[item_index]
+    #
+    # keyAndvalue = dictionary_list[item_index]
     # print(keyAndvalue)
     #
     # string_value = list(keyAndvalue.values())[0]
     # print(string_value)
-    # #
-    # # list_notes = stringtolist(string_value)
-    # # print(list_notes) DICTIONARY WAS GOING TO BE USED , but a better solution was found
+    #
+    # list_notes = stringtolist(string_value)
+    # print(list_notes) DICTIONARY WAS GOING TO BE USED , but a better solution was found
 
 
 def giveFeedback(gfeedback, gscore, gtree, grows):
     feedback = gfeedback.get()
     score = gscore.get()
-    print(feedback, score)
+    if feedback == "" and score == "":
+        messagebox.showinfo(title="ERROR",
+                            message=f"Please fill out both entries")
+    else:
 
-    row = grows
-    # Get the selected index
-    selected_iid = gtree.focus()
+        confirmation_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
+        if confirmation_msgbox:
+            print(feedback, score)
 
-    item_index = gtree.index(selected_iid)
-    selectedID = row[item_index][0]
+            row = grows
+            # Get the selected index
+            selected_iid = gtree.focus()
 
-    selectedSong = row[item_index][2]
-    print(selectedSong, selectedID)
+            item_index = gtree.index(selected_iid)
+            selectedID = row[item_index][0]
 
-    conn = sqlite3.connect('Student_songs.db')
-    cursor = conn.cursor()
-    cursor.execute("UPDATE SONG_DATABASE SET Feedback = ?, Score = ? WHERE StudentID = ? AND SongName = ?",
-                   (feedback, score, selectedID, selectedSong,))
+            selectedSong = row[item_index][2]
+            print(selectedSong, selectedID)
 
-    conn.commit()
-    conn.close()
+            conn = sqlite3.connect('Student_songs.db')
+            cursor = conn.cursor()
+            cursor.execute("UPDATE SONG_DATABASE SET Feedback = ?, Score = ? WHERE StudentID = ? AND SongName = ?",
+                           (feedback, score, selectedID, selectedSong,))
+
+            conn.commit()
+            conn.close()
+
 
 def show_help():
-    messagebox.showinfo(title="Help", message = f"To listen to a song, select a record from the table and click play")
+    messagebox.showinfo(title="Help", message=f"To listen to a song, select a record from the table and click play")
+
 
 def show_help_feedback():
-    messagebox.showinfo(title="Help", message=f"To give feedback and a score:\nSelect a record\nwrite your feedback and score\n press submit and they will be save in the table")
+    messagebox.showinfo(title="Help",
+                        message=f"To give feedback and a score:\nSelect a record\nwrite your feedback and score\n press submit and they will be save in the table")
+
 
 def song_table_window(w, givenUsername):
     w.destroy()
@@ -158,23 +171,22 @@ def song_table_window(w, givenUsername):
     login_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
     backButton = Button(db_win, text="Back", command=lambda: student_back(db_win, teacher))  # passes the current window
-    #backButton.place(x=50, y=100)
+    # backButton.place(x=50, y=100)
 
     databaseFrame = Frame(db_win)
     databaseFrame.grid(row=10, column=0, sticky='S')
 
-
     feedbackLabel = Label(db_win, text='Feedback:')
-    #feedbackLabel.place(x=20, y=350)
+    feedbackLabel.place(x=20, y=350)
 
     feedbackEntry = Entry(db_win, width=60)
-    #feedbackEntry.place(x=100, y=350)
+    feedbackEntry.place(x=100, y=350)
 
     scoreLabel = Label(db_win, text='score:')
-    #scoreLabel.place(x=20, y=400)
+    scoreLabel.place(x=20, y=400)
 
     scoreEntry = Entry(db_win, width=60)
-    #scoreEntry.place(x=100, y=400)
+    scoreEntry.place(x=100, y=400)
 
     #  ----------------------------------------TREE VIEW-----------------------------------------------------------
 
@@ -187,7 +199,8 @@ def song_table_window(w, givenUsername):
 
     tree = ttk.Treeview(databaseFrame)  # this places the tree in the database frame
 
-    columns = [description[0] for description in cursor.description]  # extracts the column names from the cursor.description attribute
+    columns = [description[0] for description in
+               cursor.description]  # extracts the column names from the cursor.description attribute
     tree["columns"] = columns
     tree["show"] = "headings"
 
@@ -200,12 +213,11 @@ def song_table_window(w, givenUsername):
 
     tree.grid(row=0, column=0)
 
-    btn_move = ttk.Button(db_win, text="play", command=lambda: on_get_index_clicked(tree, rows))
-    #btn_move.place(x=120, y=270)
+    btn_play = ttk.Button(db_win, text="play", command=lambda: index_clicked(tree, rows))
+    btn_play.place(x=120, y=270)
 
-    help_label = Button(db_win, text=" ⍰ ", command=show_help)
-    #help_label.place(x=200, y=270)
-
+    help_btn = Button(db_win, text=" ⍰ ", command=show_help)
+    help_btn.place(x=200, y=270)
 
     tree_scroll_bar = ttk.Scrollbar(db_win, orient="vertical", command=tree.yview)
     tree_scroll_bar.place(x=580, y=60, height=150)
@@ -213,11 +225,13 @@ def song_table_window(w, givenUsername):
     cursor.close()
     conn.close()
 
-    saveFeedback = ttk.Button(db_win, text="submit feedback and score", command=lambda: giveFeedback(feedbackEntry, scoreEntry, tree, rows))
-    #saveFeedback.place(x=100, y=450)
+    submit_Feedback_score = ttk.Button(db_win, text="submit feedback and score",
+                                       command=lambda: giveFeedback(feedbackEntry, scoreEntry, tree, rows))
+    submit_Feedback_score.place(x=100, y=450)
 
     feedback_help_label = Button(db_win, text=" ⍰ ", command=show_help_feedback)
-    #feedback_help_label.place(x=257, y=450)
+
+    # feedback_help_label.place(x=257, y=450)
 
     def displaySongString(row):
         print(row)
@@ -236,8 +250,6 @@ def song_table_window(w, givenUsername):
             if key == '10':
                 records = dictionary[key]
                 print(key, records)
-
-
 
     # function that creates buttons from a given list scrapped in favopur of .focus and select
     # count = 0
@@ -359,7 +371,8 @@ def createAccountWindow(w):  # win1 named w so that its easier to trace
     user_entry.grid(row=6, column=1, padx=10, pady=10, sticky="E")
 
     createbutton = Button(win3, text="create account", width=12,
-                          command=lambda: saveAccount(win3, email_entry, password_entry, password_reentry, ID_entry, user_entry))
+                          command=lambda: saveAccount(win3, email_entry, password_entry, password_reentry, ID_entry,
+                                                      user_entry))
     createbutton.grid(row=7, column=1, padx=10, pady=10)
 
     backButton = Button(win3, text="Back", command=lambda: back(win3))  # passes the current window
@@ -505,7 +518,8 @@ def adminMenu(email_entry):
     admin_label = Label(admin_Menu, text="ADMIN MENU")
     admin_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
-    accessPiano = Button(admin_Menu, text="Access \n VIRTU Piano", command=lambda: open_piano_GUI(admin_Menu, ID_to_pass, Name_to_pass))
+    accessPiano = Button(admin_Menu, text="Access \n VIRTU Piano",
+                         command=lambda: open_piano_GUI(admin_Menu, ID_to_pass, Name_to_pass))
     accessPiano.grid(row=4, column=2, sticky="SNEW", padx=10, pady=10)
 
     access_db = Button(admin_Menu, text="Song Table", command=lambda: song_table_window(admin_Menu, email))
@@ -541,7 +555,8 @@ def userMenu(email_entry):
     backButton = Button(user_Menu, text="Back", command=lambda: back(user_Menu))  # passes the current window
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
 
-    accessPiano = Button(user_Menu, text="Access \n VIRTU Piano", command=lambda: open_piano_GUI(user_Menu, ID_to_pass, Name_to_pass))
+    accessPiano = Button(user_Menu, text="Access \n VIRTU Piano",
+                         command=lambda: open_piano_GUI(user_Menu, ID_to_pass, Name_to_pass))
     accessPiano.grid(row=5, column=5, sticky="SNEW", padx=10, pady=10)
 
 

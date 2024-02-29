@@ -547,11 +547,16 @@ class MyPianoGUI:
     def saveSong_function(self, window, givenEntry):
         saveSong_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
         songName = givenEntry.get()
+
         if saveSong_msgbox:
-            song_to_save = listtostring(self.input_string)  # converts the list
-            print(song_to_save)
-            self.song_db.insertData(self.user, self.name, songName, song_to_save)
-            window.destroy()
+            if songName == "":
+                messagebox.showinfo(title="ERROR",
+                                    message=f"Please fill out name entry")
+            else:
+                song_to_save = listtostring(self.input_string)  # converts the list
+                print(song_to_save)
+                self.song_db.insertData(self.user, self.name, songName, song_to_save)
+                window.destroy()
 
             # this sql query saves the song with the following attributes
 
