@@ -112,11 +112,22 @@ def index_clicked(given_tree, given_rows):
 def giveFeedback(gfeedback, gscore, gtree, grows):
     feedback = gfeedback.get()
     score = gscore.get()
-    if feedback == "" and score == "":
+    if feedback == "" or score == "":
+
         messagebox.showinfo(title="ERROR",
                             message=f"Please fill out both entries")
-    else:
 
+    elif not score.isdigit():
+        messagebox.showinfo(title="ERROR",
+                            message=f"Please make sure score entry is an integer")
+
+    elif score.isdigit():
+        if int(score) >= 0 or int(score) <= 10:
+            messagebox.showinfo(title="ERROR",
+                                message=f"Please make sure score entry is between 0 and 10")
+
+    # and int(score) >= 0 or int(score) <= 10:
+    else:
         confirmation_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
         if confirmation_msgbox:
             print(feedback, score)
@@ -146,7 +157,8 @@ def show_help():
 
 def show_help_feedback():
     messagebox.showinfo(title="Help",
-                        message=f"To give feedback and a score:\nSelect a record\nwrite your feedback and score\n press submit and they will be save in the table")
+                        message=f"To give feedback and a score:\nSelect a record\nwrite your feedback and score\n press submit and they will be "
+                                f"save in the table")
 
 
 def song_table_window(w, givenUsername):
@@ -171,7 +183,7 @@ def song_table_window(w, givenUsername):
     login_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
     backButton = Button(db_win, text="Back", command=lambda: student_back(db_win, teacher))  # passes the current window
-    # backButton.place(x=50, y=100)
+    backButton.place(x=570, y=10)
 
     databaseFrame = Frame(db_win)
     databaseFrame.grid(row=10, column=0, sticky='S')
@@ -230,8 +242,7 @@ def song_table_window(w, givenUsername):
     submit_Feedback_score.place(x=100, y=450)
 
     feedback_help_label = Button(db_win, text=" ⍰ ", command=show_help_feedback)
-
-    # feedback_help_label.place(x=257, y=450)
+    feedback_help_label.place(x=257, y=450)
 
     def displaySongString(row):
         print(row)
