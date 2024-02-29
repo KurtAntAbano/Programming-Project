@@ -126,7 +126,6 @@ def giveFeedback(gfeedback, gscore, gtree, grows):
             messagebox.showinfo(title="ERROR",
                                 message=f"Please make sure score entry is between 0 and 10")
 
-    # and int(score) >= 0 or int(score) <= 10:
     else:
         confirmation_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
         if confirmation_msgbox:
