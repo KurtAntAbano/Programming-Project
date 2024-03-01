@@ -122,4 +122,4 @@ if __name__=="__main__":
     #student_DB.insertData("ffffff", "1700584909.9782283,E0,1.0877537727355957,D0,0.7495157718658447,C0,0.33042025566101074,B-1,1.5811004638671875,E-1,0.35768961906433105,F#-1,0.34398460388183594,G-1,0.38354921340942383,A-1,0.3762960433959961,B-1,0.36725473403930664,A-1,0.34379005432128906,G-1,0.3540792465209961,E-1,0.3878793716430664,G-1,1.2282843589782715,F#-1")
     #print(student_DB.searchUser("kurtabano@gmail.com", "Kurt_password"))
     #print(student_DB.give_rows())
-    student_DB.deleteRecord("a strings 2")
+    student_DB.deleteRecord("")

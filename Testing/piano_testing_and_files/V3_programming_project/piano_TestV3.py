@@ -652,9 +652,9 @@ class MyPianoGUI:
     def feedback_window(self):
         win = Tk()
         win.title("Welcome")
-        win.geometry("450x500")
+        win.geometry("500x550")
 
-        savelabel = Label(win, text="FEEDBACK AND SCORE", font=('Times 18'))
+        savelabel = Label(win, text="FEEDBACK AND SCORE", font='Times 18')
         savelabel.grid(row=1, column=1)
 
         conn = sqlite3.connect('Student_songs.db')
@@ -662,20 +662,27 @@ class MyPianoGUI:
         cursor = conn.cursor()
 
         result_to_fetch = cursor.execute('SELECT SongName, Feedback, Score FROM SONG_DATABASE WHERE StudentID = ?', (self.user,))
-        results = result_to_fetch.fetchall()
+        results = result_to_fetch.fetchall()  # this will return a list of (song name, feedback, score) for all records under the specified ID
 
         row_coords = 2
+        column_coords = 1
 
         for i in range(0, len(results)):
             string = f"For song: {results[i][0]} \nFeedback: {results[i][1]} \nScore: {results[i][2]}/10\n"
+            #  this uses a for loop, string slicing, and list indexing to formulate a label that will show feedback/score for the song
             print(string)
 
-            review_label = Label(win, text=string, bg='white', font=('Times 14'))
-            review_label.grid(row=row_coords, column=1)
-            row_coords += 4
+            review_label = Label(win, text=string, bg='white', font='Times 14')
+            review_label.grid(row=row_coords, column=column_coords)
+            if i == 4:  # the 6th song will be pushed to the next column
+                row_coords = 2
+                column_coords += 2
+
+            else:
+                row_coords += 4  # This is count is part of the loop so that every new label is placed underneath each other
 
         exitButton = Button(win, text="back", width=12, command=lambda: win.destroy())
-        exitButton.grid(row=2, column=4)
+        exitButton.grid(row=1, column=3)
 
         print(results)
         # feedback = cursor.fetchone()[0]
