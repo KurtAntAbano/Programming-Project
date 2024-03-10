@@ -413,6 +413,8 @@ def saveAccount(window, givenEmail, givenPassword, givenRepassword, givenID, giv
             myDB = login()
             if myDB.insertData(ID, user, email, password):
                 messagebox.showinfo(title="success", message="Account created successfully")
+            else:
+                messagebox.showinfo(title="ERROR", message="User does not exist")
         else:
             createAccountWindow(window)
 
@@ -574,6 +576,7 @@ def deleteWindow(window):  # this window allows users to write which user they w
     window.destroy()
     deleteMenu = Tk()
     deleteMenu.geometry("400x100")
+    deleteMenu.title("Delete Window")
 
     username_label = Label(deleteMenu, text="Email")
     username_label.grid(row=2, column=0, padx=10, pady=10, sticky="W")
@@ -593,24 +596,36 @@ def deleteWindow(window):  # this window allows users to write which user they w
 def changePasswordwindow(w, given_email):
     w.destroy()
     changeMenu = Tk()
-    changeMenu.geometry("400x250")
+    changeMenu.geometry("400x200")
 
     changeMenu.title("Change password window")
 
-    newPassword_label = Label(changeMenu, text="Password")
-    newPassword_label.grid(row=3, column=0, padx=10, pady=10, sticky="W")
+    oldPassword_label = Label(changeMenu, text="Old Password")
+    oldPassword_label.grid(row=3, column=0, padx=10, pady=10, sticky="W")
+
+    oldPassword_entry = Entry(changeMenu, width=30)
+    oldPassword_entry.grid(row=3, column=1, padx=10, pady=10, sticky="E")
+
+    confirmNew_label = Label(changeMenu, text="Confirm New Password")
+    confirmNew_label.grid(row=5, column=0, padx=10, pady=10, sticky="W")
+
+    confirmNew_entry = Entry(changeMenu, width=30)
+    confirmNew_entry.grid(row=5, column=1, padx=10, pady=10, sticky="E")
+
+    newPassword_label = Label(changeMenu, text="New Password")
+    newPassword_label.grid(row=4, column=0, padx=10, pady=10, sticky="W")
 
     newPassword_entry = Entry(changeMenu, width=30)
-    newPassword_entry.grid(row=3, column=1, padx=10, pady=10, sticky="E")
+    newPassword_entry.grid(row=4, column=1, padx=10, pady=10, sticky="E")
 
     submitbutton = Button(changeMenu, text="submit new password", width=18,
                           command=lambda: changePassword(UseraccountDB,
                                                          given_email,
-                                                         newPassword_entry))
-    submitbutton.grid(row=5, column=1, padx=10, pady=10)
+                                                         newPassword_entry, oldPassword_entry, confirmNew_entry))
+    submitbutton.grid(row=6, column=1, padx=10, pady=10)
 
     backButton = Button(changeMenu, text="Back", command=lambda: back(changeMenu))  # passes the current window
-    backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
+    backButton.grid(row=6, column=0, sticky="SNEW", padx=10, pady=10)
 
 
 if __name__ == "__main__":
