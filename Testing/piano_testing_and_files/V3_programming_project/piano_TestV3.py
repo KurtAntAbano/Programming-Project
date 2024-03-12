@@ -465,12 +465,14 @@ class MyPianoGUI:
                 if self.instrument_count > len(self.instrument_list) - 1:
                     self.instrument_count = 0
 
+
             else:
                 self.instrument_count -= 1
                 if self.instrument_count < 0:
                     self.instrument_count = 3
 
-            # self.state.set(self.instrument_list[self.instrument_count])
+
+            self.state.set(self.instrument_list[self.instrument_count])
             self.state_Label.configure(text=self.instrument_list[self.instrument_count])
 
         def metronome_function(bpm_entry):
@@ -497,7 +499,7 @@ class MyPianoGUI:
                                          fg=self.labelColour)
         self.state_right_btn.grid(row=6, column=12)
 
-        self.Label = Label(self.controlFrame, text="change\n state", fg=self.labelColour)
+        self.Label = Label(self.controlFrame, text="change\n instrument", fg=self.labelColour)
         self.Label.grid(row=6, column=10)
 
         self.state_Label = Label(self.controlFrame, text=self.instrument_list[0], width=5, bg='white', fg=self.labelColour, )
