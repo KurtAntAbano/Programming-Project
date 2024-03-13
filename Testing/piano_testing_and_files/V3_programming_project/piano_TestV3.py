@@ -8,7 +8,7 @@ from playNoteFunctionsV3 import *
 from metranome_test import *
 from song_string_conversion import *
 from SQL_teacherV2 import *
-#from SQL_teacherV1 import *
+# from SQL_teacherV1 import *
 import threading
 from PIL import ImageTk, Image
 from SQL_teacherV2 import studentProject
@@ -47,8 +47,8 @@ class MyPianoGUI:
         self.recording = False
         self.input_string = []
         self.previous_time = 0
-        #self.noteShow = ''
-        #self.noteShow = tk.StringVar()
+        # self.noteShow = ''
+        # self.noteShow = tk.StringVar()
         self.noteColour1 = 'black'
         self.noteColour2 = 'white'
         self.channel_to_use = 0
@@ -84,8 +84,6 @@ class MyPianoGUI:
         # add a menu item to the menu
         self.file_menu.add_command(label='Exit', command=master.destroy)
 
-
-
         # add the File menu to the menubar
         self.menubar.add_cascade(label="File", menu=self.file_menu)
 
@@ -94,6 +92,11 @@ class MyPianoGUI:
 
         self.settings_menu.add_command(label='Colour themes', command=lambda: themeChangeWindow(self))
         self.settings_menu.add_command(label='Adjust piano size')
+
+        self.help_menu = Menu(self.menubar, tearoff=False)
+        self.menubar.add_cascade(label="Help", menu=self.help_menu)
+        self.help_menu.add_command(label='Commonly Asked Questions ', command=lambda: QandA_window())
+        self.help_menu.add_command(label='Piano Guide', command=lambda: piano_guide_window())
 
         self.mainLabel = Label(self.pianoFrame, text="VIRTU-PIANO", fg=self.labelColour)
         self.mainLabel.grid(row=0, columnspan=11)
@@ -342,22 +345,20 @@ class MyPianoGUI:
             for i in range(5, 10):
                 self.upperKeynotes[i].configure(text=f'{self.upperKeynotes[i].cget(t)[0:3]}{self.secondoctave}')
 
+        self.lower_keybinds = ['Z', 'X', 'C', 'V', 'B', 'N', 'M', 'W', 'E', 'R', 'T', 'Y', 'U', 'I']
 
-        self.lower_keybinds = ['Z','X','C','V','B','N','M', 'W','E','R','T','Y','U','I']
+        self.upper_keybinds = ['S', 'D', 'G', 'H', 'J', '3', '4', '6', '7', '8']
 
-
-        self.upper_keybinds = ['S', 'D','G','H','J','3','4','6','7','8']
         def pianoKey_keybind_text():
             for i in range(0, 14):
                 self.lowerKeynotes[i].configure(text=f'{self.lower_keybinds[i]}')
 
-
             for i in range(0, 10):
                 self.upperKeynotes[i].configure(text=f'{self.upper_keybinds[i]}')
 
-
         self.piano_keybind_btn = Button(self.controlFrame, text='show key-binds', fg=self.labelColour, command=lambda: pianoKey_keybind_text())
-        #self.piano_keybind_btn.place(x=300, y=50)  #to be implemented labels to show key binds
+
+        # self.piano_keybind_btn.place(x=300, y=50)  #to be implemented labels to show key binds
 
         # -----------------------------------------------------------------------------------------------------
         def print_volume(v):  # function will print the current volume
@@ -423,6 +424,7 @@ class MyPianoGUI:
             deleteSong_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
             if deleteSong_msgbox:
                 self.input_string = []
+                messagebox.showinfo(title="SUCCESS", message=f"Recorded song has been deleted")
 
         def show_user_details():
             print(f'The current ID is {self.user}')
@@ -471,7 +473,6 @@ class MyPianoGUI:
                 if self.instrument_count < 0:
                     self.instrument_count = 3
 
-
             self.state.set(self.instrument_list[self.instrument_count])
             self.state_Label.configure(text=self.instrument_list[self.instrument_count])
 
@@ -485,7 +486,7 @@ class MyPianoGUI:
             myMetronome.playMetronome()
 
         def update_note_text(note):
-            #self.noteShow.set(note)
+            # self.noteShow.set(note)
             self.noteLabel.configure(text=note)
 
         self.state = tk.StringVar()
@@ -674,7 +675,7 @@ class MyPianoGUI:
             #  this uses a for loop, string slicing, and list indexing to formulate a label that will show feedback/score for the song
             print(string)
 
-            review_label = Label(win, text=string, bg='white', font='Times 14')
+            review_label = Label(win, text=string, bg='white', font='Times 14', justify="left")
             review_label.grid(row=row_coords, column=column_coords)
             if i == 4:  # the 6th song will be pushed to the next column
                 row_coords = 2
@@ -711,6 +712,51 @@ def themeChangeWindow(object):
     exitButton.grid(row=2, column=2, pady=5)
 
     mainloop()
+
+
+def QandA_window():
+    QandA_win = Tk()
+    QandA_win.title("Help Window")
+    QandA_win.geometry("500x400")
+
+    welcome_lbl = Label(QandA_win, text="Welcome to the help window\nThis window will provide you with information\n to help you make the "
+                                        "most out of my application")
+    welcome_lbl.place(x=110, y=12)
+
+    common_questions_lbl = Label(QandA_win, text="Commonly asked questions:\n"
+                                                 "Q1: How do i record songs?\n A: Press the button with the symbol '⏺' any notes you now play will "
+                                                 "then be recorded, "
+                                                 "\n after pressing the button again the recording will stop"
+                                                 "\n\nQ2: How do i listen to my recorded song?\nA: Press the button with the symbol '⏵'"
+                                                 "\n\nQ3: How do i save my song?\nA: after you have recorded a song, press the 'save' button"
+                                                 "\nA prompt will appear to write a song name, make sure this has been filled in.\n"
+                                                 "Once done, press the 'save' button and press 'ok'"
+                                                 "\n\nQ4:I have recorded a song but i want to restart it, how do i do this?"
+                                                 "\nA: If you want to restart your song, press the button labeled, '🗑'"
+                                                 "\nThis will delete your recorded song and allow you to restart"
+                                                 "\n\nQ5: Where can i view my feedback?\nA: Press the, 'view feedback' button", justify="left",
+                                 bg="white")
+    common_questions_lbl.place(x=10, y=70)
+
+
+def piano_guide_window():
+    guide_win = Tk()
+    guide_win.title("Help Window")
+    guide_win.geometry("500x250")
+
+    welcome_lbl = Label(guide_win, text="Welcome to the help window\nThis window will provide you with information\n to help you make the "
+                                        "most out of my application")
+    welcome_lbl.place(x=110, y=12)
+
+    features_lbl = Label(guide_win, text="How to use the piano:\nThe piano can be played in three ways..."
+                                         "\n1. Clicking the keys with your mouse/trackpad"
+                                         "\n2. Pressing your computer keyboard"
+                                         "\n3. Touching the screen (If you laptop has touchscreen functionality)"
+                                         "\n\n Volume and Octaves can be changed by adjusting their respective sliders"
+                                         "\n You can press either the left(←) or right(→) arrow keys to shift octaves"
+                                         "\n Clicking the buttons, '<' or '>' will change which instrument sound you will hear ", justify="left",
+                         bg="white")
+    features_lbl.place(x=10, y=70)
 
 
 class main_window(tk.Tk):
