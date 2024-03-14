@@ -91,7 +91,6 @@ class MyPianoGUI:
         self.menubar.add_cascade(label="Settings", menu=self.settings_menu)
 
         self.settings_menu.add_command(label='Colour themes', command=lambda: themeChangeWindow(self))
-        self.settings_menu.add_command(label='Adjust piano size')
 
         self.help_menu = Menu(self.menubar, tearoff=False)
         self.menubar.add_cascade(label="Help", menu=self.help_menu)
@@ -528,14 +527,16 @@ class MyPianoGUI:
         if self.channel_to_use == 88:
             self.channel_to_use = 0
 
-    def playback(self, givenString):
+    def playback(self, given_list):
+        if not given_list:
+            messagebox.showinfo(title="", message=f"Please record a song before using the playback function")
         pygame.mixer.set_num_channels(100)
         state = self.state.get()
-        string_to_play = givenString
+        string_to_play = given_list
         print(string_to_play)
         channel_count = 0
         for i in range(1, len(string_to_play)):
-            note = givenString[i]
+            note = given_list[i]
             if i % 2 != 0:  # this flipflops between every item in the song string
                 if str(note[1]) == '#':  # this if functions checks whether the note is black
                     note = pygame.mixer.Sound(f'wavsV3\\{state}\\octave{note[2:]}\\{state}{note[0:2]}.wav')
