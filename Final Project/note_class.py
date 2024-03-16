@@ -28,7 +28,7 @@ class note:
         else:
             self.channel += 12
             octave = self.secondoctave
-        self.playSound = pygame.mixer.Sound(f'wavsV3\\{self.state}\\octave{octave}\\{self.state}{self.number}.wav')
+        self.playSound = pygame.mixer.Sound(f'wavs\\{self.state}\\octave{octave}\\{self.state}{self.number}.wav')
         # threading.Thread(target=self.playSound.play())
         # self.playSound.play()
         #

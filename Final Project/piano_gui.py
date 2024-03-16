@@ -426,7 +426,7 @@ class MyPianoGUI:
         self.record_btn.place(x=0, y=20)
 
         self.playback_btn = tk.Button(self.recordFrame, text="⏵", fg=self.labelColour, height=3, width=4,
-                                      command=lambda: threading.Thread(self.playback(self.input_string)).start())
+                                      command=lambda: self.playback(self.input_string))
         # self.playback_btn.grid(row=1, column=2)
         self.playback_btn.place(x=40, y=20)
 
@@ -515,9 +515,9 @@ class MyPianoGUI:
             note = given_list[i]
             if i % 2 != 0:  # this flipflops between every item in the song string
                 if str(note[1]) == '#':  # this if functions checks whether the note is black
-                    note = pygame.mixer.Sound(f'wavsV3\\{state}\\octave{note[2:]}\\{state}{note[0:2]}.wav')
+                    note = pygame.mixer.Sound(f'wavs\\{state}\\octave{note[2:]}\\{state}{note[0:2]}.wav')
                 else:
-                    note = pygame.mixer.Sound(f'wavsV3\\{state}\\octave{note[1:]}\\{state}{note[0]}.wav')
+                    note = pygame.mixer.Sound(f'wavs\\{state}\\octave{note[1:]}\\{state}{note[0]}.wav')
                 channel = pygame.mixer.Channel(channel_count)
                 channel.play(note)
                 channel_count += 1
