@@ -8,15 +8,15 @@
 ########################################################################################################################
 
 
-from Project_loginUI_functions import login_verify, deleteUser, changePassword
-from Project_myValidation import *
-from Project_SQL_teacher_accountsV2 import teacher_login
-from Project_SQL_student_accountsV2 import login
+from login_and_menu_functions import login_verify, deleteUser, changePassword
+from my_validation import *
+from SQL_teacher_accounts import teacher_login
+from SQL_student_accounts import login
 from tkinter import ttk
 
 from piano_gui import *
 import sqlite3
-from SQL_teacherV2 import studentProject
+from SQL_song_tbl import studentProject
 
 
 # from tkinter import messagebox

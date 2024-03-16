@@ -4,11 +4,11 @@ from future.moves.tkinter import messagebox
 # 15/09/23
 from note_functions import *
 from song_string_conversion import *
-from SQL_teacherV2 import *
+from SQL_song_tbl import *
 import tkinter as tk
 from tkinter import *
-from SQL_teacherV2 import studentProject
-from Project_loginUI_windows import *
+from SQL_song_tbl import studentProject
+from login_and_menu_windows import *
 import pygame as pygame
 from PIL import ImageTk, Image
 import time

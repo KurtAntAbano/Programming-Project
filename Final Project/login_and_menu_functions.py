@@ -1,4 +1,4 @@
-from Project_myValidation import is_valid_email, presenceCheck
+from my_validation import is_valid_email, presenceCheck
 from tkinter import messagebox
 
 
