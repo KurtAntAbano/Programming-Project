@@ -2,7 +2,7 @@
 from future.moves.tkinter import messagebox
 
 # 15/09/23
-from playNoteFunctionsV3 import *
+from note_functions import *
 from song_string_conversion import *
 from SQL_teacherV2 import *
 import tkinter as tk
@@ -12,6 +12,8 @@ from Project_loginUI_windows import *
 import pygame as pygame
 from PIL import ImageTk, Image
 import time
+
+
 
 """ --__Midi0ke__--
 
@@ -473,7 +475,6 @@ class MyPianoGUI:
             self.state.set(self.instrument_list[self.instrument_count])
             self.state_Label.configure(text=self.instrument_list[self.instrument_count])
 
-
         def update_note_text(note):
             # self.noteShow.set(note)
             self.noteLabel.configure(text=note)
@@ -498,12 +499,12 @@ class MyPianoGUI:
         self.showNotes = Button(self.controlFrame, text='show notes', fg=self.labelColour, command=lambda: note_colour_change())
         self.showNotes.place(x=300, y=50)
 
-
         img = (Image.open(r"virtupiano_logo.png"))
         resized_img = img.resize((205, 30))
         new_img = ImageTk.PhotoImage(resized_img, master=self.master)
         self.photo_lbl = Label(self.recordFrame, image=new_img)
         self.photo_lbl.image = new_img
+
 
         self.photo_lbl.pack(side="right")
 

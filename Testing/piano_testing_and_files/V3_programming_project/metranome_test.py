@@ -55,3 +55,19 @@ if __name__ == '__main__':
     pygame.mixer.init()
     mymetro = metronome(120, 4)
     mymetro.playMetronome()
+#
+# self.metranome_btn = Button(self.controlFrame, text='Metranome', fg=self.labelColour,
+#                             command=lambda: threading.Thread(target=metronome_function(self.metranome_entry)).start)
+# # self.metranome_btn.place(x=300, y=40)
+# self.metranome_entry = Entry(self.controlFrame, width=10)
+# # self.metranome_entry.place(x=300, y =80)
+#
+#
+# def metronome_function(bpm_entry):
+#     bpm_to_pass = int(bpm_entry.get())
+#     print(bpm_to_pass)
+#
+#     myMetronome = metronome(bpm_to_pass, 4)
+#     # met_thread = Thread(target=myMetronome.playMetronome())
+#     # met_thread.start()
+#     myMetronome.playMetronome()
