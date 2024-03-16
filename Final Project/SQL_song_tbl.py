@@ -1,8 +1,5 @@
 # _________________________________________________________________________________#
-# This file shows demo code on how to create user accounts using SQLITE3
-# Created by A Issa           NOTE: all methods return True/False
-# Date: 5th May 2023
-# Known bugs, will be updated later
+# This module/file shows code for the song table
 # _________________________________________________________________________________#
 
 import sqlite3

@@ -1,3 +1,9 @@
+# _________________________________________________________________________________#
+# This module/file shows the code for my note functions.
+# Each function represents one of the 12 notes on an octave
+# _________________________________________________________________________________#
+
+
 from note_class import *
 
 

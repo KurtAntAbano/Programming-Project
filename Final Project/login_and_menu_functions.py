@@ -1,3 +1,8 @@
+# _________________________________________________________________________________#
+# This module/file shows the code for my login, creation and deletion functions
+# _________________________________________________________________________________#
+
+
 from my_validation import is_valid_email, presenceCheck
 from tkinter import messagebox
 

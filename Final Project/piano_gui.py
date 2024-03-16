@@ -14,18 +14,11 @@ from PIL import ImageTk, Image
 import time
 
 
+""" This is my piano GUI.
 
-""" --__Midi0ke__--
+This piano uses pygame and wave files to play notes.
 
-First try for Midi0ke virtual piano for the midi-output.
-
-Import pygame and tkinter in order to make a GUI for a piano-keyboard.
-
-In the first piece of code I specify the functions for each note and the path for the .wav and
-in the second I build the GUI for the piano-keyboard.
-
-@author : Dead"""
-
+This file can work independently and can also be called via the login_and_menu_windows by pressing the 'access VIRTU piano' button"""
 
 
 class MyPianoGUI:
@@ -69,16 +62,13 @@ class MyPianoGUI:
         self.recordFrame = Frame(self.master)
         self.recordFrame.pack(side='left', fill="both", expand=True, pady=5, padx=5, ipadx=0, ipady=0)
 
-        # https://www.pythonguis.com/faq/pack-place-and-grid-in-tkinter/
-
         master.title("piano GUI")
         master['background'] = self.backgroundColour
 
-        # create a menubar
+        # creates the menubar
         self.menubar = Menu(master)
         self.master.config(menu=self.menubar)
 
-        # create a menu
         self.file_menu = Menu(self.menubar, tearoff=False)
 
         # add a menu item to the menu

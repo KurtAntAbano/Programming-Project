@@ -1,10 +1,5 @@
 ########################################################################################################################
-#  Name: Kurt
-#  purpose of module: create functions for the three windows
-#  bugs or notes: possibly use object orientation for them changes, make general variables for padx, pady, text colour
-#  possibly create a class 'window frame' then make the login, user and admin window from it
-#  USE KWARGS AND ARGS
-#  date:  12/05/23
+#  purpose of module: contains functions for all login and menu windows.
 ########################################################################################################################
 
 

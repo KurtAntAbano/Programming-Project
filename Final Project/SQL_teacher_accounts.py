@@ -1,8 +1,6 @@
 # _________________________________________________________________________________#
-# This file shows demo code on how to create user accounts using SQLITE3
-# Created by A Issa           NOTE: all methods return True/False
-# Date: 5th May 2023
-# Known bugs, will be updated later
+# This module/file shows code for the teachers accounts SQL class
+# Methods related to the teacher accounts table are here
 # _________________________________________________________________________________#
 
 import sqlite3
