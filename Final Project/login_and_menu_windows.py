@@ -402,26 +402,26 @@ def saveAccount(window, givenEmail, givenPassword, givenRepassword, givenID, giv
                 createAccountWindow(window)
 
             if ID.isdigit():
-                if int(ID) >= 0 or int(ID) <= 99:
+                if not int(ID) >= 0 or not int(ID) <= 99:
                     messagebox.showinfo(title="ERROR",
                                         message=f"Please make sure ID entry is between 0 and 99")
                     createAccountWindow(window)
+                else:
+                    conn = sqlite3.connect('Student_accounts.db')
 
-            conn = sqlite3.connect('Student_accounts.db')
+                    cursor = conn.cursor()
+                    cursor.execute('SELECT StudentID FROM USERS_DATABASE')
+                    all_ids = cursor.fetchall()
+                    for row in all_ids:
+                        if row[0] == ID:  # this checks whether the ID is unique
+                            messagebox.showinfo(title="ERROR", message="ID already exists")
+                            createAccountWindow(window)
 
-            cursor = conn.cursor()
-            cursor.execute('SELECT StudentID FROM USERS_DATABASE')
-            all_ids = cursor.fetchall()
-            for row in all_ids:
-                if row[0] == ID:  # this checks whether the ID is unique
-                    messagebox.showinfo(title="ERROR", message="ID already exists")
-                    createAccountWindow(window)
-
-            myDB = login()
-            if myDB.insertData(ID, user, email, password):
-                messagebox.showinfo(title="success", message="Account created successfully")
-            else:
-                messagebox.showinfo(title="ERROR", message="User does not exist")
+                    myDB = login()
+                    if myDB.insertData(ID, user, email, password):
+                        messagebox.showinfo(title="success", message="Account created successfully")
+                    else:
+                        messagebox.showinfo(title="ERROR", message="User does not exist")
         else:
             createAccountWindow(window)
 
@@ -442,9 +442,9 @@ def login_notebook():
     my_notebook.pack(expand=1, fill=BOTH)
     # Create Tabs
     userLoginWin = ttk.Frame(my_notebook)
-    my_notebook.add(userLoginWin, text="User Login")
+    my_notebook.add(userLoginWin, text="Student Login")
     adminLoginWin = ttk.Frame(my_notebook)
-    my_notebook.add(adminLoginWin, text="Admin Login")
+    my_notebook.add(adminLoginWin, text="Teacher Login")
     # Create a Label in Tabs
 
     win.title("Login")
