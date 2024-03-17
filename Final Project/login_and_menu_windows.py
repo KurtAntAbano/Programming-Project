@@ -395,6 +395,18 @@ def saveAccount(window, givenEmail, givenPassword, givenRepassword, givenID, giv
 
     if is_empty_check(email, password, repassword, ID, user):  # this checks whether any fields are empty
         if is_the_same(password, repassword):  # this checks whether the passwords are the same
+
+            if not ID.isdigit():
+                messagebox.showinfo(title="ERROR",
+                                    message=f"Please make sure ID entry is an integer")
+                createAccountWindow(window)
+
+            if ID.isdigit():
+                if int(ID) >= 0 or int(ID) <= 99:
+                    messagebox.showinfo(title="ERROR",
+                                        message=f"Please make sure ID entry is between 0 and 99")
+                    createAccountWindow(window)
+
             conn = sqlite3.connect('Student_accounts.db')
 
             cursor = conn.cursor()
@@ -418,6 +430,8 @@ def saveAccount(window, givenEmail, givenPassword, givenRepassword, givenID, giv
 
         # print(row[0])
     # use insert function and add a parameter /entry for the userID
+
+
 
 
 def login_notebook():
