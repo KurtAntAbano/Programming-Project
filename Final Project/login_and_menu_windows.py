@@ -561,12 +561,12 @@ def userMenu(email_entry):
     user_Menu = Tk()
     user_Menu.geometry("400x200")
 
-    user_Menu.title("User_menu")
+    user_Menu.title("Student menu")
 
     ID_to_pass = fetch_ID(email, UseraccountDB)
     Name_to_pass = fetch_Name(email, UseraccountDB)
 
-    user_label = Label(user_Menu, text="USER MENU")
+    user_label = Label(user_Menu, text="STUDENT MENU")
     user_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
     changebutton = Button(user_Menu, text="change password", width=12, command=lambda: changePasswordwindow(user_Menu,
@@ -578,7 +578,7 @@ def userMenu(email_entry):
 
     accessPiano = Button(user_Menu, text="Access \n VIRTU Piano",
                          command=lambda: open_piano_GUI(user_Menu, ID_to_pass, Name_to_pass, "student"))
-    accessPiano.grid(row=5, column=5, sticky="SNEW", padx=10, pady=10)
+    accessPiano.grid(row=4, column=5, sticky="SNEW", padx=10, pady=10)
 
 
 def deleteWindow(window):  # this window allows users to write which user they want to delete
