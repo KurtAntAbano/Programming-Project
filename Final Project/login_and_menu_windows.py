@@ -89,7 +89,7 @@ def index_clicked(given_tree, given_rows):
     print(f"list:{list_notes}")
 
     mainWindow = main_window()
-    pianoFrame = MyPianoGUI(mainWindow, 'temp', 'temp')  # an instance of the piano class is made so that I can use
+    pianoFrame = MyPianoGUI(mainWindow, 'temp', 'temp', 'temp')  # an instance of the piano class is made so that I can use
     # the playback method to play the selected song
     pianoFrame.playback(list_notes)
     pianoFrame.destroy_GUI()
@@ -117,32 +117,35 @@ def giveFeedback(gfeedback, gscore, gtree, grows):
                             message=f"Please make sure score entry is an integer")
 
     elif score.isdigit():
-        if int(score) >= 0 or int(score) <= 10:
+        if not int(score) >= 0 or not int(score) <= 10:
             messagebox.showinfo(title="ERROR",
                                 message=f"Please make sure score entry is between 0 and 10")
 
-    else:
-        confirmation_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
-        if confirmation_msgbox:
-            print(feedback, score)
+        else:
+            confirmation_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
+            if confirmation_msgbox:
+                print(feedback, score)
 
-            row = grows
-            # Get the selected index
-            selected_iid = gtree.focus()
+                row = grows
+                # Get the selected index
+                selected_iid = gtree.focus()
 
-            item_index = gtree.index(selected_iid)
-            selectedID = row[item_index][0]
+                item_index = gtree.index(selected_iid)
+                selectedID = row[item_index][0]
 
-            selectedSong = row[item_index][2]
-            print(selectedSong, selectedID)
+                selectedSong = row[item_index][2]
+                print(selectedSong, selectedID)
 
-            conn = sqlite3.connect('Student_songs.db')
-            cursor = conn.cursor()
-            cursor.execute("UPDATE SONG_DATABASE SET Feedback = ?, Score = ? WHERE StudentID = ? AND SongName = ?",
-                           (feedback, score, selectedID, selectedSong,))
+                conn = sqlite3.connect('Student_songs.db')
+                cursor = conn.cursor()
+                cursor.execute("UPDATE SONG_DATABASE SET Feedback = ?, Score = ? WHERE StudentID = ? AND SongName = ?",
+                               (feedback, score, selectedID, selectedSong,))
 
-            conn.commit()
-            conn.close()
+                messagebox.showinfo(title="SUCCESS",
+                                    message=f"feedback and score has been saved")
+
+                conn.commit()
+                conn.close()
 
 
 def show_help():
