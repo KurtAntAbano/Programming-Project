@@ -520,9 +520,9 @@ def login_notebook():
     mainloop()
 
 
-def open_piano_GUI(window, ID, name):
+def open_piano_GUI(window, ID, name, given_type):
     window.destroy()
-    Piano_main(ID, name)
+    Piano_main(ID, name, given_type)  # given_type shows whether the user is a teacher or student
     login_notebook()
 
 
@@ -540,7 +540,7 @@ def adminMenu(email_entry):
     admin_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
     accessPiano = Button(admin_Menu, text="Access \n VIRTU Piano",
-                         command=lambda: open_piano_GUI(admin_Menu, ID_to_pass, Name_to_pass))
+                         command=lambda: open_piano_GUI(admin_Menu, ID_to_pass, Name_to_pass, "teacher"))
     accessPiano.grid(row=4, column=2, sticky="SNEW", padx=10, pady=10)
 
     access_db = Button(admin_Menu, text="Song Table", command=lambda: song_table_window(admin_Menu, email))
@@ -577,7 +577,7 @@ def userMenu(email_entry):
     backButton.grid(row=4, column=0, sticky="SNEW", padx=10, pady=10)
 
     accessPiano = Button(user_Menu, text="Access \n VIRTU Piano",
-                         command=lambda: open_piano_GUI(user_Menu, ID_to_pass, Name_to_pass))
+                         command=lambda: open_piano_GUI(user_Menu, ID_to_pass, Name_to_pass, "student"))
     accessPiano.grid(row=5, column=5, sticky="SNEW", padx=10, pady=10)
 
 

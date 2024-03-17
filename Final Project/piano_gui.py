@@ -1,4 +1,3 @@
-
 from future.moves.tkinter import messagebox
 
 # 15/09/23
@@ -13,7 +12,6 @@ import pygame as pygame
 from PIL import ImageTk, Image
 import time
 
-
 """ This is my piano GUI.
 
 This piano uses pygame and wave files to play notes.
@@ -22,13 +20,14 @@ This file can work independently and can also be called via the login_and_menu_w
 
 
 class MyPianoGUI:
-    def __init__(self, master, givenUserID, givenName):
+    def __init__(self, master, givenUserID, givenName, given_account_type):
 
         self.song_db = studentProject()
         self.song_db.createTable()
 
         self.user = givenUserID
         self.name = givenName
+        self.account_type = given_account_type
         self.master = master
         self.volume = 90
         self.backgroundColour = '#d8d8d8'  # '#5A5A5A'
@@ -395,9 +394,13 @@ class MyPianoGUI:
 
         #  changes colour of the recording buttonn
         def changeRecBtn():
-            if self.recording == False:
+            if self.recording == False and self.input_string == []:
                 self.recording = True
                 self.record_btn.configure(bg="red")
+
+            elif self.recording == False and self.input_string != []:
+                messagebox.showinfo(title="ERROR", message=f"If you want to record again,\n please delete previous recording")
+
             else:
                 self.recording = False
                 self.record_btn.configure(bg="white")
@@ -405,9 +408,6 @@ class MyPianoGUI:
                 print(self.input_string)
                 self.previous_time = 0
 
-        # uses loops to play back the recording list
-
-        # WHERE OLD PLAYBACK FUNCTON USED TO GOOOO
 
         def deleteSong_function():
             deleteSong_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
@@ -446,7 +446,7 @@ class MyPianoGUI:
         self.viewFeedback = tk.Button(self.recordFrame, text='View feedback', fg=self.labelColour, height=1, width=12, command=self.feedback_window)
         self.viewFeedback.place(x=160, y=100)
 
-        self.instrument_list = ["Piano", "Guitar", "Harp", "Flute"]
+        self.instrument_list = ["Piano", "Guitar"]
         print(len(self.instrument_list))
         self.instrument_count = 0
 
@@ -495,7 +495,6 @@ class MyPianoGUI:
         self.photo_lbl = Label(self.recordFrame, image=new_img)
         self.photo_lbl.image = new_img
 
-
         self.photo_lbl.pack(side="right")
 
     def increment_channel(self):  # this function will increment the channel by 1
@@ -503,41 +502,50 @@ class MyPianoGUI:
         if self.channel_to_use == 88:
             self.channel_to_use = 0
 
-    def playback(self, given_list):
+    def playback(self, given_list):     # uses loops to play back the recording list
         if not given_list:
             messagebox.showinfo(title="", message=f"Please record a song before using the playback function")
         pygame.mixer.set_num_channels(100)
         state = self.state.get()
-        string_to_play = given_list
-        print(string_to_play)
-        channel_count = 0
-        for i in range(1, len(string_to_play)):
-            note = given_list[i]
-            if i % 2 != 0:  # this flipflops between every item in the song string
-                if str(note[1]) == '#':  # this if functions checks whether the note is black
-                    note = pygame.mixer.Sound(f'wavs\\{state}\\octave{note[2:]}\\{state}{note[0:2]}.wav')
+        if state == "Guitar":  # guitar instrument only has 2 octaves, so in order to avoid any errors, I have to check that the selected
+            # instrument is not guitar
+            messagebox.showinfo(title="", message=f"playback feature does not support the guitar mode, as not all octaves are available")
+        else:
+            string_to_play = given_list
+            print(string_to_play)
+            channel_count = 0
+            for i in range(1, len(string_to_play)):
+                note = given_list[i]
+                if i % 2 != 0:  # this flipflops between every item in the song string
+                    if str(note[1]) == '#':  # this if functions checks whether the note is black
+                        note = pygame.mixer.Sound(f'wavs\\{state}\\octave{note[2:]}\\{state}{note[0:2]}.wav')
+                    else:
+                        note = pygame.mixer.Sound(f'wavs\\{state}\\octave{note[1:]}\\{state}{note[0]}.wav')
+                    channel = pygame.mixer.Channel(channel_count)
+                    channel.play(note)
+                    channel_count += 1
                 else:
-                    note = pygame.mixer.Sound(f'wavs\\{state}\\octave{note[1:]}\\{state}{note[0]}.wav')
-                channel = pygame.mixer.Channel(channel_count)
-                channel.play(note)
-                channel_count += 1
-            else:
-                time.sleep(string_to_play[i])
+                    time.sleep(string_to_play[i])
 
     def saveSong_function(self, window, givenEntry):
-        saveSong_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
-        songName = givenEntry.get()
+        if self.account_type == "student":
+            saveSong_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
+            songName = givenEntry.get()
 
-        if saveSong_msgbox:
-            if songName == "" or self.input_string == []:
-                messagebox.showinfo(title="ERROR",
-                                    message=f"invalid recording or name\n please fill out name entry\n make sure you"
-                                            f" have recorded something")
-            else:
-                song_to_save = listtostring(self.input_string)  # converts the list
-                print(song_to_save)
-                self.song_db.insertData(self.user, self.name, songName, song_to_save)
-                window.destroy()
+            if saveSong_msgbox:
+                if songName == "" or self.input_string == []:
+                    messagebox.showinfo(title="ERROR",
+                                        message=f"invalid recording or name\n please fill out name entry\n make sure you"
+                                                f" have recorded something")
+                else:
+                    song_to_save = listtostring(self.input_string)  # converts the list
+                    print(song_to_save)
+                    self.song_db.insertData(self.user, self.name, songName, song_to_save)
+                    window.destroy()
+        else:
+            messagebox.showinfo(title="ERROR",
+                                message=f"Save feature is only available to students")
+
 
             # this sql query saves the song with the following attributes
 
@@ -719,7 +727,7 @@ def QandA_window():
 def piano_guide_window():
     guide_win = Tk()
     guide_win.title("Help Window")
-    guide_win.geometry("500x250")
+    guide_win.geometry("525x275")
 
     welcome_lbl = Label(guide_win, text="Welcome to the help window\nThis window will provide you with information\n to help you make the "
                                         "most out of my application")
@@ -731,7 +739,9 @@ def piano_guide_window():
                                          "\n3. Touching the screen (If you laptop has touchscreen functionality)"
                                          "\n\n Volume and Octaves can be changed by adjusting their respective sliders"
                                          "\n You can press either the left(←) or right(→) arrow keys to shift octaves"
-                                         "\n Clicking the buttons, '<' or '>' will change which instrument sound you will hear ", justify="left",
+                                         "\n Clicking the buttons, '<' or '>' will change which instrument sound you will hear"
+                                         "\n instrument mode can be changed to guitar. However this mode is only limited to 2 octaves"
+                                         "\n Because of this, the playback feature is not compatible with the guitar mode", justify="left",
                          bg="white")
     features_lbl.place(x=10, y=70)
 
@@ -744,9 +754,9 @@ class main_window(tk.Tk):
         self.geometry('900x500')  # 450 x 600 , 900 used to be 750
 
 
-def Piano_main(userID, userName):
+def Piano_main(userID, userName, given_type):
     mainWindow = main_window()
-    pianoFrame = MyPianoGUI(mainWindow, userID, userName)
+    pianoFrame = MyPianoGUI(mainWindow, userID, userName, given_type)
     pygame.mixer.init()
     pygame.mixer.set_num_channels(100)
 
@@ -756,4 +766,4 @@ def Piano_main(userID, userName):
 if __name__ == "__main__":
     # main("1", "Kurt")
 
-    Piano_main("1", "Kurt")
+    Piano_main("1", "Kurt", "student")

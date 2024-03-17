@@ -4,6 +4,7 @@
 
 
 import pygame
+from future.moves.tkinter import messagebox
 
 pygame.mixer.init()
 
@@ -28,17 +29,21 @@ class note:
         else:
             self.channel += 12
             octave = self.secondoctave
-        self.playSound = pygame.mixer.Sound(f'wavs\\{self.state}\\octave{octave}\\{self.state}{self.number}.wav')
-        # threading.Thread(target=self.playSound.play())
-        # self.playSound.play()
-        #
-        #
-        self.playSound.set_volume(int(self.volume) / 10)
 
-        channel = pygame.mixer.Channel(self.channel)
-        # channels allow files to play independently of each other this will help avoid any slowdowns
+        if self.state == "Guitar" and (self.octave == -2 or self.octave == -1 or self.octave == 2 or self.octave == 1):
+            messagebox.showinfo(title="ERROR", message=f"Only two octaves available for guitar")
+        else:
+            self.playSound = pygame.mixer.Sound(f'wavs\\{self.state}\\octave{octave}\\{self.state}{self.number}.wav')
+            # threading.Thread(target=self.playSound.play())
+            # self.playSound.play()
+            #
+            #
+            self.playSound.set_volume(int(self.volume) / 10)
 
-        channel.play(self.playSound)
+            channel = pygame.mixer.Channel(self.channel)
+            # channels allow files to play independently of each other this will help avoid any slowdowns
+
+            channel.play(self.playSound)
 
     def change_channel(self):
         self.piano_object.increment_channel()
