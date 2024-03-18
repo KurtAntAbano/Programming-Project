@@ -154,8 +154,8 @@ def show_help():
 
 def show_help_feedback():
     messagebox.showinfo(title="Help",
-                        message=f"To give feedback and a score:\nSelect a record\nwrite your feedback and score\n press submit and they will be "
-                                f"save in the table")
+                        message=f"To give feedback and a score:\nSelect a record\nWrite your feedback and score\nPress submit and they will be "
+                                f"saved into the table")
 
 
 def song_table_window(w, givenUsername):
@@ -532,14 +532,14 @@ def open_piano_GUI(window, ID, name, given_type):
 def adminMenu(email_entry):
     email = email_entry
     admin_Menu = Tk()
-    admin_Menu.geometry("400x200")
+    admin_Menu.geometry("420x200")
 
-    admin_Menu.title("Admin_menu")
+    admin_Menu.title("Teacher menu")
 
     ID_to_pass = fetch_ID(email, AdminaccountDB)
     Name_to_pass = fetch_Name(email, AdminaccountDB)
 
-    admin_label = Label(admin_Menu, text="ADMIN MENU")
+    admin_label = Label(admin_Menu, text="TEACHER MENU")
     admin_label.grid(row=1, column=0, padx=10, pady=10, sticky="W")
 
     accessPiano = Button(admin_Menu, text="Access \n VIRTU Piano",
