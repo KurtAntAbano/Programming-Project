@@ -535,7 +535,7 @@ class MyPianoGUI:
             if saveSong_msgbox:
                 if songName == "" or self.input_string == []:
                     messagebox.showinfo(title="ERROR",
-                                        message=f"invalid recording or name\n please fill out name entry\n make sure you"
+                                        message=f"Invalid recording or name\nPlease fill out name entry\nMake sure you"
                                                 f" have recorded something")
                 else:
                     song_to_save = listtostring(self.input_string)  # converts the list
