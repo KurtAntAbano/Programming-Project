@@ -333,7 +333,6 @@ class MyPianoGUI:
                 for i in range(0, len(self.upper_key_binds)):
                     piano_key = self.upperKeynotes[i]
                     piano_key.configure(text=f"{self.upper_key_binds[i]}")
-
                 self.key_bind_flag = True
             else:
                 for i in range(0, 7):
@@ -351,7 +350,6 @@ class MyPianoGUI:
                 for i in range(5, 10):
                     piano_key = self.upperKeynotes[i]
                     piano_key.configure(text=f"{self.upper_key_note_text[i-5]}{self.secondoctave}")
-
                 self.key_bind_flag = False
 
 
