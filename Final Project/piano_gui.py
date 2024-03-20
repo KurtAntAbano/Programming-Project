@@ -44,6 +44,7 @@ class MyPianoGUI:
         self.noteColour1 = 'black'
         self.noteColour2 = 'white'
         self.channel_to_use = 0
+        self.key_bind_flag = False
 
         self.master.resizable(0, 0)
 
@@ -109,58 +110,70 @@ class MyPianoGUI:
         #  function takes the key being pressed as a parameter and adds it to a list alongside the time of the
         #  previous input
 
+        def simulate_press(piano_key):
+            piano_key.configure(relief=tk.SUNKEN)
+            piano_key.after(100, lambda: piano_key.configure(relief=tk.RAISED))
+
+        # Takes a button as a parameter then sinks it and raises it after 100 milliseconds, this simulates a button press
+
+        def simulate_press_black(piano_key):
+            piano_key.configure(bg=self.frameColour)
+            piano_key.after(100, lambda: piano_key.configure(bg="black"))
+
+        #  black notes will use a different way to convey a button press, as sunken black notes are not visible
+
         # Buttons for keyboard
         self.C_0_button = Button(self.pianoFrame, bg="white", text="C_0", fg=self.noteColour1,
                                  command=lambda: [note_C0(self, 1), record(f'C{self.octave}'),
                                                   update_note_text(f'C{self.octave}')], height=10, width=6)
+        self.C_0_button.grid(row=3, column=0)
         #  the keys are buttons that passes itself and either 1 or 2 corresponding to the first 12 keys or second 12 keys
         #  it also records the note alongside the current octave
-
-        self.C_0_button.grid(row=3, column=0)
         self.master.bind('<z>',
-                         lambda event: [note_C0(self, 1), record(f'C{self.octave}'), update_note_text(f'C{self.octave}')])
+                         lambda event: [self.C_0_button.invoke(), simulate_press(self.C_0_button)])
+        #  when this key bind is pressed, the same functions of the button will be called, another function is also called to simulate a button press
 
         self.D_0_button = Button(self.pianoFrame, bg="white", text="D_0", fg=self.noteColour1,
                                  command=lambda: [note_D0(self, 1), record(f'D{self.octave}'),
                                                   update_note_text(f'D{self.octave}')], height=10, width=6)
         self.D_0_button.grid(row=3, column=1)
         self.master.bind('<x>',
-                         lambda event: [note_D0(self, 1), record(f'D{self.octave}'), update_note_text(f'D{self.octave}')])
+                         lambda event: [self.D_0_button.invoke(), simulate_press(self.D_0_button)])
 
         self.E_0_button = Button(self.pianoFrame, bg="white", text="E_0", fg=self.noteColour1,
                                  command=lambda: [note_E0(self, 1), record(f'E{self.octave}'),
                                                   update_note_text(f'E{self.octave}')], height=10, width=6)
         self.E_0_button.grid(row=3, column=2)
         self.master.bind('<c>',
-                         lambda event: [note_E0(self, 1), record(f'E{self.octave}'), update_note_text(f'E{self.octave}')])
+                         lambda event: [self.E_0_button.invoke(), simulate_press(self.E_0_button)])
 
         self.F_0_button = Button(self.pianoFrame, bg="white", text="F_0", fg=self.noteColour1,
                                  command=lambda: [note_F0(self, 1), record(f'F{self.octave}'),
                                                   update_note_text(f'F{self.octave}')], height=10, width=6)
         self.F_0_button.grid(row=3, column=3)
         self.master.bind('<v>',
-                         lambda event: [note_F0(self, 1), record(f'F{self.octave}'), update_note_text(f'F{self.octave}')])
+                         lambda event: [self.F_0_button.invoke(), simulate_press(self.F_0_button)])
 
         self.G_0_button = Button(self.pianoFrame, bg="white", text="G_0", fg=self.noteColour1,
                                  command=lambda: [note_G0(self, 1), record(f'G{self.octave}'),
                                                   update_note_text(f'G{self.octave}')], height=10, width=4)
         self.G_0_button.grid(row=3, column=4)
         self.master.bind('<b>',
-                         lambda event: [note_G0(self, 1), record(f'G{self.octave}'), update_note_text(f'G{self.octave}')])
+                         lambda event: [self.G_0_button.invoke(), simulate_press(self.G_0_button)])
 
         self.A_0_button = Button(self.pianoFrame, bg="white", text="A_0", fg=self.noteColour1,
                                  command=lambda: [note_A0(self, 1), record(f'A{self.octave}'),
                                                   update_note_text(f'A{self.octave}')], height=10, width=6)
         self.A_0_button.grid(row=3, column=5)
         self.master.bind('<n>',
-                         lambda event: [note_A0(self, 1), record(f'A{self.octave}'), update_note_text(f'A{self.octave}')])
+                         lambda event: [self.A_0_button.invoke(), simulate_press(self.A_0_button)])
 
         self.B_0_button = Button(self.pianoFrame, bg="white", text="B_0", fg=self.noteColour1,
                                  command=lambda: [note_B0(self, 1), record(f'B{self.octave}'),
                                                   update_note_text(f'B{self.octave}')], height=10, width=6)
         self.B_0_button.grid(row=3, column=6)
         self.master.bind('<m>',
-                         lambda event: [note_B0(self, 1), record(f'B{self.octave}'), update_note_text(f'B{self.octave}')])
+                         lambda event: [self.B_0_button.invoke(), simulate_press(self.B_0_button)])
 
         self.placeHolder = Label(self.pianoFrame, height=7, width=6, bg=self.frameColour)
         self.placeHolder.grid(row=1, column=6)
@@ -171,7 +184,7 @@ class MyPianoGUI:
         # self.CC_0_button.grid(row=1, columnspan=2)
         self.CC_0_button.place(x=35, y=40)
         self.master.bind('<s>',
-                         lambda event: [note_CC0(self, 1), record(f'C#{self.octave}'), update_note_text(f'C#{self.octave}')])
+                         lambda event: [self.CC_0_button.invoke(), simulate_press_black(self.CC_0_button)])
 
         self.DD_0_button = Button(self.pianoFrame, bg="black", fg=self.noteColour2, text="D#_0",
                                   command=lambda: [note_DD0(self, 1), record(f'D#{self.octave}'),
@@ -179,7 +192,7 @@ class MyPianoGUI:
         # self.DD_0_button.grid(row=1, columnspan=4)
         self.DD_0_button.place(x=85, y=40)
         self.master.bind('<d>',
-                         lambda event: [note_DD0(self, 1), record(f'D#{self.octave}'), update_note_text(f'D#{self.octave}')])
+                         lambda event: [self.DD_0_button.invoke(), simulate_press_black(self.DD_0_button)])
 
         self.AA_0_button = Button(self.pianoFrame, bg="black", fg=self.noteColour2, text="A#_0",
                                   command=lambda: [note_AA0(self, 1), record(f'A#{self.octave}'),
@@ -187,7 +200,7 @@ class MyPianoGUI:
         # self.AA_0_button.grid(row=1, column=5, columnspan=2)
         self.AA_0_button.place(x=290, y=40)
         self.master.bind('<j>',
-                         lambda event: [note_AA0(self, 1), record(f'A#{self.octave}'), update_note_text(f'A#{self.octave}')])
+                         lambda event: [self.AA_0_button.invoke(), simulate_press_black(self.AA_0_button)])
 
         self.GG_0_button = Button(self.pianoFrame, bg="black", fg=self.noteColour2, text="G#_0",
                                   command=lambda: [note_GG0(self, 1), record(f'G#{self.octave}'),
@@ -195,7 +208,7 @@ class MyPianoGUI:
         # self.GG_0_button.grid(row=1, column=4, columnspan=2)
         self.GG_0_button.place(x=240, y=40)
         self.master.bind('<h>',
-                         lambda event: [note_GG0(self, 1), record(f'G#{self.octave}'), update_note_text(f'G#{self.octave}')])
+                         lambda event: [self.GG_0_button.invoke(), simulate_press_black(self.GG_0_button)])
 
         self.FF_0_button = Button(self.pianoFrame, bg="black", fg=self.noteColour2, text="F#_0",
                                   command=lambda: [note_FF0(self, 1), record(f'F#{self.octave}'),
@@ -203,7 +216,7 @@ class MyPianoGUI:
         # self.FF_0_button.grid(row=1, column=3, columnspan=2)
         self.FF_0_button.place(x=190, y=40)
         self.master.bind('<g>',
-                         lambda event: [note_FF0(self, 1), record(f'F#{self.octave}'), update_note_text(f'F#{self.octave}')])
+                         lambda event: [self.FF_0_button.invoke(), simulate_press_black(self.FF_0_button)])
 
         # -----------------------------------------------------------------------------------------------------
         #
@@ -211,43 +224,43 @@ class MyPianoGUI:
                                   command=lambda: [note_C0(self, 2), record(f'C{self.secondoctave}'), update_note_text(f'C{self.secondoctave}')],
                                   height=10, width=6)
         self.C_0_button2.grid(row=3, column=7)
-        self.master.bind('<w>', lambda event: [note_C0(self, 2), record(f'C{self.secondoctave}'), update_note_text(f'C{self.secondoctave}')])
+        self.master.bind('<w>', lambda event: [self.C_0_button2.invoke(), simulate_press(self.C_0_button2)])
 
         self.D_0_button2 = Button(self.pianoFrame, bg="white", text="D_1",
                                   command=lambda: [note_D0(self, 2), record(f'D{self.secondoctave}'),
                                                    update_note_text(f'D{self.secondoctave}')], height=10, width=6)
         self.D_0_button2.grid(row=3, column=8)
-        self.master.bind('<e>', lambda event: [note_D0(self, 2), record(f'D{self.secondoctave}'), update_note_text(f'D{self.secondoctave}')])
+        self.master.bind('<e>', lambda event: [self.D_0_button2.invoke(), simulate_press(self.D_0_button2)])
 
         self.E_0_button2 = Button(self.pianoFrame, bg="white", text="E_1",
                                   command=lambda: [note_E0(self, 2), record(f'E{self.secondoctave}'),
                                                    update_note_text(f'E{self.secondoctave}')], height=10, width=6)
         self.E_0_button2.grid(row=3, column=9)
-        self.master.bind('<r>', lambda event: [note_E0(self, 2), record(f'E{self.secondoctave}'), update_note_text(f'E{self.secondoctave}')])
+        self.master.bind('<r>', lambda event: [self.E_0_button2.invoke(), simulate_press(self.E_0_button2)])
 
         self.F_0_button2 = Button(self.pianoFrame, bg="white", text="F_1",
                                   command=lambda: [note_F0(self, 2), record(f'F{self.secondoctave}'),
                                                    update_note_text(f'F{self.secondoctave}')], height=10, width=6)
         self.F_0_button2.grid(row=3, column=10)
-        self.master.bind('<t>', lambda event: [note_F0(self, 2), record(f'F{self.secondoctave}'), update_note_text(f'F{self.secondoctave}')])
+        self.master.bind('<t>', lambda event: [self.F_0_button2.invoke(), simulate_press(self.F_0_button2)])
 
         self.G_0_button2 = Button(self.pianoFrame, bg="white", text="G_1",
                                   command=lambda: [note_G0(self, 2), record(f'G{self.secondoctave}'),
                                                    update_note_text(f'G{self.secondoctave}')], height=10, width=4)
         self.G_0_button2.grid(row=3, column=11)
-        self.master.bind('<y>', lambda event: [note_G0(self, 2), record(f'G{self.secondoctave}'), update_note_text(f'G{self.secondoctave}')])
+        self.master.bind('<y>', lambda event: [self.G_0_button2.invoke(), simulate_press(self.G_0_button2)])
 
         self.A_0_button2 = Button(self.pianoFrame, bg="white", text="A_1",
                                   command=lambda: [note_A0(self, 2), record(f'A{self.secondoctave}'),
                                                    update_note_text(f'A{self.secondoctave}')], height=10, width=6)
         self.A_0_button2.grid(row=3, column=12)
-        self.master.bind('<u>', lambda event: [note_A0(self, 2), record(f'A{self.secondoctave}'), update_note_text(f'A{self.secondoctave}')])
+        self.master.bind('<u>', lambda event: [self.A_0_button2.invoke(), simulate_press(self.A_0_button2)])
 
         self.B_0_button2 = Button(self.pianoFrame, bg="white", text="B_1",
                                   command=lambda: [note_B0(self, 2), record(f'B{self.secondoctave}'),
                                                    update_note_text(f'B{self.secondoctave}')], height=10, width=6)
         self.B_0_button2.grid(row=3, column=13)
-        self.master.bind('<i>', lambda event: [note_B0(self, 2), record(f'B{self.secondoctave}'), update_note_text(f'B{self.secondoctave}')])
+        self.master.bind('<i>', lambda event: [self.B_0_button2.invoke(), simulate_press(self.B_0_button2)])
 
         self.placeHolder2 = Label(self.pianoFrame, height=7, width=6, bg=self.frameColour)
         self.placeHolder2.grid(row=1, column=14)
@@ -258,7 +271,7 @@ class MyPianoGUI:
         # self.CC_0_button.grid(row=1, columnspan=2)
         self.CC_0_button2.place(x=385, y=40)
         self.master.bind('<Key-3>',
-                         lambda event: [note_CC0(self, 2), record(f'C#{self.secondoctave}'), update_note_text(f'C#{self.secondoctave}')])
+                         lambda event: [self.CC_0_button2.invoke(), simulate_press_black(self.CC_0_button2)])
 
         self.DD_0_button2 = Button(self.pianoFrame, bg="black", fg="white", text="D#_1",
                                    command=lambda: [note_DD0(self, 2), record(f'D#{self.secondoctave}'),
@@ -266,7 +279,7 @@ class MyPianoGUI:
         # self.DD_0_button.grid(row=1, columnspan=4)
         self.DD_0_button2.place(x=435, y=40)
         self.master.bind('<Key-4>',
-                         lambda event: [note_DD0(self, 2), record(f'D#{self.secondoctave}'), update_note_text(f'D#{self.secondoctave}')])
+                         lambda event: [self.DD_0_button2.invoke(), simulate_press_black(self.DD_0_button2)])
 
         self.AA_0_button2 = Button(self.pianoFrame, bg="black", fg="white", text="A#_1",
                                    command=lambda: [note_AA0(self, 2), record(f'A#{self.secondoctave}'),
@@ -274,15 +287,15 @@ class MyPianoGUI:
         # self.AA_0_button.grid(row=1, column=5, columnspan=2)
         self.AA_0_button2.place(x=640, y=40)
         self.master.bind('<8>',
-                         lambda event: [note_AA0(self, 2), record(f'A#{self.secondoctave}'), update_note_text(f'A#{self.secondoctave}')])
+                         lambda event: [self.AA_0_button2.invoke(), simulate_press_black(self.AA_0_button2)])
 
-        self.GG_0_button2 = Button(self.pianoFrame, bg="black", fg="white", text="G#_1",
+        self.GG_0_button2 = Button(self.pianoFrame, bg="#333333", fg="white", text="G#_1",
                                    command=lambda: [note_GG0(self, 2), record(f'G#{self.secondoctave}'),
                                                     update_note_text(f'G#{self.secondoctave}')], height=10, width=3)
         # self.GG_0_button.grid(row=1, column=4, columnspan=2)
         self.GG_0_button2.place(x=590, y=40)
         self.master.bind('<7>',
-                         lambda event: [note_GG0(self, 2), record(f'G#{self.secondoctave}'), update_note_text(f'G#{self.secondoctave}')])
+                         lambda event: [self.GG_0_button2.invoke(), simulate_press_black(self.GG_0_button2)])
 
         self.FF_0_button2 = Button(self.pianoFrame, bg="black", fg="white", text="F#_1",
                                    command=lambda: [note_FF0(self, 2), record(f'F#{self.secondoctave}'),
@@ -290,7 +303,7 @@ class MyPianoGUI:
         # self.FF_0_button.grid(row=1, column=3, columnspan=2)
         self.FF_0_button2.place(x=540, y=40)
         self.master.bind('<6>',
-                         lambda event: [note_FF0(self, 2), record(f'F#{self.secondoctave}'), update_note_text(f'F#{self.secondoctave}')])
+                         lambda event: [self.FF_0_button2.invoke(), simulate_press_black(self.FF_0_button2)])
 
         # -----------------------------------------------------------------------------------------------------
 
@@ -303,6 +316,47 @@ class MyPianoGUI:
         self.upperKeynotes = [self.CC_0_button, self.DD_0_button, self.AA_0_button, self.GG_0_button, self.FF_0_button,
                               self.CC_0_button2, self.DD_0_button2, self.AA_0_button2, self.GG_0_button2,
                               self.FF_0_button2]
+
+        self.lower_key_binds = ['Z', 'X', 'C', 'V', 'B', 'N', 'M', 'W', 'E', 'R', 'T', 'Y', 'U', 'I']
+
+        self.upper_key_binds = ['S', 'D', 'J', 'H', 'G', '3', '4', '8', '7', '6']
+
+        self.lower_key_note_text = ['C_', 'D_', 'E_', 'F_', 'G_', 'A_', 'B_']
+
+        self.upper_key_note_text = ['C#_', 'D#_', 'F#_', 'G#_', 'A#_']
+        def show_key_binds():
+            if self.key_bind_flag == False:
+                for i in range(0, len(self.lowerKeynotes)):
+                    piano_key = self.lowerKeynotes[i]
+                    piano_key.configure(text=f"{self.lower_key_binds[i]}")
+
+                for i in range(0, len(self.upper_key_binds)):
+                    piano_key = self.upperKeynotes[i]
+                    piano_key.configure(text=f"{self.upper_key_binds[i]}")
+
+                self.key_bind_flag = True
+            else:
+                for i in range(0, 7):
+                    piano_key = self.lowerKeynotes[i]
+                    piano_key.configure(text=f"{self.lower_key_note_text[i]}{self.octave}")
+
+                for i in range(7, 14):
+                    piano_key = self.lowerKeynotes[i]
+                    piano_key.configure(text=f"{self.lower_key_note_text[i-7]}{self.secondoctave}")
+
+                for i in range(0, 5):
+                    piano_key = self.upperKeynotes[i]
+                    piano_key.configure(text=f"{self.upper_key_note_text[i]}{self.octave}")
+
+                for i in range(5, 10):
+                    piano_key = self.upperKeynotes[i]
+                    piano_key.configure(text=f"{self.upper_key_note_text[i-5]}{self.secondoctave}")
+
+                self.key_bind_flag = False
+
+
+
+
 
         def note_colour_change():
             if self.noteColour1 == 'black':
@@ -333,20 +387,10 @@ class MyPianoGUI:
             for i in range(5, 10):
                 self.upperKeynotes[i].configure(text=f'{self.upperKeynotes[i].cget(t)[0:3]}{self.secondoctave}')
 
-        self.lower_keybinds = ['Z', 'X', 'C', 'V', 'B', 'N', 'M', 'W', 'E', 'R', 'T', 'Y', 'U', 'I']
 
-        self.upper_keybinds = ['S', 'D', 'G', 'H', 'J', '3', '4', '6', '7', '8']
+        self.piano_keybind_btn = Button(self.controlFrame, text='show key-binds', fg=self.labelColour, command=lambda: show_key_binds())
 
-        def pianoKey_keybind_text():
-            for i in range(0, 14):
-                self.lowerKeynotes[i].configure(text=f'{self.lower_keybinds[i]}')
-
-            for i in range(0, 10):
-                self.upperKeynotes[i].configure(text=f'{self.upper_keybinds[i]}')
-
-        self.piano_keybind_btn = Button(self.controlFrame, text='show key-binds', fg=self.labelColour, command=lambda: pianoKey_keybind_text())
-
-        # self.piano_keybind_btn.place(x=300, y=50)  #to be implemented labels to show key binds
+        self.piano_keybind_btn.place(x=315, y=15)  #to be implemented labels to show key binds
 
         # -----------------------------------------------------------------------------------------------------
         def print_volume(v):  # function will print the current volume
@@ -407,7 +451,6 @@ class MyPianoGUI:
                 print("recording finished")
                 print(self.input_string)
                 self.previous_time = 0
-
 
         def deleteSong_function():
             deleteSong_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
@@ -487,7 +530,7 @@ class MyPianoGUI:
         self.state_Label.place(x=240, y=40)
 
         self.showNotes = Button(self.controlFrame, text='show notes', fg=self.labelColour, command=lambda: note_colour_change())
-        self.showNotes.place(x=300, y=50)
+        self.showNotes.place(x=315, y=50)
 
         img = (Image.open(r"virtupiano_logo.png"))
         resized_img = img.resize((205, 30))
@@ -502,7 +545,7 @@ class MyPianoGUI:
         if self.channel_to_use == 88:
             self.channel_to_use = 0
 
-    def playback(self, given_list):     # uses loops to play back the recording list
+    def playback(self, given_list):  # uses loops to play back the recording list
         if not given_list:
             messagebox.showinfo(title="", message=f"Please record a song before using the playback function")
         pygame.mixer.set_num_channels(100)
@@ -541,19 +584,16 @@ class MyPianoGUI:
                     song_to_save = listtostring(self.input_string)  # converts the list
                     print(song_to_save)
                     self.song_db.insertData(self.user, self.name, songName, song_to_save)
+                    messagebox.showinfo(title="Success", message=f"'{songName}' has been saved into the song table")
                     window.destroy()
         else:
             messagebox.showinfo(title="ERROR",
                                 message=f"Save feature is only available to students")
 
-
             # this sql query saves the song with the following attributes
 
-            #  song_to_save can be the same
-            #  but user cannot?
 
     # uses configure to change all attributes
-
     def updateWindow(self):  # this function is used after UI colour changes are made
         self.master.configure(bg=self.backgroundColour)
         self.pianoFrame.configure(bg=self.frameColour)
