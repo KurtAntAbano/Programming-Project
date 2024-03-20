@@ -357,7 +357,7 @@ class MyPianoGUI:
 
         self.noteLabel = tk.Label(self.recordFrame, bg=self.backgroundColour, fg=self.labelColour, width=27, textvariable=self.noteShow)
 
-        self.noteLabel.grid(row=1, column=4)
+        #self.noteLabel.grid(row=1, column=4)
 
         def update_btn_text():  # changes text on a button
             if self.state.get() == "Piano":

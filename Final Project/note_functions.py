@@ -45,7 +45,7 @@ def note_DD0(soundObj,keysection):
 
     noteObject = note("D#", state, soundObj.volume,soundObj.octave, soundObj.secondoctave, keysection, soundObj)
     noteObject.notePlay()
-    #noteObject.change_channel()
+    noteObject.change_channel()
 
 
 
