@@ -324,8 +324,9 @@ class MyPianoGUI:
         self.lower_key_note_text = ['C_', 'D_', 'E_', 'F_', 'G_', 'A_', 'B_']
 
         self.upper_key_note_text = ['C#_', 'D#_', 'F#_', 'G#_', 'A#_']
-        def show_key_binds():
-            if self.key_bind_flag == False:
+
+        def toggle_key_binds():
+            if self.key_bind_flag == False:  # these 2 for loops change the note labels to key bind labels
                 for i in range(0, len(self.lowerKeynotes)):
                     piano_key = self.lowerKeynotes[i]
                     piano_key.configure(text=f"{self.lower_key_binds[i]}")
@@ -335,13 +336,13 @@ class MyPianoGUI:
                     piano_key.configure(text=f"{self.upper_key_binds[i]}")
                 self.key_bind_flag = True
             else:
-                for i in range(0, 7):
+                for i in range(0, 7):  # these 4 for loops change the key bind labels back to note labels
                     piano_key = self.lowerKeynotes[i]
                     piano_key.configure(text=f"{self.lower_key_note_text[i]}{self.octave}")
 
                 for i in range(7, 14):
                     piano_key = self.lowerKeynotes[i]
-                    piano_key.configure(text=f"{self.lower_key_note_text[i-7]}{self.secondoctave}")
+                    piano_key.configure(text=f"{self.lower_key_note_text[i - 7]}{self.secondoctave}")
 
                 for i in range(0, 5):
                     piano_key = self.upperKeynotes[i]
@@ -349,12 +350,8 @@ class MyPianoGUI:
 
                 for i in range(5, 10):
                     piano_key = self.upperKeynotes[i]
-                    piano_key.configure(text=f"{self.upper_key_note_text[i-5]}{self.secondoctave}")
+                    piano_key.configure(text=f"{self.upper_key_note_text[i - 5]}{self.secondoctave}")
                 self.key_bind_flag = False
-
-
-
-
 
         def note_colour_change():
             if self.noteColour1 == 'black':
@@ -385,10 +382,8 @@ class MyPianoGUI:
             for i in range(5, 10):
                 self.upperKeynotes[i].configure(text=f'{self.upperKeynotes[i].cget(t)[0:3]}{self.secondoctave}')
 
-
-        self.piano_keybind_btn = Button(self.controlFrame, text='show key-binds', fg=self.labelColour, command=lambda: show_key_binds())
-
-        self.piano_keybind_btn.place(x=315, y=15)  #to be implemented labels to show key binds
+        self.toggle_keybind_lbl = Button(self.controlFrame, text='show key-binds', fg=self.labelColour, command=lambda: toggle_key_binds())
+        self.toggle_keybind_lbl.place(x=315, y=15)  # button that when pressed toggle labels to show key binds
 
         # -----------------------------------------------------------------------------------------------------
         def print_volume(v):  # function will print the current volume
@@ -589,7 +584,6 @@ class MyPianoGUI:
                                 message=f"Save feature is only available to students")
 
             # this sql query saves the song with the following attributes
-
 
     # uses configure to change all attributes
     def updateWindow(self):  # this function is used after UI colour changes are made
