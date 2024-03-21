@@ -289,7 +289,7 @@ class MyPianoGUI:
         self.master.bind('<8>',
                          lambda event: [self.AA_0_button2.invoke(), simulate_press_black(self.AA_0_button2)])
 
-        self.GG_0_button2 = Button(self.pianoFrame, bg="#333333", fg="white", text="G#_1",
+        self.GG_0_button2 = Button(self.pianoFrame, bg="black", fg="white", text="G#_1",
                                    command=lambda: [note_GG0(self, 2), record(f'G#{self.secondoctave}'),
                                                     update_note_text(f'G#{self.secondoctave}')], height=10, width=3)
         # self.GG_0_button.grid(row=1, column=4, columnspan=2)
