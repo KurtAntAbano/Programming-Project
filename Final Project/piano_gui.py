@@ -45,6 +45,7 @@ class MyPianoGUI:
         self.noteColour2 = 'white'
         self.channel_to_use = 0
         self.key_bind_flag = False
+        self.remove_note_label_flag = False
 
         self.master.resizable(0, 0)
 
@@ -353,20 +354,35 @@ class MyPianoGUI:
                     piano_key.configure(text=f"{self.upper_key_note_text[i - 5]}{self.secondoctave}")
                 self.key_bind_flag = False
 
+
         def note_colour_change():
-            if self.noteColour1 == 'black':
-                self.noteColour1 = 'white'
-                self.noteColour2 = 'black'
+            if self.remove_note_label_flag == False:  # these 2 for loops will remove the note labels
+                for i in range(0, len(self.lowerKeynotes)):
+                    piano_key = self.lowerKeynotes[i]
+                    piano_key.configure(text=f"")
 
+                for i in range(0, len(self.upper_key_binds)):
+                    piano_key = self.upperKeynotes[i]
+                    piano_key.configure(text=f"")
+                self.remove_note_label_flag = True
             else:
-                self.noteColour1 = 'black'
-                self.noteColour2 = 'white'
+                for i in range(0, 7):  # these 4 for loops will bring back the note labels
+                    piano_key = self.lowerKeynotes[i]
+                    piano_key.configure(text=f"{self.lower_key_note_text[i]}{self.octave}")
 
-            for i in range(0, len(self.lowerKeynotes)):
-                self.lowerKeynotes[i].configure(fg=self.noteColour1)
+                for i in range(7, 14):
+                    piano_key = self.lowerKeynotes[i]
+                    piano_key.configure(text=f"{self.lower_key_note_text[i - 7]}{self.secondoctave}")
 
-            for i in range(0, len(self.upperKeynotes)):
-                self.upperKeynotes[i].configure(fg=self.noteColour2)
+                for i in range(0, 5):
+                    piano_key = self.upperKeynotes[i]
+                    piano_key.configure(text=f"{self.upper_key_note_text[i]}{self.octave}")
+
+                for i in range(5, 10):
+                    piano_key = self.upperKeynotes[i]
+                    piano_key.configure(text=f"{self.upper_key_note_text[i - 5]}{self.secondoctave}")
+                self.remove_note_label_flag = False
+
 
         def pianoKeyText_change():
             t = 'text'
@@ -412,8 +428,9 @@ class MyPianoGUI:
             self.octavesliderLabel.config(text='octave: ' + o, fg=self.labelColour, bg=self.label_background_colour)
             self.octave = int(o)
             pianoKeyText_change()
-            print(self.octave)
-            print(self.secondoctave)
+
+            # print(self.octave)
+            # print(self.secondoctave)
 
         # initiate octave slider
         self.octaveSlider = tk.Scale(self.octaveframe, label='OCTAVE', from_=-2, to=2, orient=tk.HORIZONTAL, length=100,
