@@ -386,17 +386,18 @@ class MyPianoGUI:
 
         def pianoKeyText_change():
             t = 'text'
-            for i in range(0, 7):
-                self.lowerKeynotes[i].configure(text=f'{self.lowerKeynotes[i].cget(t)[0:2]}{self.octave}')
+            if self.key_bind_flag == False:
+                for i in range(0, 7):
+                    self.lowerKeynotes[i].configure(text=f'{self.lowerKeynotes[i].cget(t)[0:2]}{self.octave}')
 
-            for i in range(0, 5):
-                self.upperKeynotes[i].configure(text=f'{self.upperKeynotes[i].cget(t)[0:3]}{self.octave}')
+                for i in range(0, 5):
+                    self.upperKeynotes[i].configure(text=f'{self.upperKeynotes[i].cget(t)[0:3]}{self.octave}')
 
-            for i in range(7, 14):
-                self.lowerKeynotes[i].configure(text=f'{self.lowerKeynotes[i].cget(t)[0:2]}{self.secondoctave}')
+                for i in range(7, 14):
+                    self.lowerKeynotes[i].configure(text=f'{self.lowerKeynotes[i].cget(t)[0:2]}{self.secondoctave}')
 
-            for i in range(5, 10):
-                self.upperKeynotes[i].configure(text=f'{self.upperKeynotes[i].cget(t)[0:3]}{self.secondoctave}')
+                for i in range(5, 10):
+                    self.upperKeynotes[i].configure(text=f'{self.upperKeynotes[i].cget(t)[0:3]}{self.secondoctave}')
 
         self.toggle_keybind_lbl = Button(self.controlFrame, text='show key-binds', fg=self.labelColour, command=lambda: toggle_key_binds())
         self.toggle_keybind_lbl.place(x=315, y=15)  # button that when pressed toggle labels to show key binds
