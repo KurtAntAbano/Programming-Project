@@ -354,7 +354,6 @@ class MyPianoGUI:
                     piano_key.configure(text=f"{self.upper_key_note_text[i - 5]}{self.secondoctave}")
                 self.key_bind_flag = False
 
-
         def note_colour_change():
             if self.remove_note_label_flag == False:  # these 2 for loops will remove the note labels
                 for i in range(0, len(self.lowerKeynotes)):
@@ -382,7 +381,6 @@ class MyPianoGUI:
                     piano_key = self.upperKeynotes[i]
                     piano_key.configure(text=f"{self.upper_key_note_text[i - 5]}{self.secondoctave}")
                 self.remove_note_label_flag = False
-
 
         def pianoKeyText_change():
             t = 'text'
@@ -561,47 +559,52 @@ class MyPianoGUI:
             messagebox.showinfo(title="", message=f"Please record a song before using the playback function")
         pygame.mixer.set_num_channels(100)
         state = self.state.get()
-        if state == "Guitar":  # guitar instrument only has 2 octaves, so in order to avoid any errors, I have to check that the selected
-            # instrument is not guitar
-            messagebox.showinfo(title="", message=f"playback feature does not support the guitar mode, as not all octaves are available")
-        else:
-            string_to_play = given_list
-            print(string_to_play)
-            channel_count = 0
-            for i in range(1, len(string_to_play)):
-                note = given_list[i]
-                if i % 2 != 0:  # this flipflops between every item in the song string
-                    if str(note[1]) == '#':  # this if functions checks whether the note is black
-                        note = pygame.mixer.Sound(f'wavs\\{state}\\octave{note[2:]}\\{state}{note[0:2]}.wav')
+        try:
+            if state == "Guitar":  # guitar instrument only has 2 octaves, so in order to avoid any errors, I have to check that the selected
+                # instrument is not guitar
+                raise Exception
+            else:
+                string_to_play = given_list
+                print(string_to_play)
+                channel_count = 0
+                for i in range(1, len(string_to_play)):
+                    note = given_list[i]
+                    if i % 2 != 0:  # this flipflops between every item in the song string
+                        if str(note[1]) == '#':  # this if functions checks whether the note is black
+                            note = pygame.mixer.Sound(f'wavs\\{state}\\octave{note[2:]}\\{state}{note[0:2]}.wav')
+                        else:
+                            note = pygame.mixer.Sound(f'wavs\\{state}\\octave{note[1:]}\\{state}{note[0]}.wav')
+                        channel = pygame.mixer.Channel(channel_count)
+                        channel.play(note)
+                        channel_count += 1
                     else:
-                        note = pygame.mixer.Sound(f'wavs\\{state}\\octave{note[1:]}\\{state}{note[0]}.wav')
-                    channel = pygame.mixer.Channel(channel_count)
-                    channel.play(note)
-                    channel_count += 1
-                else:
-                    time.sleep(string_to_play[i])
+                        time.sleep(string_to_play[i])
+        except Exception:
+            messagebox.showinfo(title="", message=f"playback feature does not support the guitar mode, as not all octaves are available")
 
     def saveSong_function(self, window, givenEntry):
-        if self.account_type == "student":
-            saveSong_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
-            songName = givenEntry.get()
+        try:
+            if self.account_type == "student":
+                saveSong_msgbox = messagebox.askyesno('Confirmation', 'Do you want to proceed')
+                songName = givenEntry.get()
 
-            if saveSong_msgbox:
-                if songName == "" or self.input_string == []:
-                    messagebox.showinfo(title="ERROR",
-                                        message=f"Invalid recording or name\nPlease fill out name entry\nMake sure you"
-                                                f" have recorded something")
-                else:
-                    song_to_save = listtostring(self.input_string)  # converts the list
-                    print(song_to_save)
-                    self.song_db.insertData(self.user, self.name, songName, song_to_save)
-                    messagebox.showinfo(title="Success", message=f"'{songName}' has been saved into the song table")
-                    window.destroy()
-        else:
+                if saveSong_msgbox:
+                    if songName == "" or self.input_string == []:
+                        messagebox.showinfo(title="ERROR",
+                                            message=f"Invalid recording or name\nPlease fill out name entry\nMake sure you"
+                                                    f" have recorded something")
+                    else:
+                        song_to_save = listtostring(self.input_string)  # converts the list
+                        print(song_to_save)
+                        self.song_db.insertData(self.user, self.name, songName, song_to_save)
+                        # this sql query saves the song with the following attributes
+                        messagebox.showinfo(title="Success", message=f"'{songName}' has been saved into the song table")
+                        window.destroy()
+            else:
+                raise Exception
+        except Exception:
             messagebox.showinfo(title="ERROR",
                                 message=f"Save feature is only available to students")
-
-            # this sql query saves the song with the following attributes
 
     # uses configure to change all attributes
     def updateWindow(self):  # this function is used after UI colour changes are made

@@ -24,26 +24,30 @@ class note:
 
     def notePlay(self):  # this function uses attributes and string formatting to recall the correct wav file
         # noteSound = self.sound
-        if self.key == 1:  # this if statement sees whether the key was prat of the first or second half of the piano this is to determine the ocatve
-            octave = self.octave
-        else:
-            self.channel += 12
-            octave = self.secondoctave
+        try:
+            if self.key == 1:  # this if statement sees whether the key was prat of the first or second half of the piano this is to determine the ocatve
+                octave = self.octave
+            else:
+                self.channel += 12
+                octave = self.secondoctave
 
-        if self.state == "Guitar" and (self.octave == -2 or self.octave == -1 or self.octave == 2 or self.octave == 1):
+            if self.state == "Guitar" and (self.octave == -2 or self.octave == -1 or self.octave == 2 or self.octave == 1):
+                raise FileNotFoundError
+            else:
+                self.playSound = pygame.mixer.Sound(f'wavs\\{self.state}\\octave{octave}\\{self.state}{self.number}.wav')
+                # threading.Thread(target=self.playSound.play())
+                # self.playSound.play()
+                #
+                #
+                self.playSound.set_volume(int(self.volume) / 10)
+
+                channel = pygame.mixer.Channel(self.channel)
+                # channels allow files to play independently of each other this will help avoid any slowdowns
+
+                channel.play(self.playSound)
+        except FileNotFoundError:
             messagebox.showinfo(title="ERROR", message=f"Only two octaves available for guitar")
-        else:
-            self.playSound = pygame.mixer.Sound(f'wavs\\{self.state}\\octave{octave}\\{self.state}{self.number}.wav')
-            # threading.Thread(target=self.playSound.play())
-            # self.playSound.play()
-            #
-            #
-            self.playSound.set_volume(int(self.volume) / 10)
-
-            channel = pygame.mixer.Channel(self.channel)
-            # channels allow files to play independently of each other this will help avoid any slowdowns
-
-            channel.play(self.playSound)
+            # error message appears if student attempts to play a wave file that does not exist in guitar mode
 
     def change_channel(self):
         self.piano_object.increment_channel()
